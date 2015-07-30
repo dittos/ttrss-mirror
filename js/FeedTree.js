@@ -104,8 +104,13 @@ dojo.declare("fox.FeedTree", dijit.Tree, {
 	_createTreeNode: function(args) {
 		var tnode = new dijit._TreeNode(args);
 
-		if (args.item.icon && args.item.icon[0])
-			tnode.iconNode.src = args.item.icon[0];
+		if (args.item.icon && args.item.icon[0]) {
+			var icon = dojo.doc.createElement('img');
+			icon.src = args.item.icon[0];
+			icon.className = 'tinyFeedIcon';
+
+			dojo.place(icon, tnode.iconNode, 'replace');
+		}
 
 		var id = args.item.id[0];
 		var bare_id = parseInt(id.substr(id.indexOf(':')+1));
@@ -166,11 +171,16 @@ dojo.declare("fox.FeedTree", dijit.Tree, {
 			tnode._menu = menu;
 		}
 
+		loading = dojo.doc.createElement('img');
+		loading.src = 'images/blank_icon.gif';
+
 		if (id.match("CAT:")) {
-			loading = dojo.doc.createElement('img');
 			loading.className = 'loadingNode';
-			loading.src = 'images/blank_icon.gif';
 			dojo.place(loading, tnode.labelNode, 'after');
+			tnode.loadingNode = loading;
+		} else {
+			loading.className = 'tinyFeedIcon';
+			dojo.place(loading, tnode.expandoNode, 'after');
 			tnode.loadingNode = loading;
 		}
 
