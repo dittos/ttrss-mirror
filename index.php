@@ -60,7 +60,9 @@
 		var __ttrss_version = "<?php echo VERSION ?>"
 	</script>
 
-	<?php echo stylesheet_tag("lib/dijit/themes/claro/claro.css"); ?>
+	<?php echo stylesheet_tag("lib/fontawesome/css/font-awesome.min.css"); ?>
+
+	<?php echo stylesheet_tag("lib/esri-flat/dojo/flat.css"); ?>
 	<?php echo stylesheet_tag("css/layout.css"); ?>
 
 	<?php if ($_SESSION["uid"]) {

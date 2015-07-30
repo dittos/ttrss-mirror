@@ -356,8 +356,6 @@ div.prefHelp {
 #main-toolbar table *,
 #main-toolbar .actionChooser * {
 	text-rendering: optimizelegibility;
-	font-family : "Segoe WP", "Segoe UI Web", "Segoe UI", Ubuntu, "DejaVu Sans", "Helvetica Neue",
-		Helvetica, Arial, sans-serif;
 	font-size : 12px;
 
 }
@@ -859,7 +857,7 @@ div.fatalError textarea {
 	border-color : #ddd;
 	border-style : solid;
 	padding-left : 4px;
-	height : 26px;
+	height : 29px;
 
 }
 
@@ -1092,16 +1090,6 @@ span.highlight {
 
 div.enclosure_title {
 
-}
-
-body#ttrssMain #headlines-frame .dijitCheckBox {
-	border-width : 0px;
-	opacity : 0.5;
-}
-
-body#ttrssMain #headlines-frame .dijitCheckBoxHover,
-body#ttrssMain #headlines-frame .dijitCheckBoxChecked {
-	opacity : 1;
 }
 
 body#ttrssMain #feedTree .dijitTreeRow img.dijitTreeExpandoLeaf {

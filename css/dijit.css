@@ -89,7 +89,7 @@
 	text-overflow: ellipsis;
 }
 
-.claro .dijitTree .dijitTreeRowSelected {
+/*.claro .dijitTree .dijitTreeRowSelected {
 	background : white;
 }
 
@@ -109,7 +109,7 @@
 
 .claro .dijitTreeRowSelected .dijitTreeLabel {
 	text-shadow : 1px 1px 2px #fff;
-}
+}*/
 
 .claro .dijitTreeRow .dijitTreeExpando {
 	background-image: url("../images/treeExpandImages.png");
@@ -123,26 +123,26 @@
 
 /* Toolbar */
 
-.claro .dijitToolbar {
+/*.claro .dijitToolbar {
 	background : #f5f5f5;
 	border-color : #ddd;
 	/* text-rendering: optimizelegibility;
 	font-family : "Segoe WP Semibold", "Segoe UI Semibold", 
 		"Segoe UI Web Semibold", "Segoe UI", "Helvetica Neue",
 		Helvetica, Arial, sans-serif; */
-}
+/*}
 
 /* .claro .dijitToolbar {
 	text-shadow : 1px 1px 2px #fff;
 } */
 
-.claro .dijitDialog .dijitToolbar {
+/*.claro .dijitDialog .dijitToolbar {
 	border : 1px solid #ddd;
 }
 
 /* Dialog */
 
-.claro .dijitDialog h2 {
+/*.claro .dijitDialog h2 {
 	margin-top : 0px;
 	margin-bottom : 4px;
 	border-width : 0px;
@@ -154,7 +154,7 @@
 
 /* Checkbox */
 
-.claro .dijitCheckBox {
+/*.claro .dijitCheckBox {
 	background-image : url("../images/untick.png");
 	background-color : transparent;
 	width : 15px;
@@ -166,7 +166,7 @@
 	-webkit-transition : opacity 0.25s;
 	/* border : 1px solid #b5bcc7; */
 	padding : 1px;
-}
+/*}
 
  .claro .dijitCheckBox:hover {
 	opacity : 1;
@@ -184,7 +184,7 @@
 
 /* Various buttons */
 
-.claro .dijitButton .dijitButtonNode,
+/*.claro .dijitButton .dijitButtonNode,
 .claro .dijitComboButton .dijitButtonNode, 
 .claro .dijitToolbar .dijitDropDownButton .dijitButtonNode,
 .claro .dijitToolbar .dijitComboButton,
@@ -384,7 +384,7 @@ button[disabled],
 		Helvetica, Arial, sans-serif;
 } */
 
-.claro .dijitAccordionInnerContainer.dijitAccordionInnerContainerSelected {
+/*.claro .dijitAccordionInnerContainer.dijitAccordionInnerContainerSelected {
 	border-color : #ccc;
 }
 
@@ -394,7 +394,7 @@ button[disabled],
 
 /* Tabs */
 
-.claro .dijitTabContent {
+/*.claro .dijitTabContent {
 	background : #eee;
 }
 
