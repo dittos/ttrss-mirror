@@ -259,8 +259,8 @@ function bwLimitChange(elem) {
 </div>
 
 <div class='footer'>
-	<a href="http://tt-rss.org/">Tiny Tiny RSS</a>
-	&copy; 2005&ndash;<?php echo date('Y') ?> <a href="http://fakecake.org/">Andrew Dolgov</a>
+	<a href="https://tt-rss.org/">Tiny Tiny RSS</a>
+	&copy; 2005&ndash;<?php echo date('Y') ?> <a href="https://fakecake.org/">Andrew Dolgov</a>
 </div>
 
 </form>

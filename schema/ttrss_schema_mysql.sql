@@ -133,7 +133,7 @@ create table ttrss_feeds (id integer not null auto_increment primary key,
 	foreign key (parent_feed) references ttrss_feeds(id) ON DELETE SET NULL) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 insert into ttrss_feeds (owner_uid, title, feed_url) values
-	(1, 'Tiny Tiny RSS: Forum', 'http://tt-rss.org/forum/rss.php');
+	(1, 'Tiny Tiny RSS: Community - Latest posts', 'https://discourse.tt-rss.org/posts.rss');
 
 create table ttrss_entries (id integer not null primary key auto_increment,
 	title text not null,

@@ -699,7 +699,7 @@ class Pref_Prefs extends Handler_Protected {
 
 		print "<p>" . __("You will need to reload Tiny Tiny RSS for plugin changes to take effect.") . "</p>";
 
-		print_notice(__("Download more plugins at tt-rss.org <a class=\"visibleLink\" target=\"_blank\" href=\"http://tt-rss.org/forum/viewforum.php?f=22\">forums</a> or <a target=\"_blank\" class=\"visibleLink\" href=\"http://tt-rss.org/wiki/Plugins\">wiki</a>."));
+		print_notice(__("Download more plugins at the tt-rss.org <a class=\"visibleLink\" target=\"_blank\" href=\"https://discourse.tt-rss.org/c/tiny-tiny-rss/themes-and-plugins\">forums</a>, <a target=\"_blank\" class=\"visibleLink\" href=\"https://tt-rss.org/fox/tt-rss/wikis/Plugins\">wiki</a>, or <a class=\"visibleLink\" target=\"_blank\" href=\"https://tt-rss.org/oldforum/viewforum.php?f=22\">archived forums</a>."));
 
 		if (ini_get("open_basedir") && function_exists("curl_init") && !defined("NO_CURL")) {
 			print_warning("Your PHP configuration has open_basedir restrictions enabled. Some plugins relying on CURL for functionality may not work correctly.");

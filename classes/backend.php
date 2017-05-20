@@ -27,7 +27,7 @@ class Backend extends Handler {
 			array_push($omap[$action], $sequence);
 		}
 
-		print_notice("<a target=\"_blank\" href=\"http://tt-rss.org/wiki/InterfaceTips\">".
+		print_notice("<a target=\"_blank\" href=\"https://tt-rss.org/fox/tt-rss/wikis/InterfaceTips\">".
 			__("Other interface tips are available in the Tiny Tiny RSS wiki.") .
 			"</a>");
 

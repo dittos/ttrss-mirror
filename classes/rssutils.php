@@ -699,7 +699,7 @@ class RSSUtils {
 
 				_debug("plugin data: $entry_plugin_data", $debug_enabled);
 
-				// Workaround: 4-byte unicode requires utf8mb4 in MySQL. See https://tt-rss.org/forum/viewtopic.php?f=1&t=3377&p=20077#p20077
+				// Workaround: 4-byte unicode requires utf8mb4 in MySQL. See https://tt-rss.org/oldforum/viewtopic.php?f=1&t=3377&p=20077#p20077
 				if (DB_TYPE == "mysql") {
 					foreach ($article as $k => $v) {
 

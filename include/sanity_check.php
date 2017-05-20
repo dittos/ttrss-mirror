@@ -169,8 +169,8 @@
 
 			<?php foreach ($errors as $error) { echo format_error($error); } ?>
 
-			<p>You might want to check tt-rss <a href="http://tt-rss.org/wiki">wiki</a> or the
-				<a href="http://tt-rss.org/forum">forums</a> for more information. Please search the forums before creating new topic
+			<p>You might want to check tt-rss <a href="https://tt-rss.org/wiki">wiki</a> or the
+				<a href="https://discourse.tt-rss.org/">forums</a> for more information. Please search the forums before creating new topic
 				for your question.</p>
 
 		</div>

@@ -142,7 +142,7 @@
 	require_once 'version.php';
 	require_once 'controls.php';
 
-	define('SELF_USER_AGENT', 'Tiny Tiny RSS/' . VERSION . ' (http://tt-rss.org/)');
+	define('SELF_USER_AGENT', 'Tiny Tiny RSS/' . VERSION . ' (https://tt-rss.org/)');
 	ini_set('user_agent', SELF_USER_AGENT);
 
 	$schema_version = false;
@@ -728,8 +728,8 @@
 	function initialize_user($uid) {
 
 		db_query("insert into ttrss_feeds (owner_uid,title,feed_url)
-			values ('$uid', 'Tiny Tiny RSS: Forum',
-				'http://tt-rss.org/forum/rss.php')");
+			values ('$uid', 'Tiny Tiny RSS: Community - Latest posts',
+				'https://discourse.tt-rss.org/posts.rss')");
 	}
 
 	function logout_user() {
@@ -1283,7 +1283,7 @@
 
 	function check_for_update() {
 		if (defined("GIT_VERSION_TIMESTAMP")) {
-			$content = @fetch_file_contents(array("url" => "http://tt-rss.org/version.json", "timeout" => 5));
+			$content = @fetch_file_contents(array("url" => "https://tt-rss.org/version.json", "timeout" => 5));
 
 			if ($content) {
 				$content = json_decode($content, true);

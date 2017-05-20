@@ -67,7 +67,7 @@ final class ApiTest extends TestCase {
 
 		$this->assertInternalType('array', $ret['content']);
 
-		$this->assertEquals("http://tt-rss.org/forum/rss.php",
+		$this->assertEquals("https://discourse.tt-rss.org/posts.rss",
 			$ret['content'][0]['feed_url']);
 
 	}

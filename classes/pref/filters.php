@@ -970,7 +970,7 @@ class Pref_Filters extends Handler_Protected {
 		print "<div class=\"dlgButtons\">";
 
 		print "<div style=\"float : left\">
-			<a class=\"visibleLink\" target=\"_blank\" href=\"http://tt-rss.org/wiki/ContentFilters\">".__("Wiki: Filters")."</a>
+			<a class=\"visibleLink\" target=\"_blank\" href=\"https://tt-rss.org/fox/tt-rss/wikis/ContentFilters\">".__("Wiki: Filters")."</a>
 		</div>";
 
 

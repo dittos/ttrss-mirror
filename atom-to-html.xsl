@@ -24,7 +24,7 @@
 		<h1><xsl:value-of select="atom:title"/></h1>
 
 		<p class="description">This feed has been exported from
-			<a target="_new" class="extlink" href="http://tt-rss.org">Tiny Tiny RSS</a>.
+			<a target="_new" class="extlink" href="https://tt-rss.org">Tiny Tiny RSS</a>.
 			It contains the following items:</p>
 
 		<xsl:for-each select="atom:entry">
