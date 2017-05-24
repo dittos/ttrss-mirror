@@ -73,9 +73,9 @@ class FeedItem_Json extends FeedItem_Common {
 
 				$enc = new FeedEnclosure();
 
-				$enc->type = $enclosure["mime_type"];
-				$enc->link = $enclosure["url"];
-				@$enc->length = $enclosure["size_in_bytes"];
+				$enc->type = $enclosure->mime_type;
+				$enc->link = $enclosure->url;
+				@$enc->length = $enclosure->size_in_bytes;
 
 				array_push($encs, $enc);
 
