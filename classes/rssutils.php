@@ -339,7 +339,7 @@ class RSSUtils {
 
 		$date_feed_processed = date('Y-m-d H:i');
 
-		$cache_filename = CACHE_DIR . "/simplepie/" . sha1($fetch_url) . ".xml";
+		$cache_filename = CACHE_DIR . "/simplepie/" . sha1($fetch_url);
 
 		$pluginhost = new PluginHost();
 		$pluginhost->set_debug($debug_enabled);
