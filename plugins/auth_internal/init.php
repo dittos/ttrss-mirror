@@ -91,7 +91,7 @@ class Auth_Internal extends Plugin implements IAuthModule {
 			if ($salt == "") {
 
 				$query = "SELECT id
-	            FROM ttrss_users WHERE
+				FROM ttrss_users WHERE
 					login = '$login' AND (pwd_hash = '$pwd_hash1' OR
 					pwd_hash = '$pwd_hash2')";
 
@@ -109,7 +109,7 @@ class Auth_Internal extends Plugin implements IAuthModule {
 						pwd_hash = '$pwd_hash', salt = '$salt' WHERE login = '$login'");
 
 					$query = "SELECT id
-		            FROM ttrss_users WHERE
+					FROM ttrss_users WHERE
 						login = '$login' AND pwd_hash = '$pwd_hash'";
 
 				} else {
@@ -121,14 +121,14 @@ class Auth_Internal extends Plugin implements IAuthModule {
 				$pwd_hash = encrypt_password($password, $salt, true);
 
 				$query = "SELECT id
-		         FROM ttrss_users WHERE
+				FROM ttrss_users WHERE
 					login = '$login' AND pwd_hash = '$pwd_hash'";
 
 			}
 
 		} else {
 			$query = "SELECT id
-	         FROM ttrss_users WHERE
+			FROM ttrss_users WHERE
 				login = '$login' AND (pwd_hash = '$pwd_hash1' OR
 					pwd_hash = '$pwd_hash2')";
 		}

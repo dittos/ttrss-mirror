@@ -74,7 +74,7 @@ class Cache_Starred_Images extends Plugin implements IHandler {
 				/* See if we can use X-Sendfile */
 				$xsendfile = false;
 				if (function_exists('apache_get_modules') &&
-				    array_search('mod_xsendfile', apache_get_modules()))
+					array_search('mod_xsendfile', apache_get_modules()))
 					$xsendfile = true;
 
 				if ($xsendfile) {

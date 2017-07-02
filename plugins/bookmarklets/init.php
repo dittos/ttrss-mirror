@@ -1,21 +1,21 @@
 <?php
 class Bookmarklets extends Plugin {
-  private $host;
+	private $host;
 
-  function about() {
-    return array(1.0,
+	function about() {
+		return array(1.0,
 		 "Easy feed subscription and web page sharing using bookmarklets",
 		 "fox");
-  }
+	}
 
-  function init($host) {
-    $this->host = $host;
+	function init($host) {
+		$this->host = $host;
 
-    $host->add_hook($host::HOOK_PREFS_TAB, $this);
-  }
+		$host->add_hook($host::HOOK_PREFS_TAB, $this);
+	}
 
-  function hook_prefs_tab($args) {
-    if ($args == "prefFeeds") {
+	function hook_prefs_tab($args) {
+		if ($args == "prefFeeds") {
 
 		print "<div dojoType=\"dijit.layout.AccordionPane\" title=\"".__('Bookmarklets')."\">";
 
@@ -43,8 +43,8 @@ class Bookmarklets extends Plugin {
 
 		print "</div>"; #pane
 
-	 }
-  }
+		}
+	}
 
 	function api_version() {
 		return 2;
