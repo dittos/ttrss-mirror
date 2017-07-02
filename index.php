@@ -148,7 +148,7 @@
 	<div id="overlay_inner">
 		<div class="insensitive"><?php echo __("Loading, please wait...") ?></div>
 		<div dojoType="dijit.ProgressBar" places="0" style="width : 300px" id="loading_bar"
-	     progress="0" maximum="100">
+		 progress="0" maximum="100">
 		</div>
 		<noscript><br/><?php print_error('Javascript is disabled. Please enable it.') ?></noscript>
 	</div>
