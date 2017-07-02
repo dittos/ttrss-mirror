@@ -534,7 +534,7 @@ class Pref_Feeds extends Handler_Protected {
 		global $update_intervals;
 
 		print '<div dojoType="dijit.layout.TabContainer" style="height : 450px">
-        		<div dojoType="dijit.layout.ContentPane" title="'.__('General').'">';
+				<div dojoType="dijit.layout.ContentPane" title="'.__('General').'">';
 
 		$feed_id = $this->dbh->escape_string($_REQUEST["id"]);
 
@@ -1436,12 +1436,12 @@ class Pref_Feeds extends Handler_Protected {
 		$opml_export_filename = "TinyTinyRSS_".date("Y-m-d").".opml";
 
 		print "<p>" . __('Filename:') .
-            " <input type=\"text\" id=\"filename\" value=\"$opml_export_filename\" />&nbsp;" .
+			" <input type=\"text\" id=\"filename\" value=\"$opml_export_filename\" />&nbsp;" .
 				__('Include settings') . "<input type=\"checkbox\" id=\"settings\" checked=\"1\"/>";
 
 		print "</p><button dojoType=\"dijit.form.Button\"
 			onclick=\"gotoExportOpml(document.opml_form.filename.value, document.opml_form.settings.checked)\" >" .
-              __('Export OPML') . "</button></p></form>";
+			  __('Export OPML') . "</button></p></form>";
 
 		print "<hr>";
 
@@ -1466,8 +1466,8 @@ class Pref_Feeds extends Handler_Protected {
 			print "<p>";
 
 			print "<button onclick='window.navigator.registerContentHandler(" .
-                      "\"application/vnd.mozilla.maybe.feed\", " .
-                      "\"" . $this->subscribe_to_feed_url() . "\", " . " \"Tiny Tiny RSS\")'>" .
+					  "\"application/vnd.mozilla.maybe.feed\", " .
+					  "\"" . $this->subscribe_to_feed_url() . "\", " . " \"Tiny Tiny RSS\")'>" .
 							 __('Click here to register this site as a feed reader.') .
 				"</button>";
 

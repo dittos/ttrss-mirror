@@ -21,7 +21,7 @@ class Pref_Users extends Handler_Protected {
 			global $access_level_names;
 
 			print '<div dojoType="dijit.layout.TabContainer" style="height : 400px">
-        		<div dojoType="dijit.layout.ContentPane" title="'.__('Edit user').'">';
+				<div dojoType="dijit.layout.ContentPane" title="'.__('Edit user').'">';
 
 			print "<form id=\"user_edit_form\" onsubmit='return false' dojoType=\"dijit.form.Form\">";
 

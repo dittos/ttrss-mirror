@@ -77,18 +77,17 @@ class Pref_Filters extends Handler_Protected {
 
 				$scope_inner_qparts = [];
 				foreach ($rule["feed_id"] as $feed_id) {
+					if (strpos($feed_id, "CAT:") === 0) {
+						$cat_id = (int) substr($feed_id, 4);
+						array_push($scope_inner_qparts, "cat_id = " . $cat_id);
+					} else if ($feed_id > 0) {
+						array_push($scope_inner_qparts, "feed_id = " . $feed_id);
+					}
+				}
 
-                    if (strpos($feed_id, "CAT:") === 0) {
-                        $cat_id = (int) substr($feed_id, 4);
-                        array_push($scope_inner_qparts, "cat_id = " . $cat_id);
-                    } else if ($feed_id > 0) {
-                        array_push($scope_inner_qparts, "feed_id = " . $feed_id);
-                    }
-                }
-
-                if (count($scope_inner_qparts) > 0) {
-				    array_push($scope_qparts, "(" . implode(" OR ", $scope_inner_qparts) . ")");
-                }
+				if (count($scope_inner_qparts) > 0) {
+					array_push($scope_qparts, "(" . implode(" OR ", $scope_inner_qparts) . ")");
+				}
 
 				array_push($filter["rules"], $rule);
 
@@ -226,32 +225,32 @@ class Pref_Filters extends Handler_Protected {
 
 		while ($line = $this->dbh->fetch_assoc($result)) {
 
-		    if ($line["match_on"]) {
-		        $feeds = json_decode($line["match_on"], true);
-		        $feeds_fmt = [];
+			if ($line["match_on"]) {
+				$feeds = json_decode($line["match_on"], true);
+				$feeds_fmt = [];
 
-                foreach ($feeds as $feed_id) {
+				foreach ($feeds as $feed_id) {
 
-                    if (strpos($feed_id, "CAT:") === 0) {
-                        $feed_id = (int)substr($feed_id, 4);
-                        array_push($feeds_fmt, Feeds::getCategoryTitle($feed_id));
-                    } else {
-                        if ($feed_id)
-                            array_push($feeds_fmt, Feeds::getFeedTitle((int)$feed_id));
-                        else
-                            array_push($feeds_fmt, __("All feeds"));
-                    }
-                }
+					if (strpos($feed_id, "CAT:") === 0) {
+						$feed_id = (int)substr($feed_id, 4);
+						array_push($feeds_fmt, Feeds::getCategoryTitle($feed_id));
+					} else {
+						if ($feed_id)
+							array_push($feeds_fmt, Feeds::getFeedTitle((int)$feed_id));
+						else
+							array_push($feeds_fmt, __("All feeds"));
+					}
+				}
 
-                $where = implode(", ", $feeds_fmt);
+				$where = implode(", ", $feeds_fmt);
 
-            } else {
+			} else {
 
-                $where = sql_bool_to_bool($line["cat_filter"]) ?
-                    Feeds::getCategoryTitle($line["cat_id"]) :
-                    ($line["feed_id"] ?
-                        Feeds::getFeedTitle($line["feed_id"]) : __("All feeds"));
-            }
+				$where = sql_bool_to_bool($line["cat_filter"]) ?
+					Feeds::getCategoryTitle($line["cat_id"]) :
+					($line["feed_id"] ?
+						Feeds::getFeedTitle($line["feed_id"]) : __("All feeds"));
+			}
 
 #			$where = $line["cat_id"] . "/" . $line["feed_id"];
 
@@ -403,26 +402,26 @@ class Pref_Filters extends Handler_Protected {
 			WHERE filter_id = '$filter_id' ORDER BY reg_exp, id");
 
 		while ($line = $this->dbh->fetch_assoc($rules_result)) {
-            if ($line["match_on"]) {
-                $line["feed_id"] = json_decode($line["match_on"], true);
-            } else {
-                if (sql_bool_to_bool($line["cat_filter"])) {
-                    $feed_id = "CAT:" . (int)$line["cat_id"];
-                } else {
-                    $feed_id = (int)$line["cat_id"];
-                }
+			if ($line["match_on"]) {
+				$line["feed_id"] = json_decode($line["match_on"], true);
+			} else {
+				if (sql_bool_to_bool($line["cat_filter"])) {
+					$feed_id = "CAT:" . (int)$line["cat_id"];
+				} else {
+					$feed_id = (int)$line["cat_id"];
+				}
 
-                $line["feed_id"] = ["" . $feed_id]; // set item type to string for in_array()
-            }
+				$line["feed_id"] = ["" . $feed_id]; // set item type to string for in_array()
+			}
 
-            unset($line["cat_filter"]);
-            unset($line["cat_id"]);
-            unset($line["filter_id"]);
-            unset($line["id"]);
-            if (!sql_bool_to_bool($line["inverse"])) unset($line["inverse"]);
-            unset($line["match_on"]);
+			unset($line["cat_filter"]);
+			unset($line["cat_id"]);
+			unset($line["filter_id"]);
+			unset($line["id"]);
+			if (!sql_bool_to_bool($line["inverse"])) unset($line["inverse"]);
+			unset($line["match_on"]);
 
-            $data = htmlspecialchars(json_encode($line));
+			$data = htmlspecialchars(json_encode($line));
 
 			print "<li><input dojoType='dijit.form.CheckBox' type='checkbox' onclick='toggleSelectListRow2(this)'>".
 				"<span onclick=\"dijit.byId('filterEditDlg').editRule(this)\">".$this->getRuleName($line)."</span>".
@@ -534,18 +533,18 @@ class Pref_Filters extends Handler_Protected {
 
 		foreach ($feeds as $feed_id) {
 
-            if (strpos($feed_id, "CAT:") === 0) {
-                $feed_id = (int)substr($feed_id, 4);
-                array_push($feeds_fmt, Feeds::getCategoryTitle($feed_id));
-            } else {
-                if ($feed_id)
-                    array_push($feeds_fmt, Feeds::getFeedTitle((int)$feed_id));
-                else
-                    array_push($feeds_fmt, __("All feeds"));
-            }
-        }
+			if (strpos($feed_id, "CAT:") === 0) {
+				$feed_id = (int)substr($feed_id, 4);
+				array_push($feeds_fmt, Feeds::getCategoryTitle($feed_id));
+			} else {
+				if ($feed_id)
+					array_push($feeds_fmt, Feeds::getFeedTitle((int)$feed_id));
+				else
+					array_push($feeds_fmt, __("All feeds"));
+			}
+		}
 
-        $feed = implode(", ", $feeds_fmt);
+		$feed = implode(", ", $feeds_fmt);
 
 		$result = $this->dbh->query("SELECT description FROM ttrss_filter_types
 			WHERE id = ".(int)$rule["filter_type"]);

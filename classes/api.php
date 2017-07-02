@@ -69,13 +69,13 @@ class API extends Handler {
 		}
 
 		if (get_pref("ENABLE_API_ACCESS", $uid)) {
-			if (authenticate_user($login, $password)) {               // try login with normal password
+			if (authenticate_user($login, $password)) { // try login with normal password
 				$this->wrap(self::STATUS_OK, array("session_id" => session_id(),
 					"api_level" => self::API_LEVEL));
 			} else if (authenticate_user($login, $password_base64)) { // else try with base64_decoded password
 				$this->wrap(self::STATUS_OK,	array("session_id" => session_id(),
 					"api_level" => self::API_LEVEL));
-			} else {                                                         // else we are not logged in
+			} else { // else we are not logged in
 				user_error("Failed login attempt for $login from {$_SERVER['REMOTE_ADDR']}", E_USER_WARNING);
 				$this->wrap(self::STATUS_ERR, array("error" => "LOGIN_ERROR"));
 			}
@@ -583,7 +583,7 @@ class API extends Handler {
 								"title" => $line["title"],
 								"unread" => $unread,
 								"is_cat" => true,
-                                "order_id" => (int) $line["order_id"]
+								"order_id" => (int) $line["order_id"]
 							);
 						array_push($feeds, $row);
 					}

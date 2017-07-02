@@ -61,8 +61,8 @@ class Handler_Public extends Handler {
 
 			if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
 					strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) >= $ts) {
-		      header('HTTP/1.0 304 Not Modified');
-		      return;
+				header('HTTP/1.0 304 Not Modified');
+				return;
 			}
 
 			$last_modified = gmdate("D, d M Y H:i:s", $ts) . " GMT";
@@ -974,7 +974,7 @@ class Handler_Public extends Handler {
 				/* See if we can use X-Sendfile */
 				$xsendfile = false;
 				if (function_exists('apache_get_modules') &&
-				    array_search('mod_xsendfile', apache_get_modules()))
+						array_search('mod_xsendfile', apache_get_modules()))
 					$xsendfile = true;
 
 				if ($xsendfile) {

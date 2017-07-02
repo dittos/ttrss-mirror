@@ -1,9 +1,9 @@
 <?php
 class Dlg extends Handler_Protected {
 	private $param;
-    private $params;
+	private $params;
 
-    function before($method) {
+	function before($method) {
 		if (parent::before($method)) {
 			header("Content-Type: text/html"); # required for iframe
 
@@ -114,7 +114,7 @@ class Dlg extends Handler_Protected {
 			$tags[$line["tag_name"]] = $line["count"];
 		}
 
-        if(count($tags) == 0 ){ return; }
+		if(count($tags) == 0 ){ return; }
 
 		ksort($tags);
 
