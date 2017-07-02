@@ -5,7 +5,7 @@ if (file_exists("lib/floIcon.php")) {
 }
 
 function _resolve_htmlcolor($color) {
-	$htmlcolors = array ("aliceblue" => "#f0f8ff",
+	$htmlcolors = array("aliceblue" => "#f0f8ff",
 		"antiquewhite" => "#faebd7",
 		"aqua" => "#00ffff",
 		"aquamarine" => "#7fffd4",
@@ -163,59 +163,62 @@ function _resolve_htmlcolor($color) {
 
 ### RGB >> HSL
 function _color_rgb2hsl($rgb) {
-  $r = $rgb[0]; $g = $rgb[1]; $b = $rgb[2];
-  $min = min($r, min($g, $b)); $max = max($r, max($g, $b));
-  $delta = $max - $min; $l = ($min + $max) / 2; $s = 0;
-  if ($l > 0 && $l < 1) {
-    $s = $delta / ($l < 0.5 ? (2 * $l) : (2 - 2 * $l));
-  }
-  $h = 0;
-  if ($delta > 0) {
-    if ($max == $r && $max != $g) $h += ($g - $b) / $delta;
-    if ($max == $g && $max != $b) $h += (2 + ($b - $r) / $delta);
-    if ($max == $b && $max != $r) $h += (4 + ($r - $g) / $delta);
-    $h /= 6;
-  } return array($h, $s, $l);
+	$r = $rgb[0]; $g = $rgb[1]; $b = $rgb[2];
+	$min = min($r, min($g, $b)); $max = max($r, max($g, $b));
+	$delta = $max - $min; $l = ($min + $max) / 2; $s = 0;
+	if ($l > 0 && $l < 1) {
+		$s = $delta / ($l < 0.5 ? (2 * $l) : (2 - 2 * $l));
+	}
+	$h = 0;
+	if ($delta > 0) {
+		if ($max == $r && $max != $g) $h += ($g - $b) / $delta;
+		if ($max == $g && $max != $b) $h += (2 + ($b - $r) / $delta);
+		if ($max == $b && $max != $r) $h += (4 + ($r - $g) / $delta);
+		$h /= 6;
+	} return array($h, $s, $l);
 }
 
 ### HSL >> RGB
 function _color_hsl2rgb($hsl) {
-  $h = $hsl[0]; $s = $hsl[1]; $l = $hsl[2];
-  $m2 = ($l <= 0.5) ? $l * ($s + 1) : $l + $s - $l*$s;
-  $m1 = $l * 2 - $m2;
-  return array(_color_hue2rgb($m1, $m2, $h + 0.33333),
-               _color_hue2rgb($m1, $m2, $h),
-               _color_hue2rgb($m1, $m2, $h - 0.33333));
+	$h = $hsl[0]; $s = $hsl[1]; $l = $hsl[2];
+	$m2 = ($l <= 0.5) ? $l * ($s + 1) : $l + $s - $l*$s;
+	$m1 = $l * 2 - $m2;
+	return array(
+		_color_hue2rgb($m1, $m2, $h + 0.33333),
+		_color_hue2rgb($m1, $m2, $h),
+		_color_hue2rgb($m1, $m2, $h - 0.33333)
+	);
 }
 
 ### Helper function for _color_hsl2rgb().
 function _color_hue2rgb($m1, $m2, $h) {
-  $h = ($h < 0) ? $h + 1 : (($h > 1) ? $h - 1 : $h);
-  if ($h * 6 < 1) return $m1 + ($m2 - $m1) * $h * 6;
-  if ($h * 2 < 1) return $m2;
-  if ($h * 3 < 2) return $m1 + ($m2 - $m1) * (0.66666 - $h) * 6;
-  return $m1;
+	$h = ($h < 0) ? $h + 1 : (($h > 1) ? $h - 1 : $h);
+	if ($h * 6 < 1) return $m1 + ($m2 - $m1) * $h * 6;
+	if ($h * 2 < 1) return $m2;
+	if ($h * 3 < 2) return $m1 + ($m2 - $m1) * (0.66666 - $h) * 6;
+	return $m1;
 }
 
 ### Convert a hex color into an RGB triplet.
 function _color_unpack($hex, $normalize = false) {
 
-  if (strpos($hex, '#') !== 0)
-    $hex = _resolve_htmlcolor($hex);
+	if (strpos($hex, '#') !== 0)
+		$hex = _resolve_htmlcolor($hex);
 
-  if (strlen($hex) == 4) {
-    $hex = $hex[1] . $hex[1] . $hex[2] . $hex[2] . $hex[3] . $hex[3];
-  } $c = hexdec($hex);
-  for ($i = 16; $i >= 0; $i -= 8) {
-    $out[] = (($c >> $i) & 0xFF) / ($normalize ? 255 : 1);
-  } return $out;
+	if (strlen($hex) == 4) {
+		$hex = $hex[1] . $hex[1] . $hex[2] . $hex[2] . $hex[3] . $hex[3];
+	}
+	$c = hexdec($hex);
+	for ($i = 16; $i >= 0; $i -= 8) {
+		$out[] = (($c >> $i) & 0xFF) / ($normalize ? 255 : 1);
+	} return $out;
 }
 
 ### Convert an RGB triplet to a hex color.
 function _color_pack($rgb, $normalize = false) {
-  foreach ($rgb as $k => $v) {
-    $out |= (($v * ($normalize ? 255 : 1)) << (16 - $k * 8));
-  }return '#'. str_pad(dechex($out), 6, 0, STR_PAD_LEFT);
+	foreach ($rgb as $k => $v) {
+		$out |= (($v * ($normalize ? 255 : 1)) << (16 - $k * 8));
+	}return '#'. str_pad(dechex($out), 6, 0, STR_PAD_LEFT);
 }
 
 function rgb2hsl($arr) {
@@ -223,35 +226,35 @@ function rgb2hsl($arr) {
 	$g = $arr[1];
 	$b = $arr[2];
 
-   $var_R = ($r / 255);
-   $var_G = ($g / 255);
-   $var_B = ($b / 255);
+	$var_R = ($r / 255);
+	$var_G = ($g / 255);
+	$var_B = ($b / 255);
 
-   $var_Min = min($var_R, $var_G, $var_B);
-   $var_Max = max($var_R, $var_G, $var_B);
-   $del_Max = $var_Max - $var_Min;
+	$var_Min = min($var_R, $var_G, $var_B);
+	$var_Max = max($var_R, $var_G, $var_B);
+	$del_Max = $var_Max - $var_Min;
 
-   $v = $var_Max;
+	$v = $var_Max;
 
-   if ($del_Max == 0) {
-      $h = 0;
-      $s = 0;
-   } else {
-      $s = $del_Max / $var_Max;
+	if ($del_Max == 0) {
+		$h = 0;
+		$s = 0;
+	} else {
+		$s = $del_Max / $var_Max;
 
-      $del_R = ((($var_Max - $var_R ) / 6 ) + ($del_Max / 2 ) ) / $del_Max;
-      $del_G = ((($var_Max - $var_G ) / 6 ) + ($del_Max / 2 ) ) / $del_Max;
-      $del_B = ((($var_Max - $var_B ) / 6 ) + ($del_Max / 2 ) ) / $del_Max;
+		$del_R = ((($var_Max - $var_R ) / 6 ) + ($del_Max / 2 ) ) / $del_Max;
+		$del_G = ((($var_Max - $var_G ) / 6 ) + ($del_Max / 2 ) ) / $del_Max;
+		$del_B = ((($var_Max - $var_B ) / 6 ) + ($del_Max / 2 ) ) / $del_Max;
 
-      if      ($var_R == $var_Max) $h = $del_B - $del_G;
-      else if ($var_G == $var_Max) $h = (1 / 3 ) + $del_R - $del_B;
-      else if ($var_B == $var_Max) $h = (2 / 3 ) + $del_G - $del_R;
+		if ($var_R == $var_Max) $h = $del_B - $del_G;
+		else if ($var_G == $var_Max) $h = (1 / 3 ) + $del_R - $del_B;
+		else if ($var_B == $var_Max) $h = (2 / 3 ) + $del_G - $del_R;
 
-      if ($h < 0) $h++;
-      if ($h > 1) $h--;
-   }
+		if ($h < 0) $h++;
+		if ($h > 1) $h--;
+	}
 
-   return array($h, $s, $v);
+	return array($h, $s, $v);
 }
 
 function hsl2rgb($arr) {
@@ -259,93 +262,92 @@ function hsl2rgb($arr) {
 	$s = $arr[1];
 	$v = $arr[2];
 
-    if($s == 0) {
-        $r = $g = $B = $v * 255;
-    } else {
-        $var_H = $h * 6;
-        $var_i = floor($var_H );
-        $var_1 = $v * (1 - $s );
-        $var_2 = $v * (1 - $s * ($var_H - $var_i ) );
-        $var_3 = $v * (1 - $s * (1 - ($var_H - $var_i ) ) );
+		if($s == 0) {
+			$r = $g = $B = $v * 255;
+		} else {
+			$var_H = $h * 6;
+			$var_i = floor($var_H );
+			$var_1 = $v * (1 - $s );
+			$var_2 = $v * (1 - $s * ($var_H - $var_i ) );
+			$var_3 = $v * (1 - $s * (1 - ($var_H - $var_i ) ) );
 
-        if       ($var_i == 0) { $var_R = $v     ; $var_G = $var_3  ; $var_B = $var_1 ; }
-        else if  ($var_i == 1) { $var_R = $var_2 ; $var_G = $v      ; $var_B = $var_1 ; }
-        else if  ($var_i == 2) { $var_R = $var_1 ; $var_G = $v      ; $var_B = $var_3 ; }
-        else if  ($var_i == 3) { $var_R = $var_1 ; $var_G = $var_2  ; $var_B = $v     ; }
-        else if  ($var_i == 4) { $var_R = $var_3 ; $var_G = $var_1  ; $var_B = $v     ; }
-        else                   { $var_R = $v     ; $var_G = $var_1  ; $var_B = $var_2 ; }
+			if       ($var_i == 0) { $var_R = $v     ; $var_G = $var_3  ; $var_B = $var_1 ; }
+			else if  ($var_i == 1) { $var_R = $var_2 ; $var_G = $v      ; $var_B = $var_1 ; }
+			else if  ($var_i == 2) { $var_R = $var_1 ; $var_G = $v      ; $var_B = $var_3 ; }
+			else if  ($var_i == 3) { $var_R = $var_1 ; $var_G = $var_2  ; $var_B = $v     ; }
+			else if  ($var_i == 4) { $var_R = $var_3 ; $var_G = $var_1  ; $var_B = $v     ; }
+			else                   { $var_R = $v     ; $var_G = $var_1  ; $var_B = $var_2 ; }
 
-        $r = $var_R * 255;
-        $g = $var_G * 255;
-        $B = $var_B * 255;
-    }
-    return array($r, $g, $B);
+			$r = $var_R * 255;
+			$g = $var_G * 255;
+			$B = $var_B * 255;
+		}
+		return array($r, $g, $B);
 }
 
-	function colorPalette($imageFile, $numColors, $granularity = 5) {
-	   $granularity = max(1, abs((int)$granularity));
-	   $colors = array();
+function colorPalette($imageFile, $numColors, $granularity = 5) {
+	$granularity = max(1, abs((int)$granularity));
+	$colors = array();
 
-		$size = @getimagesize($imageFile);
+	$size = @getimagesize($imageFile);
 
-		// to enable .ico support place floIcon.php into lib/
-		if (strtolower($size['mime']) == 'image/vnd.microsoft.icon') {
+	// to enable .ico support place floIcon.php into lib/
+	if (strtolower($size['mime']) == 'image/vnd.microsoft.icon') {
 
-			if (class_exists("floIcon")) {
+		if (class_exists("floIcon")) {
 
-				$ico = new floIcon();
-				@$ico->readICO($imageFile);
+			$ico = new floIcon();
+			@$ico->readICO($imageFile);
 
-				if(count($ico->images)==0)
-					return false;
-				else
-					$img = @$ico->images[count($ico->images)-1]->getImageResource();
-
-			} else {
+			if(count($ico->images) == 0)
 				return false;
-			}
+			else
+				$img = @$ico->images[count($ico->images)-1]->getImageResource();
 
-		} else if ($size[0] > 0 && $size[1] > 0) {
-		   $img = @imagecreatefromstring(file_get_contents($imageFile));
+		} else {
+			return false;
 		}
 
-		if (!$img) return false;
-
-	   for($x = 0; $x < $size[0]; $x += $granularity) {
-	      for($y = 0; $y < $size[1]; $y += $granularity) {
-	         $thisColor = imagecolorat($img, $x, $y);
-	         $rgb = imagecolorsforindex($img, $thisColor);
-	         $red = round(round(($rgb['red'] / 0x33)) * 0x33);
-	         $green = round(round(($rgb['green'] / 0x33)) * 0x33);
-	         $blue = round(round(($rgb['blue'] / 0x33)) * 0x33);
-	         $thisRGB = sprintf('%02X%02X%02X', $red, $green, $blue);
-	         if(array_key_exists($thisRGB, $colors)) {
-	            $colors[$thisRGB]++;
-	         } else{
-	            $colors[$thisRGB] = 1;
-	         }
-	      }
-		}
-
-	   arsort($colors);
-	   return array_slice(array_keys($colors), 0, $numColors);
+	} else if ($size[0] > 0 && $size[1] > 0) {
+		$img = @imagecreatefromstring(file_get_contents($imageFile));
 	}
 
-	function calculate_avg_color($iconFile) {
-		$palette = colorPalette($iconFile, 4, 4);
+	if (!$img) return false;
 
-		if (is_array($palette)) {
-			foreach ($palette as $p) {
-				$hsl = rgb2hsl(_color_unpack("#$p"));
-
-				if ($hsl[1] > 0.25 && $hsl[2] > 0.25 &&
-					!($hsl[0] >= 0 && $hsl[0] < 0.01 && $hsl[1] < 0.01) &&
-					!($hsl[0] >= 0 && $hsl[0] < 0.01 && $hsl[2] > 0.99)) {
-
-					return _color_pack(hsl2rgb($hsl));
-				}
+	for($x = 0; $x < $size[0]; $x += $granularity) {
+		for($y = 0; $y < $size[1]; $y += $granularity) {
+			$thisColor = imagecolorat($img, $x, $y);
+			$rgb = imagecolorsforindex($img, $thisColor);
+			$red = round(round(($rgb['red'] / 0x33)) * 0x33);
+			$green = round(round(($rgb['green'] / 0x33)) * 0x33);
+			$blue = round(round(($rgb['blue'] / 0x33)) * 0x33);
+			$thisRGB = sprintf('%02X%02X%02X', $red, $green, $blue);
+			if(array_key_exists($thisRGB, $colors)) {
+				$colors[$thisRGB]++;
+			} else {
+				$colors[$thisRGB] = 1;
 			}
 		}
-		return '';
 	}
 
+	arsort($colors);
+	return array_slice(array_keys($colors), 0, $numColors);
+}
+
+function calculate_avg_color($iconFile) {
+	$palette = colorPalette($iconFile, 4, 4);
+
+	if (is_array($palette)) {
+		foreach ($palette as $p) {
+			$hsl = rgb2hsl(_color_unpack("#$p"));
+
+			if ($hsl[1] > 0.25 && $hsl[2] > 0.25 &&
+				!($hsl[0] >= 0 && $hsl[0] < 0.01 && $hsl[1] < 0.01) &&
+				!($hsl[0] >= 0 && $hsl[0] < 0.01 && $hsl[2] > 0.99)) {
+
+				return _color_pack(hsl2rgb($hsl));
+			}
+		}
+	}
+	return '';
+}
