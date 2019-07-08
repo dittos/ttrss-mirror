@@ -102,7 +102,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
 
-<body class="flat ttrss_main ttrss_prefs">
+<body class="claro ttrss_main ttrss_prefs">
 
 <div id="notify" class="notify"></div>
 <div id="cmdline" style="display : none"></div>

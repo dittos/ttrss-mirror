@@ -1,4 +1,4 @@
-@import "../lib/flat-ttrss/flat_combined.css";
+@import "../lib/dijit/themes/claro/claro.css";
 body.ttrss_main,
 body.ttrss_prefs,
 #main {
@@ -1891,4 +1891,3 @@ body.ttrss_zoom div.post div.content pre {
   max-width: 98%;
   overflow: auto;
 }
-/*# sourceMappingURL=default.css.map */

@@ -120,7 +120,7 @@
 	<meta name="referrer" content="no-referrer"/>
 </head>
 
-<body class="flat ttrss_main ttrss_index">
+<body class="claro ttrss_main ttrss_index">
 
 <div id="overlay" style="display : block">
 	<div id="overlay_inner">
