@@ -26,7 +26,7 @@ body.ttrss_main div.post {
 body.ttrss_main div.post div.header {
   padding: 5px;
   color: #909090;
-  border: 0px solid #ddd;
+  border: 0px solid #759DC0;
   border-bottom-width: 1px;
   background: #f5f5f5;
 }
@@ -119,11 +119,11 @@ body.ttrss_main h4 {
   text-rendering: optimizelegibility;
 }
 body.ttrss_main a {
-  color: #257aa7;
+  color: #5F89AD;
   text-decoration: none;
 }
 body.ttrss_main a:hover {
-  color: #133d54;
+  color: #38556e;
   text-decoration: underline;
 }
 body.ttrss_main #notify.visible {
@@ -166,11 +166,11 @@ body.ttrss_main .notify.notify_progress {
   background-color: #fff7d5;
 }
 body.ttrss_main .notify.notify_info {
-  border-color: #257aa7;
-  background-color: #d5ebf6;
+  border-color: #5F89AD;
+  background-color: #ffffff;
 }
 body.ttrss_main .notify.notify_info i.icon-notify {
-  color: #257aa7;
+  color: #5F89AD;
 }
 body.ttrss_main .notify.notify_error {
   background-color: #c00;
@@ -188,7 +188,7 @@ body.ttrss_main .action-chooser .action-button .dijitArrowButtonInner {
   display: none;
 }
 body.ttrss_main .hl {
-  border: 0px solid #ddd;
+  border: 0px solid #759DC0;
   border-bottom-width: 1px;
   transition: color 0.2s, background 0.2s;
   display: flex;
@@ -246,7 +246,7 @@ body.ttrss_main .hl span.feed a {
   color: #555;
 }
 body.ttrss_main .hl span.feed a:hover {
-  color: #257aa7;
+  color: #5F89AD;
 }
 body.ttrss_main .hl span.updated {
   color: #555;
@@ -284,16 +284,16 @@ body.ttrss_main .hl.Unread div.title a {
   color: black;
 }
 body.ttrss_main .hl.active div.title a {
-  color: #257aa7;
+  color: #5F89AD;
   /* text-shadow : 1px 1px 2px #fff; */
 }
 body.ttrss_main .hl.active {
-  background: #257aa7 ! important;
+  background: #5F89AD ! important;
 }
 body.ttrss_main .hl.active,
 body.ttrss_main .hl.Selected {
   color: white;
-  background: #3f728e;
+  background: #7d878f;
 }
 body.ttrss_main .hl.active a,
 body.ttrss_main .hl.Selected a,
@@ -364,7 +364,7 @@ body.ttrss_main i.pub-pic {
   color: #ccc;
 }
 body.ttrss_main div.errorExplained {
-  border: 1px solid #ddd;
+  border: 1px solid #759DC0;
   margin: 5px 0px 5px 0px;
   padding: 5px;
 }
@@ -373,7 +373,7 @@ body.ttrss_main ul.browseFeedList {
   width: 100%;
   overflow: auto;
   border-width: 0px 1px 1px 1px;
-  border-color: #ddd;
+  border-color: #759DC0;
   border-style: solid;
   margin: 0px 0px 5px 0px;
   background-color: white;
@@ -425,7 +425,7 @@ body.ttrss_main div.whiteBox {
   text-align: center;
   padding: 1em 1em 0px 1em;
   font-size: 11px;
-  border: 0px solid #ddd;
+  border: 0px solid #759DC0;
   border-bottom-width: 1px;
 }
 body.ttrss_main div#headlines-frame.wide .title {
@@ -509,7 +509,7 @@ body.ttrss_main div#cmdline {
   color: #555;
   font-weight: bold;
   background-color: white;
-  border: 1px solid #257aa7;
+  border: 1px solid #5F89AD;
   padding: 3px 5px 3px 5px;
   z-index: 5;
 }
@@ -542,7 +542,7 @@ body.ttrss_main #content-wrap {
 }
 body.ttrss_main #feeds-holder {
   padding: 0px;
-  border: 0px solid #ddd;
+  border: 0px solid #759DC0;
   overflow: hidden;
   background: #f5f5f5;
   box-shadow: inset -1px 0px 2px -1px rgba(0, 0, 0, 0.1);
@@ -564,9 +564,9 @@ body.ttrss_main #feeds-holder #feedTree .counterNode {
   display: inline-block;
   font-size: 9px;
   text-align: center;
-  border: 1px solid #2a89bc;
+  border: 1px solid #7095b6;
   color: white;
-  background: #2a89bc;
+  background: #7095b6;
   border-radius: 4px;
   vertical-align: middle;
   float: right;
@@ -594,7 +594,7 @@ body.ttrss_main #feeds-holder #feedTree .dijitTreeNode .dijitTreeRow {
 }
 body.ttrss_main #feeds-holder #feedTree .dijitTreeNode .dijitTreeRowSelected {
   box-shadow: -1px 0px 2px -1px rgba(0, 0, 0, 0.1);
-  border-color: #ddd transparent;
+  border-color: #759DC0 transparent;
   background: white;
   color: #333;
 }
@@ -623,7 +623,7 @@ body.ttrss_main #feeds-holder #feedTree i.icon.icon-restore {
   position: relative;
   top: -1px;
   font-weight: bold;
-  color: #257aa7;
+  color: #5F89AD;
 }
 body.ttrss_main #headlines-wrap-inner {
   padding: 0px;
@@ -635,14 +635,14 @@ body.ttrss_main #headlines-frame[is-vfeed="0"] .header .feed {
 }
 body.ttrss_main #headlines-frame {
   padding: 0px;
-  border: 0px #ddd;
+  border: 0px #759DC0;
   margin-top: 0px;
   -webkit-overflow-scrolling: touch;
   -webkit-transform: translateZ(0);
   -webkit-backface-visibility: hidden;
 }
 body.ttrss_main #headlines-frame div.feed-title {
-  border: 0px solid #257aa7;
+  border: 0px solid #5F89AD;
   border-bottom-width: 1px;
   padding: 5px 8px;
 }
@@ -654,7 +654,7 @@ body.ttrss_main #headlines-frame div.feed-title a {
   color: #555;
 }
 body.ttrss_main #headlines-frame div.feed-title a:hover {
-  color: #257aa7;
+  color: #5F89AD;
 }
 body.ttrss_main #toolbar-frame_splitter {
   display: none;
@@ -667,11 +667,10 @@ body.ttrss_main #toolbar-frame {
   font-size: 12px;
 }
 body.ttrss_main #toolbar-frame #toolbar {
-  background: white;
-  border: 0px solid #ddd;
+  border: 0px solid #759DC0;
   border-bottom-width: 1px;
   padding-left: 4px;
-  height: 32px;
+  height: 28px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -717,7 +716,7 @@ body.ttrss_main #toolbar-frame #toolbar #selected_prompt {
   font-style: italic;
   text-align: right;
   margin-right: 4px;
-  color: #257aa7;
+  color: #5F89AD;
 }
 @media (max-width: 992px) {
   body.ttrss_main #toolbar-frame #toolbar #selected_prompt {
@@ -737,7 +736,7 @@ body.ttrss_main #header {
 }
 body.ttrss_main #content-insert {
   padding: 0px;
-  border-color: #ddd;
+  border-color: #759DC0;
   border-width: 0px;
   line-height: 1.5;
   overflow: auto;
@@ -788,7 +787,7 @@ body.ttrss_main #headlines-spacer span {
   display: block;
 }
 body.ttrss_main #headlines-spacer a:hover {
-  color: #257aa7;
+  color: #5F89AD;
 }
 body.ttrss_main ul#filterDlg_Matches,
 body.ttrss_main ul#filterDlg_Actions {
@@ -796,7 +795,7 @@ body.ttrss_main ul#filterDlg_Actions {
   overflow: auto;
   list-style-type: none;
   border-style: solid;
-  border-color: #ddd;
+  border-color: #759DC0;
   border-width: 1px 1px 1px 1px;
   background-color: white;
   margin: 0px 0px 5px 0px;
@@ -818,7 +817,7 @@ body.ttrss_main ul.hotkeys-help li.desc {
   flex-grow: 2;
 }
 body.ttrss_main ul.hotkeys-help .hk {
-  color: #257aa7;
+  color: #5F89AD;
   width: 100px;
 }
 body.ttrss_main ul.hotkeys-help h3 {
@@ -893,7 +892,7 @@ body.ttrss_main i.icon-score {
   cursor: pointer;
 }
 body.ttrss_main .panel {
-  border: 1px solid #ddd;
+  border: 1px solid #759DC0;
   background: #f5f5f5;
   padding: 4px;
 }
@@ -923,7 +922,7 @@ body.ttrss_main #prefFilterTestResultList .title {
   font-weight: bold;
 }
 body.ttrss_main #prefFilterTestResultList .feed {
-  color: #257aa7;
+  color: #5F89AD;
 }
 body.ttrss_main .alert,
 body.ttrss_utility .alert {
@@ -1028,7 +1027,7 @@ body.ttrss_utility div.autocomplete {
   position: absolute;
   width: 250px;
   background-color: white;
-  border: 1px solid #ddd;
+  border: 1px solid #759DC0;
   margin: 0px;
   padding: 0px;
 }
@@ -1051,14 +1050,14 @@ body.ttrss_utility div.autocomplete ul li {
   cursor: pointer;
 }
 ::selection {
-  background: #257aa7;
+  background: #5F89AD;
   color: white;
 }
 ::-webkit-scrollbar {
   width: 4px;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #257aa7;
+  background-color: #5F89AD;
 }
 ::-webkit-scrollbar-track {
   background-color: #eee;
@@ -1153,7 +1152,7 @@ video::-webkit-media-controls-overlay-play-button {
   white-space: normal;
 }
 .cdm.expanded .footer {
-  border: 0px solid #ddd;
+  border: 0px solid #759DC0;
   border-bottom-width: 1px;
 }
 .cdm.expanded > hr {
@@ -1175,7 +1174,7 @@ div.cdm.expanded.active {
   background: white;
 }
 div.cdm.expanded.active div.header a.title {
-  color: #257aa7;
+  color: #5F89AD;
 }
 div.cdm.expanded.Unread div.header a.title {
   color: black;
@@ -1193,7 +1192,7 @@ div.cdm.vgrlf .feed {
   display: none;
 }
 .cdm div.feed-title {
-  border: 0px solid #257aa7;
+  border: 0px solid #5F89AD;
   border-bottom-width: 1px;
   padding: 5px 3px 5px 5px;
 }
@@ -1205,7 +1204,7 @@ div.cdm.vgrlf .feed {
   color: #555;
 }
 .cdm div.feed-title a:hover {
-  color: #257aa7;
+  color: #5F89AD;
 }
 .cdm div.header span.feed {
   float: right;
@@ -1250,7 +1249,7 @@ div#floatingTitle {
   top: 0px;
   right: 0px;
   left: 0px;
-  border: 0px solid #ddd;
+  border: 0px solid #759DC0;
   border-bottom-width: 1px;
   background: white;
   color: #555;
@@ -1288,7 +1287,7 @@ div#floatingTitle .excerpt {
   display: none;
 }
 div#floatingTitle .collapse i.material-icons {
-  color: #257aa7;
+  color: #5F89AD;
   cursor: pointer;
 }
 div#floatingTitle span.author {
@@ -1345,14 +1344,14 @@ div#floatingTitle .feed-title a.catchup {
   white-space: nowrap;
 }
 div#floatingTitle .feed-title a.catchup:hover {
-  color: #257aa7;
+  color: #5F89AD;
 }
 div#floatingTitle.Unread a.title {
   color: black;
 }
 .cdm.expandable {
   background-color: #f5f5f5;
-  border: 0px solid #ddd;
+  border: 0px solid #759DC0;
   border-bottom-width: 1px;
 }
 .cdm.expandable > hr {
@@ -1377,7 +1376,7 @@ div#floatingTitle.Unread a.title {
   background: white;
 }
 .cdm.expandable.Selected:not(.active) {
-  background: #3f728e;
+  background: #7d878f;
 }
 .cdm.expandable.Selected:not(.active) a,
 .cdm.expandable.Selected:not(.active) .header a.title,
@@ -1402,14 +1401,14 @@ div.cdm.expandable.Unread div.header a.title {
   color: black;
 }
 div.cdm.expandable.active .collapse i.material-icons {
-  color: #257aa7;
+  color: #5F89AD;
   cursor: pointer;
 }
 div.cdm.expandable.active .excerpt {
   display: none;
 }
 div.cdm.expandable.active div.header a.title {
-  color: #257aa7;
+  color: #5F89AD;
   font-size: 16px;
   font-weight: 600;
   text-rendering: optimizelegibility;
@@ -1595,7 +1594,7 @@ body.ttrss_utility .content h2:first-of-type {
 body.ttrss_utility .content h2,
 body.ttrss_utility .content h3,
 body.ttrss_utility .content h4 {
-  color: #257aa7;
+  color: #5F89AD;
   font-family: "Segoe WP Semibold", "Segoe UI Semibold", "Segoe UI Web Semibold", "Segoe UI", Ubuntu, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 body.ttrss_utility .content h2 {
@@ -1605,12 +1604,12 @@ body.ttrss_utility .content h3 {
   font-size: 16px;
 }
 body.ttrss_utility a {
-  color: #257aa7;
+  color: #5F89AD;
   text-decoration: none;
 }
 body.ttrss_utility a:hover,
 body.ttrss_utility a:focus {
-  color: #133d54;
+  color: #38556e;
   text-decoration: underline;
 }
 body.ttrss_utility h1 {
@@ -1627,7 +1626,7 @@ body.ttrss_utility .footer a {
   color: gray;
 }
 body.ttrss_utility .footer a:hover {
-  color: #257aa7;
+  color: #5F89AD;
 }
 body.ttrss_utility form {
   margin: 0;
@@ -1704,7 +1703,7 @@ body.ttrss_utility.share_popup .content {
   font-size: 13px;
 }
 .flat .dijitMenu .dijitMenuItem.dijitDisabled:not(.dijitMenuItemSelected) .dijitMenuItemLabel {
-  color: #2e99d1;
+  color: #81a2be;
 }
 .flat .dijitMenu .dijitMenuItem td {
   padding: 0px;
@@ -1719,7 +1718,7 @@ body.ttrss_utility.share_popup .content {
 }
 .flat .dijitTab i.material-icons,
 .flat .dijitAccordionInnerContainer:not(.dijitSelected) i.material-icons {
-  color: #257aa7;
+  color: #5F89AD;
 }
 .flat .dijitTree .dijitFolderClosed,
 .flat .dijitTree .dijitFolderOpened {
@@ -1729,7 +1728,7 @@ body.ttrss_utility.share_popup .content {
   color: white;
 }
 .flat .dijitTree .dijitTreeRowSelected .dijitTreeExpando {
-  color: #257aa7;
+  color: #5F89AD;
 }
 .flat .dijitTree .dijitTreeNode .dijitTreeRow.dijitTreeRowSelected {
   color: white;
