@@ -1892,20 +1892,26 @@
 	function get_version(&$git_commit = false, &$git_timestamp = false) {
 		global $ttrss_version;
 
-		if (isset($ttrss_version))
-			return $ttrss_version;
+		if (is_array($ttrss_version) && isset($ttrss_version['version'])) {
+			$git_commit = $ttrss_version['commit'];
+			$git_timestamp = $ttrss_version['timestamp'];
 
-		$ttrss_version = "UNKNOWN (Unsupported)";
+			return $ttrss_version['version'];
+		} else {
+			$ttrss_version = [];
+		}
+
+		$ttrss_version['version'] = "UNKNOWN (Unsupported)";
 
 		date_default_timezone_set('UTC');
 		$root_dir = dirname(dirname(__FILE__));
 
 		if ('\\' === DIRECTORY_SEPARATOR) {
-			$ttrss_version = "UNKNOWN (Unsupported, Windows)";
+			$ttrss_version['version'] = "UNKNOWN (Unsupported, Windows)";
 		} else if (PHP_OS === "Darwin") {
-			$ttrss_version = "UNKNOWN (Unsupported, Darwin)";
+			$ttrss_version['version'] = "UNKNOWN (Unsupported, Darwin)";
 		} else if (file_exists("$root_dir/version_static.txt")) {
-			$ttrss_version = trim(file_get_contents("$root_dir/version_static.txt")) . " (Unsupported)";
+			$ttrss_version['version'] = trim(file_get_contents("$root_dir/version_static.txt")) . " (Unsupported)";
 		} else if (is_dir("$root_dir/.git")) {
 			$rc = 0;
 			$output = [];
@@ -1923,12 +1929,14 @@
 					$git_commit = $commit;
 					$git_timestamp = $timestamp;
 
-					$ttrss_version = strftime("%y.%m", $timestamp) . "-$commit";
+					$ttrss_version['version'] = strftime("%y.%m", $timestamp) . "-$commit";
+					$ttrss_version['commit'] = $commit;
+					$ttrss_version['timestamp'] = $timestamp;
 				}
 			} else {
 				user_error("Unable to determine version (using $root_dir): " . implode("\n", $output), E_USER_WARNING);
 			}
 		}
 
-		return $ttrss_version;
+		return $ttrss_version['version'];
 	}
