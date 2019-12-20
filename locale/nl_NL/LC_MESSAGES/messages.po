@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: tt-rss git\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-17 15:00+0300\n"
-"PO-Revision-Date: 2019-08-27 12:06+0000\n"
+"PO-Revision-Date: 2019-12-21 21:37+0000\n"
 "Last-Translator: Patrick Ahles <p.ahles+weblate@gmail.com>\n"
-"Language-Team: Dutch <https://weblate.tt-rss.org/projects/tt-rss/messages/nl/>\n"
+"Language-Team: Dutch <https://weblate.tt-rss.org/projects/tt-rss/messages/nl/"
+">\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -503,23 +504,20 @@ msgid "Open previous feed"
 msgstr "Open voorgaande feed"
 
 #: include/functions.php:1044
-#, fuzzy
 msgid "Open next article (in combined mode, scroll down)"
-msgstr "Open volgend artikel (lange artikelen niet scrollen)"
+msgstr "Open volgend artikel (in gecombineerde modus, scroll naar beneden)"
 
 #: include/functions.php:1045
-#, fuzzy
 msgid "Open previous article (in combined mode, scroll up)"
-msgstr "Open vorig artikel (lange artikelen niet scrollen)"
+msgstr "Open vorig artikel (in gecombineerde modus, scroll naar boven)"
 
 #: include/functions.php:1046
 msgid "Scroll article by one page down"
-msgstr ""
+msgstr "Scroll artikel een pagina naar beneden"
 
 #: include/functions.php:1047
-#, fuzzy
 msgid "Scroll article by one page up"
-msgstr "Selecteer artikelen in de groep"
+msgstr "Scroll artikel een pagina naar boven"
 
 #: include/functions.php:1048
 msgid "Open next article"
@@ -2133,7 +2131,7 @@ msgstr "Scan de volgende code met de Authenticator applicatie:"
 
 #: classes/pref/prefs.php:491
 msgid "OTP Key:"
-msgstr ""
+msgstr "Eenmalig Wachtwoord sleutel:"
 
 #: classes/pref/prefs.php:524
 msgid "One time password:"
@@ -2193,6 +2191,9 @@ msgstr "Terugzetten naar de standaardwaarden"
 #, php-format
 msgid "The following plugins use per-feed content hooks. This may cause excessive data usage and origin server load resulting in a ban of your instance: <b>%s</b>"
 msgstr ""
+"De volgende plug-ins gebruiken per feed hooks. Dit kan tot excessief "
+"datagebruik en belasting van de originele server leiden en resulteren in een "
+"ban van je instantie: <b>%s</b>"
 
 #: classes/pref/prefs.php:870
 msgid "System plugins"
@@ -2232,10 +2233,12 @@ msgstr "U kunt door de CSS-declaraties aan te passen de kleuren, lettertypen en 
 #: classes/pref/prefs.php:1141
 msgid "User CSS has been applied, you might need to reload the page to see all changes."
 msgstr ""
+"Gebruiker-CSS is toegepast, mogelijk moet de pagina opnieuw geladen worden "
+"om alle wijzigingen te zien."
 
 #: classes/pref/prefs.php:1149
 msgid "Apply"
-msgstr ""
+msgstr "Pas toe"
 
 #: classes/pref/prefs.php:1151
 #, fuzzy
@@ -2277,6 +2280,8 @@ msgstr "Laatste update:"
 #, php-format
 msgid "Generated password <strong>%s</strong> for %s. Please remember it for future reference."
 msgstr ""
+"Wachtwoord <strong>%s</strong> gegenereerd voor %s. Onthou dit voor "
+"toekomstig gebruik."
 
 #: classes/pref/system.php:8
 #: classes/pref/users.php:6
