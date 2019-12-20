@@ -98,10 +98,13 @@
 		if ($override) {
 			$handler = $override;
 		} else {
-			$handler = new $op($_REQUEST);
+			$reflection = new ReflectionClass($op);
+			$handler = $reflection->newInstanceWithoutConstructor();
 		}
 
 		if ($handler && implements_interface($handler, 'IHandler')) {
+			$handler->__construct($_REQUEST);
+
 			if (validate_csrf($csrf_token) || $handler->csrf_ignore($method)) {
 				if ($handler->before($method)) {
 					if ($method && method_exists($handler, $method)) {
