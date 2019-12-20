@@ -595,7 +595,7 @@ class RPC extends Handler_Protected {
 
 		get_version($git_commit, $git_timestamp);
 
-		if (CHECK_FOR_UPDATES && $_SESSION["access_level"] >= 10 && $git_timestamp) {
+		if (defined('CHECK_FOR_UPDATES') && CHECK_FOR_UPDATES && $_SESSION["access_level"] >= 10 && $git_timestamp) {
 			$content = @fetch_file_contents(["url" => "https://srv.tt-rss.org/version.json"]);
 
 			if ($content) {
