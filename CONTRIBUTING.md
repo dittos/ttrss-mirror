@@ -29,7 +29,7 @@ extensions should work).
 Believe it or not, people also spam using Weblate. Therefore, there's some minor 
 jumping through hoops involved here:
 
-1. Register on Weblate / forums;
+1. Register on [Weblate](https://weblate.tt-rss.org/) / forums;
 2. Post in the [Weblate discussion thread](https://community.tt-rss.org/t/easier-translations-with-weblate/1680) on the forum, ask to be added to a project 
 you're interested in;
 3. You'll be given proper access rights and will be able to edit translations. 
