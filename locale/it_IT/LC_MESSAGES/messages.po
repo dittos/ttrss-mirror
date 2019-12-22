@@ -10,15 +10,16 @@ msgstr ""
 "Project-Id-Version: Tiny Tiny RSS\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-17 15:00+0300\n"
-"PO-Revision-Date: 2019-05-25 05:29+0000\n"
+"PO-Revision-Date: 2019-12-21 21:37+0000\n"
 "Last-Translator: Dario Di Ludovico <dario@diludovico.it>\n"
-"Language-Team: Italian <https://weblate.tt-rss.org/projects/tt-rss/messages/it/>\n"
+"Language-Team: Italian <https://weblate.tt-rss.org/projects/tt-rss/messages/"
+"it/>\n"
 "Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.5.1\n"
+"X-Generator: Weblate 3.7.1\n"
 
 #: backend.php:58
 msgid "Use default"
@@ -502,23 +503,20 @@ msgid "Open previous feed"
 msgstr "Apri il notiziario precedente"
 
 #: include/functions.php:1044
-#, fuzzy
 msgid "Open next article (in combined mode, scroll down)"
 msgstr "Apri l'articolo successivo (non scorrere gli articoli lunghi)"
 
 #: include/functions.php:1045
-#, fuzzy
 msgid "Open previous article (in combined mode, scroll up)"
 msgstr "Apri l'articolo precedente (non scorrere gli articoli lunghi)"
 
 #: include/functions.php:1046
 msgid "Scroll article by one page down"
-msgstr ""
+msgstr "Scorri gli articoli con PgDwn"
 
 #: include/functions.php:1047
-#, fuzzy
 msgid "Scroll article by one page up"
-msgstr "Seleziona gli articoli in gruppo"
+msgstr "Scorri gli articoli con PgUp"
 
 #: include/functions.php:1048
 msgid "Open next article"
@@ -586,12 +584,10 @@ msgid "Scroll up"
 msgstr "Scorri sù"
 
 #: include/functions.php:1063
-#, fuzzy
 msgid "Scroll down page"
 msgstr "Scorri giù"
 
 #: include/functions.php:1064
-#, fuzzy
 msgid "Scroll up page"
 msgstr "Scorri sù"
 
@@ -2093,19 +2089,16 @@ msgid "Change password"
 msgstr "Cambia password"
 
 #: classes/pref/prefs.php:406
-#, fuzzy
 msgid "App passwords"
-msgstr "Vecchia password:"
+msgstr "Password dell'app"
 
 #: classes/pref/prefs.php:418
-#, fuzzy
 msgid "Generate new password"
-msgstr "Genera nuovo URL"
+msgstr "Genera una nuova password"
 
 #: classes/pref/prefs.php:422
-#, fuzzy
 msgid "Remove selected passwords"
-msgstr "Rimuovi i profili selezionati"
+msgstr "Rimuovi le password selezionate"
 
 #: classes/pref/prefs.php:427
 msgid "One time passwords / Authenticator"
@@ -2121,18 +2114,18 @@ msgid "Disable OTP"
 msgstr "Disattivare password usa e getta (OTP)"
 
 #: classes/pref/prefs.php:477
-#, fuzzy
 msgid "Scan the following code by the Authenticator application or copy the key manually"
-msgstr "Scansiona questo codice con la tua app Autenticatore:"
+msgstr ""
+"Scansiona questo codice con la tua app Autenticatore o inserisci manualmente "
+"la chiave"
 
 #: classes/pref/prefs.php:483
-#, fuzzy
 msgid "Use the following OTP key with a compatible Authenticator application"
-msgstr "Scansiona questo codice con la tua app Autenticatore:"
+msgstr "Usa il seguente codice OTP con un'app di autentificazione compatibile"
 
 #: classes/pref/prefs.php:491
 msgid "OTP Key:"
-msgstr ""
+msgstr "Chiave OTP:"
 
 #: classes/pref/prefs.php:524
 msgid "One time password:"
