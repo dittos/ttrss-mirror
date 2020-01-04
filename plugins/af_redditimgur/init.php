@@ -264,7 +264,7 @@ class Af_RedditImgur extends Plugin {
 					$found = true;
 				}
 
-				if (!$found && (preg_match("/\.(jpg|jpeg|gif|png)(\?[0-9][0-9]*)?$/i", $entry->getAttribute("href")) ||
+				if (!$found && (preg_match("/\.(jpg|jpeg|gif|png)(\?[0-9][0-9]*)?[$\?]/i", $entry->getAttribute("href")) ||
 					mb_strpos($entry->getAttribute("href"), "i.reddituploads.com") !== FALSE ||
 					mb_strpos($this->get_content_type($entry->getAttribute("href")), "image/") !== FALSE)) {
 
