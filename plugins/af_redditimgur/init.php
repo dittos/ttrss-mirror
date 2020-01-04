@@ -239,10 +239,10 @@ class Af_RedditImgur extends Plugin {
 				}
 
 				$matches = array();
-				if (!$found && preg_match("/youtube\.com\/v\/([\w-]+)/", $entry->getAttribute("href"), $matches) ||
+				if (!$found && (preg_match("/youtube\.com\/v\/([\w-]+)/", $entry->getAttribute("href"), $matches) ||
 					preg_match("/youtube\.com\/.*?[\&\?]v=([\w-]+)/", $entry->getAttribute("href"), $matches) ||
 					preg_match("/youtube\.com\/watch\?v=([\w-]+)/", $entry->getAttribute("href"), $matches) ||
-					preg_match("/\/\/youtu.be\/([\w-]+)/", $entry->getAttribute("href"), $matches)) {
+					preg_match("/\/\/youtu.be\/([\w-]+)/", $entry->getAttribute("href"), $matches))) {
 
 					$vid_id = $matches[1];
 
@@ -264,9 +264,9 @@ class Af_RedditImgur extends Plugin {
 					$found = true;
 				}
 
-				if (!$found && preg_match("/\.(jpg|jpeg|gif|png)(\?[0-9][0-9]*)?$/i", $entry->getAttribute("href")) ||
+				if (!$found && (preg_match("/\.(jpg|jpeg|gif|png)(\?[0-9][0-9]*)?$/i", $entry->getAttribute("href")) ||
 					mb_strpos($entry->getAttribute("href"), "i.reddituploads.com") !== FALSE ||
-					mb_strpos($this->get_content_type($entry->getAttribute("href")), "image/") !== FALSE) {
+					mb_strpos($this->get_content_type($entry->getAttribute("href")), "image/") !== FALSE)) {
 
 					Debug::log("Handling as a picture", Debug::$LOG_VERBOSE);
 
