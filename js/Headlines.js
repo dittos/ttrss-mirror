@@ -895,7 +895,7 @@ define(["dojo/_base/declare"], function (declare) {
 						if (!noscroll) {
 							Article.scroll(-ctr.offsetHeight / 2, event);
 						} else {
-							if (row && row.offsetTop < ctr.scrollTop) {
+							if (row && Math.round(row.offsetTop) < Math.round(ctr.scrollTop)) {
 								Article.cdmScrollToId(Article.getActive(), noscroll, event);
 							} else if (prev_id) {
 								Article.setActive(prev_id);
