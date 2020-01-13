@@ -111,6 +111,8 @@ class Handler_Public extends Handler {
 				$content = sanitize($line["content"], false, $owner_uid,
 					$feed_site_url, false, $line["id"]);
 
+				$content = DiskCache::rewriteUrls($content);
+
 				if ($line['note']) {
 					$content = "<div style=\"$note_style\">Article note: " . $line['note'] . "</div>" .
 						$content;
