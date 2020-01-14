@@ -1889,12 +1889,13 @@
 		directory, its contents are displayed instead of git commit-based version, this could be generated
 		based on source git tree commit used when creating the package */
 
-	function get_version(&$git_commit = false, &$git_timestamp = false) {
+	function get_version(&$git_commit = false, &$git_timestamp = false, &$last_error = false) {
 		global $ttrss_version;
 
 		if (is_array($ttrss_version) && isset($ttrss_version['version'])) {
 			$git_commit = $ttrss_version['commit'];
 			$git_timestamp = $ttrss_version['timestamp'];
+			$last_error = $ttrss_version['last_error'];
 
 			return $ttrss_version['version'];
 		} else {
@@ -1919,13 +1920,13 @@
 			$cwd = getcwd();
 
 			chdir($root_dir);
-			exec('git log --pretty='.escapeshellarg('%ct %h').' -n1 HEAD 2>&1', $output, $rc);
+			exec('git --no-pager log --pretty='.escapeshellarg('version: %ct %h').' -n1 HEAD 2>&1', $output, $rc);
 			chdir($cwd);
 
-			if ($rc == 0) {
-				if (is_array($output) && count($output) > 0) {
-					list ($timestamp, $commit) = explode(" ", $output[0], 2);
+			if (is_array($output) && count($output) > 0) {
+				list ($test, $timestamp, $commit) = explode(" ", $output[0], 3);
 
+				if ($test == "version:") {
 					$git_commit = $commit;
 					$git_timestamp = $timestamp;
 
@@ -1933,8 +1934,14 @@
 					$ttrss_version['commit'] = $commit;
 					$ttrss_version['timestamp'] = $timestamp;
 				}
-			} else {
-				user_error("Unable to determine version (using $root_dir): " . implode("\n", $output), E_USER_WARNING);
+			}
+
+			if (!isset($ttrss_version['commit'])) {
+				$last_error = "Unable to determine version (using $root_dir): RC=$rc; OUTPUT=" . implode("\n", $output);
+
+				$ttrss_version["last_error"] = $last_error;
+
+				user_error($last_error, E_USER_WARNING);
 			}
 		}
 

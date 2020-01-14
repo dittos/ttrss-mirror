@@ -157,9 +157,10 @@
                 "hook_prefs_tabs", false);
         ?>
         </div>
-    <div id="footer" dojoType="dijit.layout.ContentPane" region="bottom">
-        <a class="text-muted" target="_blank" href="http://tt-rss.org/">
-        Tiny Tiny RSS</a> v<?php echo get_version() ?>
+		<?php $version = get_version($git_commit, $git_timestamp, $last_error); ?>
+		<div id="footer" dojoType="dijit.layout.ContentPane" region="bottom">
+		<a class="text-muted" target="_blank" href="http://tt-rss.org/">Tiny Tiny RSS</a>
+			<span title="<?php echo htmlspecialchars($last_error) ?>">v<?php echo $version ?></span>
         &copy; 2005-<?php echo date('Y') ?>
         <a class="text-muted" target="_blank"
         href="http://fakecake.org/">Andrew Dolgov</a>
