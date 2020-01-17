@@ -66,11 +66,12 @@
 	define_default('MAX_CONDITIONAL_INTERVAL', 3600*12);
 	// max interval between forced unconditional updates for servers
 	// not complying with http if-modified-since (seconds)
-	define_default('MAX_FETCH_REQUESTS_PER_HOST', 25);
+	// define_default('MAX_FETCH_REQUESTS_PER_HOST', 25);
 	// a maximum amount of allowed HTTP requests per destination host
 	// during a single update (i.e. within PHP process lifetime)
 	// this is used to not cause excessive load on the origin server on
 	// e.g. feed subscription when all articles are being processes
+	// (not implemented)
 
 	/* tunables end here */
 
@@ -243,10 +244,10 @@
 		$url_host = parse_url($url, PHP_URL_HOST);
 		$fetch_domain_hits[$url_host] += 1;
 
-		if ($fetch_domain_hits[$url_host] > MAX_FETCH_REQUESTS_PER_HOST) {
+		/*if ($fetch_domain_hits[$url_host] > MAX_FETCH_REQUESTS_PER_HOST) {
 			user_error("Exceeded fetch request quota for $url_host: " . $fetch_domain_hits[$url_host], E_USER_WARNING);
 			#return false;
-		}
+		}*/
 
 		if (!defined('NO_CURL') && function_exists('curl_init') && !ini_get("open_basedir")) {
 
