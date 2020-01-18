@@ -156,14 +156,14 @@ define(["dojo/_base/declare"], function (declare) {
 					comments_msg = hl.num_comments + " " + ngettext("comment", "comments", hl.num_comments)
 				}
 
-				comments = `<a href="${hl.comments}">(${comments_msg})</a>`;
+				comments = `<a href="${escapeHtml(hl.comments)}">(${comments_msg})</a>`;
 			}
 
 			return comments;
 		},
 		formatOriginallyFrom: function(hl) {
 			return hl.orig_feed ? `<span>
-					${__('Originally from:')} <a target="_blank" rel="noopener noreferrer" href="${hl.orig_feed[1]}">${hl.orig_feed[0]}</a>
+					${__('Originally from:')} <a target="_blank" rel="noopener noreferrer" href="${escapeHtml(hl.orig_feed[1])}">${hl.orig_feed[0]}</a>
 					</span>` : "";
 		},
 		unpack: function(row) {
@@ -197,7 +197,9 @@ define(["dojo/_base/declare"], function (declare) {
 					const article = `<div class="post post-${hl.id}">
 						<div class="header">
 							<div class="row">
-								<div class="title"><a target="_blank" rel="noopener noreferrer" title="${hl.title}" href="${hl.link}">${hl.title}</a></div>
+								<div class="title"><a target="_blank" rel="noopener noreferrer"
+									title="${escapeHtml(hl.title)}"
+									href="${escapeHtml(hl.link)}">${hl.title}</a></div>
 								<div class="date">${hl.updated_long}</div>
 							</div>
 							<div class="row">

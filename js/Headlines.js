@@ -444,9 +444,15 @@ define(["dojo/_base/declare"], function (declare) {
 				const comments = Article.formatComments(hl);
 				const originally_from = Article.formatOriginallyFrom(hl);
 
-				row = `<div class="cdm ${row_class} ${Article.getScoreClass(hl.score)}" id="RROW-${hl.id}" data-article-id="${hl.id}" data-orig-feed-id="${hl.feed_id}" 
-							data-content="${escapeHtml(hl.content)}" data-score="${hl.score}"  data-article-title="${hl.title}"
-							onmouseover="Article.mouseIn(${hl.id})" onmouseout="Article.mouseOut(${hl.id})">
+				row = `<div class="cdm ${row_class} ${Article.getScoreClass(hl.score)}"
+							id="RROW-${hl.id}"
+							data-article-id="${hl.id}"
+							data-orig-feed-id="${hl.feed_id}"
+							data-content="${escapeHtml(hl.content)}"
+							data-score="${hl.score}"
+							data-article-title="${escapeHtml(hl.title)}"
+							onmouseover="Article.mouseIn(${hl.id})"
+							onmouseout="Article.mouseOut(${hl.id})">
 							
 							<div class="header">
 								<div class="left">
@@ -456,7 +462,7 @@ define(["dojo/_base/declare"], function (declare) {
 								</div>
 								
 								<span onclick="return Headlines.click(event, ${hl.id});" data-article-id="${hl.id}" class="titleWrap hlMenuAttach">
-									<a class="title" title="${hl.title}" target="_blank" rel="noopener noreferrer" href="${hl.link}">
+									<a class="title" title="${escapeHtml(hl.title)}" target="_blank" rel="noopener noreferrer" href="${escapeHtml(hl.link)}">
 										${hl.title}</a>
 									<span class="author">${hl.author}</span>
 									${hl.labels}
@@ -473,7 +479,7 @@ define(["dojo/_base/declare"], function (declare) {
 								<div class="right">                        
 									<i class="material-icons icon-score" title="${hl.score}" onclick="Article.setScore(${hl.id}, this)">${Article.getScorePic(hl.score)}</i>
 								
-									<span style="cursor : pointer" title="${hl.feed_title}" onclick="Feeds.open({feed:${hl.feed_id}})">
+									<span style="cursor : pointer" title="${escapeHtml(hl.feed_title)}" onclick="Feeds.open({feed:${hl.feed_id}})">
 										${hl.feed_icon}</span>
 								</div>
 										
@@ -508,8 +514,14 @@ define(["dojo/_base/declare"], function (declare) {
 
 
 			} else {
-				row = `<div class="hl ${row_class} ${Article.getScoreClass(hl.score)}" data-orig-feed-id="${hl.feed_id}" data-article-id="${hl.id}" id="RROW-${hl.id}" 
-					data-score="${hl.score}" onmouseover="Article.mouseIn(${hl.id})" onmouseout="Article.mouseOut(${hl.id})">
+				row = `<div class="hl ${row_class} ${Article.getScoreClass(hl.score)}"
+					id="RROW-${hl.id}"
+					data-orig-feed-id="${hl.feed_id}"
+					data-article-id="${hl.id}"
+					data-score="${hl.score}"
+					data-article-title="${escapeHtml(hl.title)}"
+					onmouseover="Article.mouseIn(${hl.id})"
+					onmouseout="Article.mouseOut(${hl.id})">
 				<div class="left">
 					<input dojoType="dijit.form.CheckBox" type="checkbox" onclick="Headlines.onRowChecked(this)" class='rchk'>
 				    <i class="marked-pic marked-${hl.id} material-icons" onclick="Headlines.toggleMark(${hl.id})">star</i>
@@ -517,7 +529,7 @@ define(["dojo/_base/declare"], function (declare) {
 				</div>
 				<div onclick="return Headlines.click(event, ${hl.id})" class="title">
 					<span data-article-id="${hl.id}" class="hl-content hlMenuAttach">
-						<a class="title" href="${hl.link}">${hl.title} <span class="preview">${hl.content_preview}</span></a>
+						<a class="title" href="${escapeHtml(hl.link)}">${hl.title} <span class="preview">${hl.content_preview}</span></a>
 						<span class="author">${hl.author}</span>
 						${hl.labels}
 					</span>
@@ -530,7 +542,7 @@ define(["dojo/_base/declare"], function (declare) {
 				</div>
 				<div class="right">
 				  <i class="material-icons icon-score" title="${hl.score}" onclick="Article.setScore(${hl.id}, this)">${Article.getScorePic(hl.score)}</i>
-				  <span onclick="Feeds.open({feed:${hl.feed_id}})" style="cursor : pointer" title="${hl.feed_title}">${hl.feed_icon}</span>
+				  <span onclick="Feeds.open({feed:${hl.feed_id}})" style="cursor : pointer" title="${escapeHtml(hl.feed_title)}">${hl.feed_icon}</span>
 				</div>
 			  </div>
 			`;
