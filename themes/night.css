@@ -1600,100 +1600,6 @@ body.ttrss_utility fieldset > label.checkbox {
   display: inline;
   font-weight: normal;
 }
-body.ttrss_utility.sanity_failed {
-  background: #900;
-}
-body.ttrss_utility {
-  background: #222;
-  color: #ccc;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  margin: 4em;
-}
-body.ttrss_utility .content {
-  background: white;
-  border: 1px solid #ddd;
-  padding: 20px;
-  box-shadow: 0px 1px 1px -1px rgba(0, 0, 0, 0.1);
-}
-body.ttrss_utility .content h2:first-of-type {
-  margin-top: 0;
-}
-body.ttrss_utility .content h2,
-body.ttrss_utility .content h3,
-body.ttrss_utility .content h4 {
-  color: #b87d2c;
-  font-family: "Segoe WP Semibold", "Segoe UI Semibold", "Segoe UI Web Semibold", "Segoe UI", Ubuntu, "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-body.ttrss_utility .content h2 {
-  font-size: 18px;
-}
-body.ttrss_utility .content h3 {
-  font-size: 16px;
-}
-body.ttrss_utility a {
-  color: #b87d2c;
-  text-decoration: none;
-}
-body.ttrss_utility a:hover,
-body.ttrss_utility a:focus {
-  color: #664518;
-  text-decoration: underline;
-}
-body.ttrss_utility h1 {
-  color: gray;
-  font-family: "Segoe WP Semibold", "Segoe UI Semibold", "Segoe UI Web Semibold", "Segoe UI", Ubuntu, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 18px;
-  margin: 10px 0 0 0;
-}
-body.ttrss_utility .footer {
-  text-align: center;
-  padding-top: 10px;
-}
-body.ttrss_utility .footer a {
-  color: gray;
-}
-body.ttrss_utility .footer a:hover {
-  color: #b87d2c;
-}
-body.ttrss_utility form {
-  margin: 0;
-}
-body.ttrss_utility.otp .content fieldset > label {
-  display: inline;
-}
-body.ttrss_utility.ttrss_login {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-body.ttrss_utility.ttrss_login .container {
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-body.ttrss_utility.ttrss_login .container .content {
-  padding: 40px;
-}
-body.ttrss_utility.installer,
-body.ttrss_utility.feed_debugger {
-  margin: 2em;
-}
-body.ttrss_utility.share_popup {
-  margin: 0;
-  padding: 0;
-  background: white;
-}
-body.ttrss_utility.share_popup .content {
-  padding: 15px;
-  border-width: 0;
-  box-shadow: none;
-}
 .flat li {
   padding: 2px;
 }
@@ -1841,6 +1747,167 @@ body.ttrss_utility.share_popup .content {
   -moz-osx-font-smoothing: grayscale;
   /* Support for IE. */
   font-feature-settings: 'liga';
+}
+body.ttrss_utility.sanity_failed {
+  background: #900;
+}
+body.ttrss_utility {
+  background: #222;
+  color: #ccc;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  margin: 4em;
+}
+body.ttrss_utility .content {
+  background: #333;
+  border: 1px solid #222;
+  padding: 20px;
+  box-shadow: 0px 1px 1px -1px rgba(0, 0, 0, 0.1);
+}
+body.ttrss_utility .content h2:first-of-type {
+  margin-top: 0;
+}
+body.ttrss_utility .content h2,
+body.ttrss_utility .content h3,
+body.ttrss_utility .content h4 {
+  color: #b87d2c;
+  font-family: "Segoe WP Semibold", "Segoe UI Semibold", "Segoe UI Web Semibold", "Segoe UI", Ubuntu, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+body.ttrss_utility .content h2 {
+  font-size: 18px;
+}
+body.ttrss_utility .content h3 {
+  font-size: 16px;
+}
+body.ttrss_utility a {
+  color: #b87d2c;
+  text-decoration: none;
+}
+body.ttrss_utility a:hover,
+body.ttrss_utility a:focus {
+  color: #664518;
+  text-decoration: underline;
+}
+body.ttrss_utility h1 {
+  color: gray;
+  font-family: "Segoe WP Semibold", "Segoe UI Semibold", "Segoe UI Web Semibold", "Segoe UI", Ubuntu, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  margin: 10px 0 0 0;
+}
+body.ttrss_utility .footer {
+  text-align: center;
+  padding-top: 10px;
+}
+body.ttrss_utility .footer a {
+  color: gray;
+}
+body.ttrss_utility .footer a:hover {
+  color: #b87d2c;
+}
+body.ttrss_utility form {
+  margin: 0;
+}
+body.ttrss_utility.otp .content fieldset > label {
+  display: inline;
+}
+body.ttrss_utility.ttrss_login {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body.ttrss_utility.ttrss_login .container {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+body.ttrss_utility.ttrss_login .container .content {
+  padding: 40px;
+}
+body.ttrss_utility.installer,
+body.ttrss_utility.feed_debugger {
+  margin: 2em;
+}
+body.ttrss_utility.share_popup {
+  margin: 0;
+  padding: 0;
+  background: white;
+}
+body.ttrss_utility.share_popup .content {
+  padding: 15px;
+  border-width: 0;
+  box-shadow: none;
+}
+body.ttrss_zoom {
+  max-width: 900px;
+  margin: 2em auto;
+}
+body.ttrss_zoom div.post {
+  border: 1px solid #222;
+  background: #333;
+  box-shadow: 0px 1px 1px -1px rgba(0, 0, 0, 0.1);
+}
+body.ttrss_zoom div.post .attachments {
+  display: none;
+}
+body.ttrss_zoom div.post div.header {
+  padding-bottom: 10px;
+  border: 0px solid #222;
+  border-bottom-width: 1px;
+  background: #333;
+  font-size: 12px;
+  color: #ccc;
+}
+body.ttrss_zoom div.post div.header .row {
+  display: flex;
+  margin-bottom: 4px;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+body.ttrss_zoom div.post p {
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
+body.ttrss_zoom div.post div.content {
+  font-size: 15px;
+  line-height: 1.5;
+  border-width: 0;
+  padding: 0;
+}
+body.ttrss_zoom div.post div.content img,
+body.ttrss_zoom div.post div.content video {
+  max-width: 760px;
+  height: auto;
+}
+body.ttrss_zoom div.post div.content blockquote {
+  margin: 5px 0px 5px 0px;
+  color: #ccc;
+  padding-left: 10px;
+  border: 0px solid #222;
+  border-left-width: 4px;
+}
+body.ttrss_zoom div.post div.content code {
+  color: #009900;
+  font-family: monospace;
+  font-size: 12px;
+}
+body.ttrss_zoom div.post div.content pre {
+  margin: 5px 0px 5px 0px;
+  padding: 10px;
+  color: #ccc;
+  font-family: monospace;
+  font-size: 12px;
+  border: 0px solid #ccc;
+  background: #222;
+  display: block;
+  max-width: 98%;
+  overflow: auto;
 }
 body.flat.ttrss_main.ttrss_prefs #main,
 body.flat.ttrss_main.ttrss_prefs #footer {

@@ -366,7 +366,18 @@ class Handler_Public extends Handler {
                     <html><head>
                     <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
                     <title>".$line["title"]."</title>".
-                    stylesheet_tag("css/default.css")."
+					javascript_tag("lib/prototype.js").
+					javascript_tag("js/utility.js")."
+					<style type='text/css'>
+                    @media (prefers-color-scheme: dark) {
+						body {
+							background : #222;
+						}
+					}
+                    body.css_loading * {
+						display : none;
+					}                   
+					</style>
                     <link rel='shortcut icon' type='image/png' href='images/favicon.png'>
                     <link rel='icon' type='image/png' sizes='72x72' href='images/favicon-72px.png'>";
 
@@ -389,7 +400,7 @@ class Handler_Public extends Handler {
                 $rv .= "<meta property='og:image' content=\"" . htmlspecialchars($og_image) . "\"/>";
             }
 
-            $rv .= "<body class='flat ttrss_utility ttrss_zoom'>";
+            $rv .= "<body class='flat ttrss_utility ttrss_zoom css_loading'>";
             $rv .= "<div class='container'>";
 
 			if ($line["link"]) {

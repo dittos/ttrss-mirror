@@ -3,8 +3,8 @@ body.ttrss_zoom {
 	margin : 2em auto;
 
 	div.post {
-		border : 1px solid #ddd;
-		background : white;
+		border : 1px solid @border-default;
+		background : @default-bg;
 		box-shadow : 0px 1px 1px -1px rgba(0,0,0,0.1);
 
 		.attachments {
@@ -13,11 +13,11 @@ body.ttrss_zoom {
 
 		div.header {
 			padding-bottom : 10px;
-			border: 0px solid #eee;
+			border: 0px solid @border-default;
 			border-bottom-width: 1px;
-			background : white;
+			background : @default-bg;
 			font-size : 12px;
-			color : #555;
+			color : @default-text;
 
 			.row {
 				display : flex;
@@ -49,7 +49,7 @@ body.ttrss_zoom {
 				margin : 5px 0px 5px 0px;
 				color : @default-text;
 				padding-left : 10px;
-				border: 0px solid #ccc;
+				border: 0px solid @border-default;
 				border-left-width: 4px;
 			}
 

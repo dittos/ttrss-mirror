@@ -1864,7 +1864,7 @@ body.ttrss_zoom div.post .attachments {
 }
 body.ttrss_zoom div.post div.header {
   padding-bottom: 10px;
-  border: 0px solid #eee;
+  border: 0px solid #ddd;
   border-bottom-width: 1px;
   background: white;
   font-size: 12px;
@@ -1897,7 +1897,7 @@ body.ttrss_zoom div.post div.content blockquote {
   margin: 5px 0px 5px 0px;
   color: #555;
   padding-left: 10px;
-  border: 0px solid #ccc;
+  border: 0px solid #ddd;
   border-left-width: 4px;
 }
 body.ttrss_zoom div.post div.content code {
