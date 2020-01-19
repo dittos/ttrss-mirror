@@ -791,16 +791,25 @@ class Feeds extends Handler_Protected {
 		<!DOCTYPE html>
 		<html>
 		<head>
-			<?php echo stylesheet_tag("css/default.css") ?>
 			<title>Feed Debugger</title>
+			<style type='text/css'>
+				@media (prefers-color-scheme: dark) {
+					body {
+						background : #222;
+					}
+				}
+				body.css_loading * {
+					display : none;
+				}
+			</style>
 			<?php
-				echo stylesheet_tag("css/default.css");
 				echo javascript_tag("lib/prototype.js");
+				echo javascript_tag("js/utility.js");
 				echo javascript_tag("lib/dojo/dojo.js");
 				echo javascript_tag("lib/dojo/tt-rss-layer.js");
 			?>
 		</head>
-		<body class="flat ttrss_utility feed_debugger">
+		<body class="flat ttrss_utility feed_debugger css_loading">
 		<script type="text/javascript">
 			require(['dojo/parser', "dojo/ready", 'dijit/form/Button','dijit/form/CheckBox', 'dijit/form/Form',
 				'dijit/form/Select','dijit/form/TextBox','dijit/form/ValidationTextBox'],function(parser, ready){
