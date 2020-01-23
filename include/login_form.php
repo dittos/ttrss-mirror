@@ -3,26 +3,39 @@
 <html>
 <head>
 	<title>Tiny Tiny RSS : Login</title>
-	<?php echo stylesheet_tag("css/default.css") ?>
 	<link rel="shortcut icon" type="image/png" href="images/favicon.png">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<?php
 	foreach (array("lib/prototype.js",
 				"lib/dojo/dojo.js",
 				"lib/dojo/tt-rss-layer.js",
-				"js/common.js",
+				"lib/prototype.js",
+			 	"js/common.js",
+				"js/utility.js",
 				"errors.php?mode=js") as $jsfile) {
 
 		echo javascript_tag($jsfile);
 
 	} ?>
 
+	<style type="text/css">
+		@media (prefers-color-scheme: dark) {
+			body {
+				background : #303030;
+			}
+		}
+
+		body.css_loading * {
+			display : none;
+		}
+	</style>
+
 	<script type="text/javascript">
 		require({cache:{}});
 	</script>
 </head>
 
-<body class="flat ttrss_utility ttrss_login">
+<body class="flat ttrss_utility ttrss_login css_loading">
 
 <script type="text/javascript">
 require(['dojo/parser', "dojo/ready", 'dijit/form/Button','dijit/form/CheckBox', 'dijit/form/Form',

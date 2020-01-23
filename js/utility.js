@@ -1,3 +1,5 @@
+/* TODO: this should probably be something like night_mode.js since it does nothing specific to utility scripts */2
+
 Event.observe(window, "load", function() {
     const UtilityJS = {
         apply_night_mode: function (is_night, link) {
