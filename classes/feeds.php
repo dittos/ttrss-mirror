@@ -1330,7 +1330,7 @@ class Feeds extends Handler_Protected {
 
 			return $unread;
 		} else if ($cat == -1) {
-			return getFeedUnread(-1) + getFeedUnread(-2) + getFeedUnread(-3) + getFeedUnread(0);
+			return 0;
 		} else if ($cat == -2) {
 
 			$sth = $pdo->prepare("SELECT COUNT(unread) AS unread FROM
