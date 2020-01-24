@@ -197,6 +197,10 @@ require(["dojo/_base/kernel",
 					document.title = tmp;
 				},
 				onViewModeChanged: function() {
+					const view_mode = document.forms["toolbar-main"].view_mode.value;
+
+					$$("body")[0].setAttribute("view-mode", view_mode);
+
 					return Feeds.reloadCurrent('');
 				},
 				isCombinedMode: function() {
