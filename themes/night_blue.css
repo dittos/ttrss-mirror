@@ -867,6 +867,9 @@ body.ttrss_main .dijitDialog h3:first-of-type,
 body.ttrss_main .dijitDialog h4:first-of-type {
   margin-top: 0px;
 }
+body.ttrss_main[view-mode="marked"] .dijitTreeRow.Has_Marked .dijitTreeLabel {
+  color: #257aa7;
+}
 body.ttrss_main #toolbar-headlines i.icon-syndicate {
   color: #ff7c4b;
   margin-right: 8px;
