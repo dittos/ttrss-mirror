@@ -85,7 +85,7 @@ class Counters {
 			WHERE f.id = ue.feed_id AND ue.owner_uid = :uid
 			GROUP BY f.id");
 
-		$sth->execute([$_SESSION['uid']]);
+		$sth->execute(["uid" => $_SESSION['uid']]);
 
 		while ($line = $sth->fetch()) {
 
