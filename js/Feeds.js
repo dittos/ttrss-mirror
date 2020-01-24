@@ -58,7 +58,6 @@ define(["dojo/_base/declare"], function (declare) {
 				const error = elems[l].error;
 				const has_img = elems[l].has_img;
 				const updated = elems[l].updated;
-				const auxctr = parseInt(elems[l].auxcounter);
 
 				if (id == "global-unread") {
 					App.global_unread = ctr;
@@ -76,7 +75,8 @@ define(["dojo/_base/declare"], function (declare) {
 				}*/
 
 				this.setUnread(id, (kind == "cat"), ctr);
-				this.setValue(id, (kind == "cat"), 'auxcounter', auxctr);
+				this.setValue(id, (kind == "cat"), 'auxcounter', parseInt(elems[l].auxcounter));
+				this.setValue(id, (kind == "cat"), 'markedcounter', parseInt(elems[l].markedcounter));
 
 				if (kind != "cat") {
 					this.setValue(id, false, 'error', error);
