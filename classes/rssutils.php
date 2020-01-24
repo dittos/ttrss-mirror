@@ -1469,26 +1469,12 @@ class RSSUtils {
 			mb_strtolower(strip_tags($title), 'utf-8'));
 	}
 
+	/* counter cache is no longer used, if called truncate leftover data */
 	static function cleanup_counters_cache() {
 		$pdo = Db::pdo();
 
-		$res = $pdo->query("DELETE FROM ttrss_counters_cache
-			WHERE feed_id > 0 AND
-			(SELECT COUNT(id) FROM ttrss_feeds WHERE
-				id = feed_id AND
-				ttrss_counters_cache.owner_uid = ttrss_feeds.owner_uid) = 0");
-
-		$frows = $res->rowCount();
-
-		$res = $pdo->query("DELETE FROM ttrss_cat_counters_cache
-			WHERE feed_id > 0 AND
-			(SELECT COUNT(id) FROM ttrss_feed_categories WHERE
-				id = feed_id AND
-				ttrss_cat_counters_cache.owner_uid = ttrss_feed_categories.owner_uid) = 0");
-
-		$crows = $res->rowCount();
-
-		Debug::log("Removed $frows (feeds) $crows (cats) orphaned counter cache entries.");
+		$pdo->query("DELETE FROM ttrss_counters_cache");
+		$pdo->query("DELETE FROM ttrss_cat_counters_cache");
 	}
 
 	static function housekeeping_user($owner_uid) {

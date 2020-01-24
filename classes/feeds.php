@@ -457,8 +457,6 @@ class Feeds extends Handler_Protected {
 		$sth = $this->pdo->prepare("UPDATE ttrss_user_entries SET
 						last_read = NOW(), unread = false WHERE unread = true AND owner_uid = ?");
 		$sth->execute([$_SESSION['uid']]);
-
-		CCache::zero_all($_SESSION["uid"]);
 	}
 
 	function view() {
@@ -510,13 +508,6 @@ class Feeds extends Handler_Protected {
 		if ($sth && !$sth->fetch()) {
 			print json_encode($this->generate_error_feed(__("Feed not found.")));
 			return;
-		}
-
-		/* Updating a label ccache means recalculating all of the caches
-		 * so for performance reasons we don't do that here */
-
-		if ($feed >= 0) {
-			CCache::update($feed, $_SESSION["uid"], $cat_view);
 		}
 
 		set_pref("_DEFAULT_VIEW_MODE", $view_mode);
@@ -1013,8 +1004,6 @@ class Feeds extends Handler_Protected {
 
 			}
 
-			CCache::update($feed, $owner_uid, $cat_view);
-
 		} else { // tag
 			$sth = $pdo->prepare("UPDATE ttrss_user_entries
 				SET unread = false, last_read = NOW() WHERE ref_id IN
@@ -1381,12 +1370,14 @@ class Feeds extends Handler_Protected {
 
 		$pdo = Db::pdo();
 
-		$sth = $pdo->prepare("SELECT SUM(value) AS c_id FROM ttrss_counters_cache
-			WHERE owner_uid = ? AND feed_id > 0");
+		$sth = $pdo->prepare("SELECT SUM(CASE WHEN unread THEN 1 ELSE 0 END) AS count 
+			FROM ttrss_user_entries ue 
+			WHERE ue.owner_uid = ?");
+
 		$sth->execute([$user_id]);
 		$row = $sth->fetch();
 
-		return $row["c_id"];
+		return $row["count"];
 	}
 
 	static function getCategoryTitle($cat_id) {
@@ -2116,9 +2107,6 @@ class Feeds extends Handler_Protected {
 		}
 
 		if ($purge_interval == -1 || !$purge_interval) {
-			if ($owner_uid) {
-				CCache::update($feed_id, $owner_uid);
-			}
 			return;
 		}
 
@@ -2162,8 +2150,6 @@ class Feeds extends Handler_Protected {
 		}
 
 		$rows = $sth->rowCount();
-
-		CCache::update($feed_id, $owner_uid);
 
 		Debug::log("Purged feed $feed_id ($purge_interval): deleted $rows articles");
 

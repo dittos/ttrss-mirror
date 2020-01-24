@@ -27,69 +27,6 @@ class Article extends Handler_Protected {
 		}
 	}
 
-	/*
-	function view() {
-		$id = clean($_REQUEST["id"]);
-		$cids = explode(",", clean($_REQUEST["cids"]));
-		$mode = clean($_REQUEST["mode"]);
-
-		// in prefetch mode we only output requested cids, main article
-		// just gets marked as read (it already exists in client cache)
-
-		$articles = array();
-
-		if ($mode == "") {
-			array_push($articles, $this->format_article($id, false));
-		} else if ($mode == "zoom") {
-			array_push($articles, $this->format_article($id, true, true));
-		} else if ($mode == "raw") {
-			if (isset($_REQUEST['html'])) {
-				header("Content-Type: text/html");
-				print '<link rel="stylesheet" type="text/css" href="css/default.css"/>';
-			}
-
-			$article = $this->format_article($id, false, isset($_REQUEST["zoom"]));
-			print $article['content'];
-			return;
-		}
-
-		$this->catchupArticleById($id, 0);
-
-		if (!$_SESSION["bw_limit"]) {
-			foreach ($cids as $cid) {
-				if ($cid) {
-					array_push($articles, $this->format_article($cid, false, false));
-				}
-			}
-		}
-
-		print json_encode($articles);
-	} */
-
-	/*
-	private function catchupArticleById($id, $cmode) {
-
-		if ($cmode == 0) {
-			$sth = $this->pdo->prepare("UPDATE ttrss_user_entries SET
-			unread = false,last_read = NOW()
-			WHERE ref_id = ? AND owner_uid = ?");
-		} else if ($cmode == 1) {
-            $sth = $this->pdo->prepare("UPDATE ttrss_user_entries SET
-			unread = true
-			WHERE ref_id = ? AND owner_uid = ?");
-		} else {
-            $sth = $this->pdo->prepare("UPDATE ttrss_user_entries SET
-			unread = NOT unread,last_read = NOW()
-			WHERE ref_id = ? AND owner_uid = ?");
-		}
-
-		$sth->execute([$id, $_SESSION['uid']]);
-
-		$feed_id = $this->getArticleFeed($id);
-		CCache::update($feed_id, $_SESSION["uid"]);
-	}
-	*/
-
 	static function create_published_article($title, $url, $content, $labels_str,
 			$owner_uid) {
 
@@ -718,16 +655,6 @@ class Article extends Handler_Protected {
 		}
 
 		$sth->execute(array_merge($ids, [$owner_uid]));
-
-		/* update ccache */
-
-		$sth = $pdo->prepare("SELECT DISTINCT feed_id FROM ttrss_user_entries
-			WHERE ref_id IN ($ids_qmarks) AND owner_uid = ?");
-		$sth->execute(array_merge($ids, [$owner_uid]));
-
-		while ($line = $sth->fetch()) {
-			CCache::update($line["feed_id"], $owner_uid);
-		}
 	}
 
 	static function getLastArticleId() {

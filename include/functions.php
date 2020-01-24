@@ -731,24 +731,7 @@
 			if ($_SESSION["uid"]) {
 				startup_gettext();
 				load_user_plugins($_SESSION["uid"]);
-
-				/* cleanup ccache */
-
-				$sth = $pdo->prepare("DELETE FROM ttrss_counters_cache WHERE owner_uid = ?
-					AND
-						(SELECT COUNT(id) FROM ttrss_feeds WHERE
-							ttrss_feeds.id = feed_id) = 0");
-
-				$sth->execute([$_SESSION['uid']]);
-
-				$sth = $pdo->prepare("DELETE FROM ttrss_cat_counters_cache WHERE owner_uid = ?
-					AND
-						(SELECT COUNT(id) FROM ttrss_feed_categories WHERE
-							ttrss_feed_categories.id = feed_id) = 0");
-
-				$sth->execute([$_SESSION['uid']]);
 			}
-
 		}
 	}
 

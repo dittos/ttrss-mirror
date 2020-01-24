@@ -1389,17 +1389,11 @@ class Pref_Feeds extends Handler_Protected {
 		$obj = array();
 		$cat_id = (int) $cat_id;
 
-		if ($cat_id > 0) {
-			$cat_unread = CCache::find($cat_id, $_SESSION["uid"], true);
-		} else if ($cat_id == 0 || $cat_id == -2) {
-			$cat_unread = Feeds::getCategoryUnread($cat_id);
-		}
-
 		$obj['id'] = 'CAT:' . $cat_id;
 		$obj['items'] = array();
 		$obj['name'] = Feeds::getCategoryTitle($cat_id);
 		$obj['type'] = 'category';
-		$obj['unread'] = (int) $cat_unread;
+		$obj['unread'] = (int) Feeds::getCategoryUnread($cat_id);
 		$obj['bare_id'] = $cat_id;
 
 		return $obj;
@@ -1562,12 +1556,9 @@ class Pref_Feeds extends Handler_Protected {
 	}
 
 	private function remove_feed_category($id, $owner_uid) {
-
 		$sth = $this->pdo->prepare("DELETE FROM ttrss_feed_categories
 			WHERE id = ? AND owner_uid = ?");
 		$sth->execute([$id, $owner_uid]);
-
-		CCache::remove($id, $owner_uid, true);
 	}
 
 	static function remove_feed($id, $owner_uid) {
@@ -1640,11 +1631,8 @@ class Pref_Feeds extends Handler_Protected {
 				unlink(ICONS_DIR . "/$id.ico");
 			}
 
-			CCache::remove($id, $owner_uid);
-
 		} else {
 			Labels::remove(Labels::feed_to_label_id($id), $owner_uid);
-			//CCache::remove($id, $owner_uid); don't think labels are cached
 		}
 	}
 
