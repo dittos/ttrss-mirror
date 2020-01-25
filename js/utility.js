@@ -21,6 +21,9 @@ Event.observe(window, "load", function() {
 
             link.onload = function() {
                 document.querySelector("body").removeClassName("css_loading");
+
+                if (typeof UtilityApp != "undefined")
+                    UtilityApp.init();
             };
 
             try {

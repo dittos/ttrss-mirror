@@ -38,40 +38,50 @@
 <body class="flat ttrss_utility ttrss_login css_loading">
 
 <script type="text/javascript">
-require(['dojo/parser', "dojo/ready", 'dijit/form/Button','dijit/form/CheckBox', 'dijit/form/Form',
-    'dijit/form/Select','dijit/form/TextBox','dijit/form/ValidationTextBox'],function(parser, ready){
-        ready(function() {
-            parser.parse();
+	const UtilityApp = {
+        previousLogin: "",
+	    init: function() { /* invoked by UtilityJS */
+            require(['dojo/parser', "dojo/ready", 'dijit/form/Button','dijit/form/CheckBox', 'dijit/form/Form',
+                'dijit/form/Select','dijit/form/TextBox','dijit/form/ValidationTextBox'],function(parser, ready){
+                ready(function() {
+					parser.parse();
 
-            dijit.byId("bw_limit").attr("checked", Cookie.get("ttrss_bwlimit") == 'true');
-            dijit.byId("login").focus();
-        });
-});
+					dijit.byId("bw_limit").attr("checked", Cookie.get("ttrss_bwlimit") == 'true');
+					dijit.byId("login").focus();
+                });
+            });
+		},
+        fetchProfiles: function() {
+	        const login = dijit.byId("login").attr('value');
 
-function fetchProfiles() {
-    xhrJson("public.php", { op: "getprofiles", login: dijit.byId("login").attr('value') },
-        (reply) => {
-			const profile = dijit.byId('profile');
+	        if (login && login != this.previousLogin) {
+                this.previousLogin = login;
 
-			profile.removeOption(profile.getOptions());
+                xhrJson("public.php", {op: "getprofiles", login: login},
+                    (reply) => {
+                        const profile = dijit.byId('profile');
 
-			reply.each((p) => {
-				profile
-        			.attr("disabled", false)
-					.addOption(p);
-			});
-		});
-}
+                        profile.removeOption(profile.getOptions());
 
-function gotoRegForm() {
-	window.location.href = "register.php";
-	return false;
-}
+                        reply.each((p) => {
+                            profile
+                                .attr("disabled", false)
+                                .addOption(p);
+                        });
+                    });
+            }
+	    },
+        gotoRegForm: function() {
+        	window.location.href = "register.php";
+        	return false;
+    	},
+        bwLimitChange: function(elem) {
+        	Cookie.set("ttrss_bwlimit", elem.checked,
+				<?php print SESSION_COOKIE_LIFETIME ?>);
+	    }
+    };
 
-function bwLimitChange(elem) {
-    Cookie.set("ttrss_bwlimit", elem.checked,
-        <?php print SESSION_COOKIE_LIFETIME ?>);
-}
+
 </script>
 
 <?php $return = urlencode(make_self_url()) ?>
@@ -93,7 +103,9 @@ function bwLimitChange(elem) {
 			<fieldset>
 				<label><?php echo __("Login:") ?></label>
 				<input name="login" id="login" dojoType="dijit.form.TextBox" type="text"
-					   onchange="fetchProfiles()" onfocus="fetchProfiles()" onblur="fetchProfiles()"
+					   onchange="UtilityApp.fetchProfiles()"
+					   onfocus="UtilityApp.fetchProfiles()"
+					   onblur="UtilityApp.fetchProfiles()"
 					   required="1" value="<?php echo $_SESSION["fake_login"] ?>" />
 			</fieldset>
 
@@ -103,6 +115,9 @@ function bwLimitChange(elem) {
 				<input type="password" name="password" required="1"
 					   dojoType="dijit.form.TextBox"
 					   class="input input-text"
+					   onchange="UtilityApp.fetchProfiles()"
+					   onfocus="UtilityApp.fetchProfiles()"
+					   onblur="UtilityApp.fetchProfiles()"
 					   value="<?php echo $_SESSION["fake_password"] ?>"/>
 			</fieldset>
 			<?php if (strpos(PLUGINS, "auth_internal") !== FALSE) { ?>
@@ -123,7 +138,7 @@ function bwLimitChange(elem) {
 				<label> </label>
 
 				<label id="bw_limit_label"><input dojoType="dijit.form.CheckBox" name="bw_limit" id="bw_limit"
-					  type="checkbox" onchange="bwLimitChange(this)">
+					  type="checkbox" onchange="UtilityApp.bwLimitChange(this)">
 					<?php echo __("Use less traffic") ?></label>
 			</fieldset>
 
@@ -151,7 +166,7 @@ function bwLimitChange(elem) {
 				<button dojoType="dijit.form.Button" type="submit" class="alt-primary"><?php echo __('Log in') ?></button>
 
 				<?php if (defined('ENABLE_REGISTRATION') && ENABLE_REGISTRATION) { ?>
-					<button onclick="return gotoRegForm()" dojoType="dijit.form.Button">
+					<button onclick="return UtilityApp.gotoRegForm()" dojoType="dijit.form.Button">
 						<?php echo __("Create new account") ?></button>
 				<?php } ?>
 			</fieldset>
