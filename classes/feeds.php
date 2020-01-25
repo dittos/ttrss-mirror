@@ -1298,46 +1298,26 @@ class Feeds extends Handler_Protected {
 
 		if ($cat >= 0) {
 
-		    if (!$cat) $cat = null;
-
-			$sth = $pdo->prepare("SELECT id FROM ttrss_feeds
-                    WHERE (cat_id = :cat OR (:cat IS NULL AND cat_id IS NULL))
-					AND owner_uid = :uid");
-
-			$sth->execute([":cat" => $cat, ":uid" => $owner_uid]);
-
-			$cat_feeds = array();
-			while ($line = $sth->fetch()) {
-				array_push($cat_feeds, "feed_id = " . (int)$line["id"]);
-			}
-
-			if (count($cat_feeds) == 0) return 0;
-
-			$match_part = implode(" OR ", $cat_feeds);
-
-			$sth = $pdo->prepare("SELECT COUNT(int_id) AS unread
+			$sth = $pdo->prepare("SELECT SUM(CASE WHEN unread THEN 1 ELSE 0 END) AS unread
 				FROM ttrss_user_entries
-				WHERE	unread = true AND ($match_part)
-				AND owner_uid = ?");
-			$sth->execute([$owner_uid]);
+				WHERE feed_id IN (SELECT id FROM ttrss_feeds
+                    WHERE (cat_id = :cat OR (:cat IS NULL AND cat_id IS NULL))
+					AND owner_uid = :uid)
+				AND owner_uid = :uid");
+			$sth->execute(["cat" => $cat ? $cat : null, "uid" => $owner_uid]);
+			$row = $sth->fetch();
 
-			$unread = 0;
+			return $row["unread"];
 
-			# this needs to be rewritten
-			while ($line = $sth->fetch()) {
-				$unread += $line["unread"];
-			}
-
-			return $unread;
 		} else if ($cat == -1) {
 			return 0;
 		} else if ($cat == -2) {
 
-			$sth = $pdo->prepare("SELECT COUNT(unread) AS unread FROM
-					ttrss_user_entries, ttrss_user_labels2
-				WHERE article_id = ref_id AND unread = true
-					AND ttrss_user_entries.owner_uid = ?");
-			$sth->execute([$owner_uid]);
+			$sth = $pdo->prepare("SELECT SUM(CASE WHEN unread THEN 1 ELSE 0 END) AS unread FROM
+					ttrss_user_entries ue, ttrss_user_labels2 l
+				WHERE article_id = ref_id AND
+				  ue.owner_uid = :uid");
+			$sth->execute(["uid" => $owner_uid]);
             $row = $sth->fetch();
 
 			return $row["unread"];
@@ -1357,7 +1337,7 @@ class Feeds extends Handler_Protected {
 		$unread = 0;
 
 		while ($line = $sth->fetch()) {
-			$unread += Feeds::getCategoryUnread($line["id"], $owner_uid);
+			$unread += Feeds::getCategoryUnread($line["id"], $owner_uid) +
 			$unread += Feeds::getCategoryChildrenUnread($line["id"], $owner_uid);
 		}
 

@@ -48,7 +48,7 @@ class Counters {
 
 		while ($line = $sth->fetch()) {
 			if ($line["num_children"] > 0) {
-				$child_counter = Feeds::getCategoryChildrenUnread($line["cat_id"], $_SESSION["uid"]);
+				$child_counter = Feeds::getCategoryChildrenUnread($line["id"], $_SESSION["uid"]);
 			} else {
 				$child_counter = 0;
 			}
