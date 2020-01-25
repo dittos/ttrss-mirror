@@ -196,7 +196,8 @@ class Dlg extends Handler_Protected {
     	print_warning(__("You are using default tt-rss password. Please change it in the Preferences (Personal data / Authentication)."));
 
 		print "<footer class='text-center'>";
-		print "<button dojoType='dijit.form.Button' onclick=\"document.location.href = 'prefs.php'\">".
+		print "<button dojoType='dijit.form.Button' class='alt-primary'
+			onclick=\"document.location.href = 'prefs.php'\">".
 			__('Open Preferences')."</button> ";
 		print "<button dojoType='dijit.form.Button'
 			onclick=\"return dijit.byId('defaultPasswordDlg').hide();\">".
