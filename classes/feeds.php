@@ -1313,10 +1313,9 @@ class Feeds extends Handler_Protected {
 			return 0;
 		} else if ($cat == -2) {
 
-			$sth = $pdo->prepare("SELECT SUM(CASE WHEN unread THEN 1 ELSE 0 END) AS unread FROM
-					ttrss_user_entries ue, ttrss_user_labels2 l
-				WHERE article_id = ref_id AND
-				  ue.owner_uid = :uid");
+			$sth = $pdo->prepare("SELECT COUNT(DISTINCT article_id) AS unread 
+				FROM ttrss_user_entries ue, ttrss_user_labels2 l
+				WHERE article_id = ref_id AND unread IS true AND ue.owner_uid = :uid");
 			$sth->execute(["uid" => $owner_uid]);
             $row = $sth->fetch();
 
