@@ -1337,7 +1337,7 @@ class Feeds extends Handler_Protected {
 		$unread = 0;
 
 		while ($line = $sth->fetch()) {
-			$unread += Feeds::getCategoryUnread($line["id"], $owner_uid) +
+			$unread += Feeds::getCategoryUnread($line["id"], $owner_uid);
 			$unread += Feeds::getCategoryChildrenUnread($line["id"], $owner_uid);
 		}
 
