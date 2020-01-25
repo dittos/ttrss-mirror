@@ -199,7 +199,7 @@ class Dlg extends Handler_Protected {
 		print "<button dojoType='dijit.form.Button' onclick=\"document.location.href = 'prefs.php'\">".
 			__('Open Preferences')."</button> ";
 		print "<button dojoType='dijit.form.Button'
-			onclick=\"return CommonDialogs.closeInfoBox()\">".
+			onclick=\"return dijit.byId('defaultPasswordDlg').hide();\">".
 			__('Close this window')."</button>";
 		print "</footeer>";
 	}

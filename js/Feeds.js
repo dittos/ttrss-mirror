@@ -221,6 +221,9 @@ define(["dojo/_base/declare"], function (declare) {
 			if (App.getInitParam("is_default_pw")) {
 				console.warn("user password is at default value");
 
+				if (dijit.byId("defaultPasswordDlg"))
+					dijit.byId("defaultPasswordDlg").destroyRecursive();
+
 				const dialog = new dijit.Dialog({
 					title: __("Your password is at default value"),
 					href: "backend.php?op=dlg&method=defaultpasswordwarning",
