@@ -29,10 +29,10 @@ class Counters {
        			SUM(CASE WHEN marked THEN 1 ELSE 0 END) AS count_marked,
        			(SELECT COUNT(id) FROM ttrss_feed_categories fcc
        			WHERE fcc.parent_cat = fc.id) AS num_children
-			FROM ttrss_feed_categories fc, ttrss_feeds f, ttrss_user_entries ue
-			WHERE f.cat_id = fc.id AND
-			  ue.feed_id = f.id AND
-			  ue.owner_uid = :uid
+			FROM ttrss_feed_categories fc
+    			LEFT JOIN ttrss_feeds f ON (f.cat_id = fc.id)
+    			LEFT JOIN ttrss_user_entries ue ON (ue.feed_id = f.id)
+			WHERE fc.owner_uid = :uid
 			GROUP BY fc.id
 		UNION
 			SELECT 0,
