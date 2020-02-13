@@ -1282,6 +1282,7 @@
 
 			if ($entry->nodeName == 'img') {
 				$entry->setAttribute('referrerpolicy', 'no-referrer');
+				$entry->setAttribute('loading', 'lazy');
 
 				$entry->removeAttribute('width');
 				$entry->removeAttribute('height');
