@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Tiny Tiny RSS\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-17 15:00+0300\n"
-"PO-Revision-Date: 2019-12-21 21:37+0000\n"
+"PO-Revision-Date: 2020-02-16 13:27+0000\n"
 "Last-Translator: Dario Di Ludovico <dario@diludovico.it>\n"
 "Language-Team: Italian <https://weblate.tt-rss.org/projects/tt-rss/messages/"
 "it/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.7.1\n"
+"X-Generator: Weblate 3.10.3\n"
 
 #: backend.php:58
 msgid "Use default"
@@ -2185,6 +2185,9 @@ msgstr "Reimposta ai valori predefiniti"
 #, php-format
 msgid "The following plugins use per-feed content hooks. This may cause excessive data usage and origin server load resulting in a ban of your instance: <b>%s</b>"
 msgstr ""
+"I seguenti plugin utilizzano riferimenti specifici per feed. Questo può "
+"causare un eccessivo consumo di dati e carico del server di origine, che "
+"potrebbe portare al bando della tua macchina:<b>%s</b>"
 
 #: classes/pref/prefs.php:870
 msgid "System plugins"
@@ -2224,15 +2227,16 @@ msgstr "Si possono cambiare i colori, i caratteri e la disposizione del tema cor
 #: classes/pref/prefs.php:1141
 msgid "User CSS has been applied, you might need to reload the page to see all changes."
 msgstr ""
+"I CSS dell'utente sono stati selezionati, dovresti ricaricare la pagina per "
+"vedere i cambiamenti."
 
 #: classes/pref/prefs.php:1149
 msgid "Apply"
-msgstr ""
+msgstr "Applica"
 
 #: classes/pref/prefs.php:1151
-#, fuzzy
 msgid "Save and reload"
-msgstr "Segna gli articoli sopra come letti"
+msgstr "Salva e ricarica"
 
 #: classes/pref/prefs.php:1176
 msgid "Create profile"
@@ -2256,19 +2260,19 @@ msgid "Description"
 msgstr "Descrizione"
 
 #: classes/pref/prefs.php:1286
-#, fuzzy
 msgid "Created"
-msgstr "Crea"
+msgstr "Creato"
 
 #: classes/pref/prefs.php:1287
-#, fuzzy
 msgid "Last used"
-msgstr "Ultimo aggiornamento:"
+msgstr "Utilizzato per l'ultima volta"
 
 #: classes/pref/prefs.php:1340
 #, php-format
 msgid "Generated password <strong>%s</strong> for %s. Please remember it for future reference."
 msgstr ""
+"Password generata <strong>%s</strong> per %s. Per favore ricordala per il "
+"futuro."
 
 #: classes/pref/system.php:8
 #: classes/pref/users.php:6
@@ -2402,7 +2406,6 @@ msgid "Drop any updated filters into <code>filters.local</code> in plugin direct
 msgstr "Inserisci un filtro aggiornato all'interno di <code>filters.local</code> nella cartella dei plugin."
 
 #: plugins/af_proxy_http/init.php:212
-#, fuzzy
 msgid "Image proxy settings (af_proxy_http)"
 msgstr "Impostazioni per il proxy delle immagini (af_zz_imgproxy)"
 
@@ -2972,9 +2975,8 @@ msgid "Remove selected filters?"
 msgstr "Rimuovere i filtri selezionati?"
 
 #: js/PrefHelpers.js:17
-#, fuzzy
 msgid "Remove selected app passwords?"
-msgstr "Rimuovere le categorie selezionate?"
+msgstr "Rimuovere le password per le app selezionate?"
 
 #: js/PrefHelpers.js:42
 msgid "This will invalidate all previously generated feed URLs. Continue?"
