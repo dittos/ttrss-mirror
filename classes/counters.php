@@ -12,6 +12,26 @@ class Counters {
 		return $data;
 	}
 
+	static private function getCategoryChildrenCounters($cat_id, $owner_uid) {
+		$pdo = Db::pdo();
+
+		$sth = $pdo->prepare("SELECT id FROM ttrss_feed_categories WHERE parent_cat = ?
+				AND owner_uid = ?");
+		$sth->execute([$cat_id, $owner_uid]);
+
+		$unread = 0;
+		$marked = 0;
+
+		while ($line = $sth->fetch()) {
+			list ($tmp_unread, $tmp_marked) = Counters::getCategoryChildrenCounters($line["id"], $owner_uid);
+
+			$unread += $tmp_unread + Feeds::getCategoryUnread($line["id"], $owner_uid);
+			$marked += $tmp_marked + Feeds::getCategoryMarked($line["id"], $owner_uid);
+		}
+
+		return [$unread, $marked];
+	}
+
 	static function getCategoryCounters() {
 		$ret = [];
 
@@ -48,15 +68,16 @@ class Counters {
 
 		while ($line = $sth->fetch()) {
 			if ($line["num_children"] > 0) {
-				$child_counter = Feeds::getCategoryChildrenUnread($line["id"], $_SESSION["uid"]);
+				list ($child_counter, $child_marked_counter) = Counters::getCategoryChildrenCounters($line["id"], $_SESSION["uid"]);
 			} else {
 				$child_counter = 0;
+				$child_marked_counter = 0;
 			}
 
 			$cv = [
 				"id" => (int)$line["id"],
 				"kind" => "cat",
-				"markedcounter" => (int) $line["count_marked"],
+				"markedcounter" => (int) $line["count_marked"] + $child_marked_counter,
 				"counter" => (int) $line["count"] + $child_counter
 			];
 

@@ -1290,6 +1290,30 @@ class Feeds extends Handler_Protected {
 		}
 	}
 
+	// only real cats
+	static function getCategoryMarked($cat, $owner_uid = false) {
+
+		if (!$owner_uid) $owner_uid = $_SESSION["uid"];
+
+		$pdo = Db::pdo();
+
+		if ($cat >= 0) {
+
+			$sth = $pdo->prepare("SELECT SUM(CASE WHEN marked THEN 1 ELSE 0 END) AS marked
+				FROM ttrss_user_entries
+				WHERE feed_id IN (SELECT id FROM ttrss_feeds
+                    WHERE (cat_id = :cat OR (:cat IS NULL AND cat_id IS NULL))
+					AND owner_uid = :uid)
+				AND owner_uid = :uid");
+			$sth->execute(["cat" => $cat ? $cat : null, "uid" => $owner_uid]);
+			$row = $sth->fetch();
+
+			return $row["marked"];
+		} else {
+			return 0;
+		}
+	}
+
 	static function getCategoryUnread($cat, $owner_uid = false) {
 
 		if (!$owner_uid) $owner_uid = $_SESSION["uid"];
