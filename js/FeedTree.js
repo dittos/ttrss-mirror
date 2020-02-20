@@ -16,17 +16,14 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 
 			if (iconName) {
 				if (iconName.indexOf("/") == -1) {
-					iconNode = dojo.doc.createElement("i");
-					iconNode.className = "material-icons icon icon-" + iconName;
-					iconNode.innerHTML = iconName;
+					iconNode = dojo.create("i", { className: "material-icons icon icon-" + iconName, innerHTML: iconName });
 				} else {
-					iconNode = dojo.doc.createElement('img');
+					iconNode = dojo.create('img', { className: 'icon' });
 					if (args.item.icon && args.item.icon[0]) {
 						iconNode.src = args.item.icon[0];
 					} else {
 						iconNode.src = 'images/blank_icon.gif';
 					}
-					iconNode.className = 'icon';
 				}
 			}
 
@@ -37,12 +34,11 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 			const bare_id = parseInt(id.substr(id.indexOf(':')+1));
 
 			if (bare_id < _label_base_index) {
-				const label = dojo.doc.createElement('i');
+				const label = dojo.create('i', { className: "material-icons icon icon-label", innerHTML: "label" });
+
 				//const fg_color = args.item.fg_color[0];
 				const bg_color = args.item.bg_color[0];
 
-				label.className = "material-icons icon icon-label";
-				label.innerHTML = "label";
 				label.setStyle({
 					color: bg_color,
 					});
@@ -73,12 +69,6 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 							window.open("backend.php?op=feeds&method=update_debugger&feed_id=" + this.getParent().row_id +
 								"&csrf_token=" + App.getInitParam("csrf_token"));
 						}}));
-
-					/* menu.addChild(new dijit.MenuItem({
-					 label: __("Update feed"),
-					 onClick: function() {
-					 heduleFeedUpdate(this.getParent().row_id, false);
-					 }})); */
 				}
 
 				menu.bindDomNode(tnode.domNode);
@@ -106,11 +96,8 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 			}
 
 			if (id.match("CAT:")) {
-				loading = dojo.doc.createElement('img');
-				loading.className = 'loadingNode';
-				loading.src = 'images/blank_icon.gif';
-				domConstruct.place(loading, tnode.labelNode, 'after');
-				tnode.loadingNode = loading;
+				tnode.loadingNode = dojo.create('img', { className: 'loadingNode', src: 'images/blank_icon.gif'});
+				domConstruct.place(tnode.loadingNode, tnode.labelNode, 'after');
 			}
 
 			if (id.match("CAT:") && bare_id == -1) {
@@ -127,20 +114,15 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 				tnode._menu = menu;
 			}
 
-			ctr = dojo.doc.createElement('span');
-			ctr.className = 'counterNode';
-			ctr.innerHTML = args.item.unread > 0 ? args.item.unread : args.item.auxcounter;
+			tnode.markedCounterNode = dojo.create('span', { className: 'counterNode marked', innerHTML: args.item.markedcounter });
+			domConstruct.place(tnode.markedCounterNode, tnode.rowNode, 'first');
 
-			//args.item.unread > 0 ? ctr.addClassName("unread") : ctr.removeClassName("unread");
+			tnode.auxCounterNode = dojo.create('span', { className: 'counterNode aux', innerHTML: args.item.auxcounter });
+			domConstruct.place(tnode.auxCounterNode, tnode.rowNode, 'first');
 
-			args.item.unread > 0 || args.item.auxcounter > 0 ? Element.show(ctr) : Element.hide(ctr);
+			tnode.unreadCounterNode = dojo.create('span', { className: 'counterNode unread', innerHTML: args.item.unread });
+			domConstruct.place(tnode.unreadCounterNode, tnode.rowNode, 'first');
 
-			args.item.unread <= 0 && args.item.auxcounter > 0 ? ctr.addClassName("aux") : ctr.removeClassName("aux");
-
-			domConstruct.place(ctr, tnode.rowNode, 'first');
-			tnode.counterNode = ctr;
-
-			//tnode.labelNode.innerHTML = args.label;
 			return tnode;
 		},
 		postCreate: function() {
@@ -156,26 +138,15 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 
 			//console.log("updateCounter: " + item.id[0] + " " + item.unread + " " + tree);
 
-			let node = tree._itemNodesMap[item.id];
+			let treeNode = tree._itemNodesMap[item.id];
 
-			if (node) {
-				node = node[0];
+			if (treeNode) {
+				treeNode = treeNode[0];
 
-				if (node.counterNode) {
-					ctr = node.counterNode;
-					ctr.innerHTML = item.unread > 0 ? item.unread : item.auxcounter;
-					item.unread > 0 || item.auxcounter > 0 ?
-						item.unread > 0 ?
-							Effect.Appear(ctr, {duration : 0.3,
-								queue: { position: 'end', scope: 'CAPPEAR-' + item.id, limit: 1 }}) :
-							Element.show(ctr) :
-						Element.hide(ctr);
-
-					item.unread <= 0 && item.auxcounter > 0 ? ctr.addClassName("aux") : ctr.removeClassName("aux");
-
-				}
+				treeNode.unreadCounterNode.innerHTML = item.unread;
+				treeNode.auxCounterNode.innerHTML = item.auxcounter;
+				treeNode.markedCounterNode.innerHTML = item.markedcounter;
 			}
-
 		},
 		getTooltip: function (item) {
 			return [item.updated, item.error].filter(x => x && x != "").join(" - ");
@@ -191,6 +162,7 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 				"dijitTreeRow Error";
 
 			if (item.unread > 0) rc += " Unread";
+			if (item.auxcounter > 0) rc += " Has_Aux";
 			if (item.markedcounter > 0) rc += " Has_Marked";
 			if (item.updates_disabled > 0) rc += " UpdatesDisabled";
 
@@ -269,6 +241,8 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 		selectFeed: function(feed, is_cat) {
 			this.findNodeParentsAndExpandThem(feed, is_cat, false, false);
 
+			let treeNode;
+
 			if (is_cat)
 				treeNode = this._itemNodesMap['CAT:' + feed];
 			else
@@ -300,6 +274,8 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 			}
 		},
 		setFeedIcon: function(feed, is_cat, src) {
+			let treeNode;
+
 			if (is_cat)
 				treeNode = this._itemNodesMap['CAT:' + feed];
 			else
@@ -307,15 +283,15 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 
 			if (treeNode) {
 				treeNode = treeNode[0];
-				const icon = dojo.doc.createElement('img');
-				icon.src = src;
-				icon.className = 'icon';
+				const icon = dojo.create('img', { src: src, className: 'icon' });
 				domConstruct.place(icon, treeNode.iconNode, 'only');
 				return true;
 			}
 			return false;
 		},
 		setFeedExpandoIcon: function(feed, is_cat, src) {
+			let treeNode;
+
 			if (is_cat)
 				treeNode = this._itemNodesMap['CAT:' + feed];
 			else
@@ -327,9 +303,7 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 					treeNode.loadingNode.src = src;
 					return true;
 				} else {
-					const icon = dojo.doc.createElement('img');
-					icon.src = src;
-					icon.className = 'loadingExpando';
+					const icon = dojo.create('img', { src: src, className: 'loadingExpando' });
 					domConstruct.place(icon, treeNode.expandoNode, 'only');
 					return true;
 				}
@@ -460,6 +434,8 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 			return rv;
 		},
 		getNextFeed: function (feed, is_cat) {
+			let treeItem;
+
 			if (is_cat) {
 				treeItem = this.model.store._itemsByIdentity['CAT:' + feed];
 			} else {
@@ -498,6 +474,8 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 			}
 		},
 		getPreviousFeed: function (feed, is_cat) {
+			let treeItem;
+
 			if (is_cat) {
 				treeItem = this.model.store._itemsByIdentity['CAT:' + feed];
 			} else {

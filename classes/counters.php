@@ -175,6 +175,9 @@ class Counters {
 				"auxcounter" => (int) $auxctr
 			];
 
+			if ($i == -1)
+				$cv["markedcounter"] = $auxctr;
+
 			array_push($ret, $cv);
 		}
 
@@ -205,7 +208,8 @@ class Counters {
 
 		$sth = $pdo->prepare("SELECT id,
        			caption,
-       			SUM(CASE WHEN u1.unread = true THEN 1 ELSE 0 END) AS unread,
+       			SUM(CASE WHEN u1.unread = true THEN 1 ELSE 0 END) AS count_unread,
+       			SUM(CASE WHEN u1.marked = true THEN 1 ELSE 0 END) AS count_marked,
        			COUNT(u1.unread) AS total
 			FROM ttrss_labels2 LEFT JOIN ttrss_user_labels2 ON
 				(ttrss_labels2.id = label_id)
@@ -220,8 +224,9 @@ class Counters {
 
 			$cv = [
 				"id" => $id,
-				"counter" => (int) $line["unread"],
-				"auxcounter" => (int) $line["total"]
+				"counter" => (int) $line["count_unread"],
+				"auxcounter" => (int) $line["total"],
+				"markedcounter" => (int) $line["count_marked"]
 			];
 
 			if ($descriptions)

@@ -646,15 +646,20 @@ body.ttrss_main {
 			text-rendering: optimizelegibility;
 			font-family : @fonts-ui;
 
-			.counterNode.aux {
+			.counterNode.aux, .counterNode.marked {
 				background : @color-panel-bg;
 				color : lighten(@default-text, 10%);
 				border-color : darken(@color-panel-bg, 10%);
 			}
 
+			.counterNode.marked {
+				border-color : @color-accent-marked;
+				background : lighten(@color-accent-marked, 60%);
+			}
+
 			.counterNode {
 				font-weight : bold;
-				display : inline-block;
+				display : none;
 				font-size : 9px;
 				text-align : center;
 				border : 1px solid lighten(@color-accent, 5%);;
@@ -1024,8 +1029,22 @@ body.ttrss_main .dijitDialog {
 	}
 }
 
-body.ttrss_main[view-mode="marked"] .dijitTreeRow.Has_Marked .dijitTreeLabel {
-	color : @color-accent-marked;
+body.ttrss_main[view-mode="marked"] #feeds-holder #feedTree {
+	.dijitTreeRow.Has_Marked .dijitTreeLabel {
+		color : @color-accent-marked;
+	}
+	.dijitTreeRow.Has_Marked .counterNode.marked {
+		display : inline-block;
+	}
+}
+
+body.ttrss_main:not([view-mode="marked"]) #feeds-holder #feedTree {
+	.dijitTreeRow.Unread .counterNode.unread {
+		display : inline-block;
+	}
+	.dijitTreeRow.Has_Aux:not(.Unread) .counterNode.aux {
+		display : inline-block;
+	}
 }
 
 body.ttrss_main {

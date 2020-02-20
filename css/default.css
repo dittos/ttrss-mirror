@@ -554,14 +554,18 @@ body.ttrss_main #feeds-holder #feedTree {
   text-rendering: optimizelegibility;
   font-family: "Segoe UI", Ubuntu, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-body.ttrss_main #feeds-holder #feedTree .counterNode.aux {
+body.ttrss_main #feeds-holder #feedTree .counterNode.aux,
+body.ttrss_main #feeds-holder #feedTree .counterNode.marked {
   background: #f5f5f5;
   color: #6f6f6f;
   border-color: #dcdcdc;
 }
+body.ttrss_main #feeds-holder #feedTree .counterNode.marked {
+  border-color: #257aa7;
+}
 body.ttrss_main #feeds-holder #feedTree .counterNode {
   font-weight: bold;
-  display: inline-block;
+  display: none;
   font-size: 9px;
   text-align: center;
   border: 1px solid #2a89bc;
@@ -866,8 +870,17 @@ body.ttrss_main .dijitDialog h3:first-of-type,
 body.ttrss_main .dijitDialog h4:first-of-type {
   margin-top: 0px;
 }
-body.ttrss_main[view-mode="marked"] .dijitTreeRow.Has_Marked .dijitTreeLabel {
+body.ttrss_main[view-mode="marked"] #feeds-holder #feedTree .dijitTreeRow.Has_Marked .dijitTreeLabel {
   color: #257aa7;
+}
+body.ttrss_main[view-mode="marked"] #feeds-holder #feedTree .dijitTreeRow.Has_Marked .counterNode.marked {
+  display: inline-block;
+}
+body.ttrss_main:not([view-mode="marked"]) #feeds-holder #feedTree .dijitTreeRow.Unread .counterNode.unread {
+  display: inline-block;
+}
+body.ttrss_main:not([view-mode="marked"]) #feeds-holder #feedTree .dijitTreeRow.Has_Aux:not(.Unread) .counterNode.aux {
+  display: inline-block;
 }
 body.ttrss_main #toolbar-headlines i.icon-syndicate {
   color: #ff7c4b;

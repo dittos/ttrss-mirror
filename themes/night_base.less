@@ -65,10 +65,14 @@ body.flat.ttrss_main {
 		box-shadow : inset -1px 0px 2px -1px @border-light;
 
 		#feedTree {
-			.counterNode.aux {
+			.counterNode.aux, .counterNode.marked {
 				background: @color-panel-bg;
 				color: @default-text;
 				border-color: @default-bg;
+			}
+
+			.counterNode.marked {
+				border-color : @color-accent-marked;
 			}
 
 			.dijitTreeRowSelected {
