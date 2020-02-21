@@ -163,7 +163,7 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 			if (item.auxcounter > 0) rc += " Has_Aux";
 			if (item.markedcounter > 0) rc += " Has_Marked";
 			if (item.updates_disabled > 0) rc += " UpdatesDisabled";
-			if (item.bare_id < 0 || item.bare_id == 0 && !is_cat) rc += " Special";
+			if (item.bare_id < 0 && !is_cat || item.bare_id == 0 && !is_cat) rc += " Special";
 			if (item.bare_id == -1 && is_cat) rc += " AlwaysVisible";
 
 			return rc;
