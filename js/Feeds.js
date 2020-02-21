@@ -288,11 +288,14 @@ define(["dojo/_base/declare"], function (declare) {
 				App.setInitParam("hide_read_feeds", hide);
 			});
 		},
-		hideOrShowFeeds: function(hide) {
-			const tree = dijit.byId("feedTree");
+		hideOrShowFeeds: function (hide) {
+			/*const tree = dijit.byId("feedTree");
 
 			if (tree)
-				return tree.hideRead(hide, App.getInitParam("hide_read_shows_special"));
+				return tree.hideRead(hide, App.getInitParam("hide_read_shows_special"));*/
+
+			$$("body")[0].setAttribute("hide-read-feeds", !!hide);
+			$$("body")[0].setAttribute("hide-read-shows-special", !!App.getInitParam("hide_read_shows_special"));
 		},
 		open: function(params) {
 			const feed = params.feed;

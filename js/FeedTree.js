@@ -127,10 +127,6 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 		},
 		postCreate: function() {
 			this.connect(this.model, "onChange", "updateCounter");
-			this.connect(this, "_expandNode", function() {
-				this.hideRead(App.getInitParam("hide_read_feeds"), App.getInitParam("hide_read_shows_special"));
-			});
-
 			this.inherited(arguments);
 		},
 		updateCounter: function (item) {
@@ -158,13 +154,17 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 			return (item.unread <= 0) ? "dijitTreeLabel" : "dijitTreeLabel Unread";
 		},
 		getRowClass: function (item, opened) {
-			let rc = (!item.error || item.error == '') ? "dijitTreeRow" :
-				"dijitTreeRow Error";
+			let rc = "dijitTreeRow";
 
+			const is_cat = String(item.id).indexOf('CAT:') != -1;
+
+			if (!is_cat && item.error != '') rc += " Error";
 			if (item.unread > 0) rc += " Unread";
 			if (item.auxcounter > 0) rc += " Has_Aux";
 			if (item.markedcounter > 0) rc += " Has_Marked";
 			if (item.updates_disabled > 0) rc += " UpdatesDisabled";
+			if (item.bare_id < 0 || item.bare_id == 0 && !is_cat) rc += " Special";
+			if (item.bare_id == -1 && is_cat) rc += " AlwaysVisible";
 
 			return rc;
 		},
@@ -177,14 +177,6 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 			name = name.replace(/&mdash;/g, "-");
 			name = name.replace(/&lt;/g, "<");
 			name = name.replace(/&gt;/g, ">");
-
-			/* var label;
-
-			 if (item.unread > 0) {
-			 label = name + " (" + item.unread + ")";
-			 } else {
-			 label = name;
-			 } */
 
 			return name;
 		},
@@ -314,77 +306,6 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 		hasCats: function() {
 			return this.model.hasCats();
 		},
-		hideReadCat: function (cat, hide, show_special) {
-			if (this.hasCats()) {
-				const tree = this;
-
-				if (cat && cat.items) {
-					let cat_unread = tree.hideReadFeeds(cat.items, hide, show_special);
-
-					const id = String(cat.id);
-					const node = tree._itemNodesMap[id];
-					const bare_id = parseInt(id.substr(id.indexOf(":")+1));
-
-					if (node) {
-						const check_unread = tree.model.getFeedUnread(bare_id, true);
-
-						if (hide && cat_unread <= 0 && check_unread <= 0 && (id != "CAT:-1" || !show_special)) {
-							Effect.Fade(node[0].rowNode, {duration : 0.3,
-								queue: { position: 'end', scope: 'FFADE-' + id, limit: 1 }});
-						} else {
-							Element.show(node[0].rowNode);
-							++cat_unread;
-						}
-					}
-				}
-			}
-		},
-		hideRead: function (hide, show_special) {
-			if (this.hasCats()) {
-
-				const tree = this;
-				const cats = this.model.store._arrayOfTopLevelItems;
-
-				cats.each(function(cat) {
-					tree.hideReadCat(cat, hide, show_special);
-				});
-
-			} else {
-				this.hideReadFeeds(this.model.store._arrayOfTopLevelItems, hide,
-					show_special);
-			}
-		},
-		hideReadFeeds: function (items, hide, show_special) {
-			const tree = this;
-			let cat_unread = 0;
-
-			items.each(function(feed) {
-				const id = String(feed.id);
-
-				// it's a subcategory
-				if (feed.items) {
-					tree.hideReadCat(feed, hide, show_special);
-				} else {	// it's a feed
-					const bare_id = parseInt(feed.bare_id);
-
-					const unread = feed.unread[0];
-					const has_error = feed.error[0] != '';
-					const node = tree._itemNodesMap[id];
-
-					if (node) {
-						if (hide && unread <= 0 && !has_error && (bare_id > 0 || bare_id < _label_base_index || !show_special)) {
-							Effect.Fade(node[0].rowNode, {duration : 0.3,
-								queue: { position: 'end', scope: 'FFADE-' + id, limit: 1 }});
-						} else {
-							Element.show(node[0].rowNode);
-							++cat_unread;
-						}
-					}
-				}
-			});
-
-			return cat_unread;
-		},
 		collapseCat: function(id) {
 			if (!this.model.hasCats()) return;
 
@@ -400,38 +321,6 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 					tree._collapseNode(node);
 
 			}
-		},
-		getVisibleUnreadFeeds: function() {
-			const items = this.model.store._arrayOfAllItems;
-			const rv = [];
-
-			for (let i = 0; i < items.length; i++) {
-				const id = String(items[i].id);
-				const box = this._itemNodesMap[id];
-
-				if (box) {
-					const row = box[0].rowNode;
-					let cat = false;
-
-					try {
-						cat = box[0].rowNode.parentNode.parentNode;
-					} catch (e) { }
-
-					if (row) {
-						if (Element.visible(row) && (!cat || Element.visible(cat))) {
-							const feed_id = String(items[i].bare_id);
-							const is_cat = !id.match('FEED:');
-							const unread = this.model.getFeedUnread(feed_id, is_cat);
-
-							if (unread > 0)
-								rv.push([feed_id, is_cat]);
-
-						}
-					}
-				}
-			}
-
-			return rv;
 		},
 		getNextFeed: function (feed, is_cat) {
 			let treeItem;
