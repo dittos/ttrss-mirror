@@ -367,7 +367,7 @@ define(["dojo/_base/declare"], function (declare) {
 					if (params.hasOwnProperty(k)) {
 						switch (k) {
 							case "label_base_index":
-								_label_base_index = parseInt(params[k]);
+								LABEL_BASE_INDEX = parseInt(params[k]);
 								break;
 							case "cdm_auto_catchup":
 								if (params[k] == 1) {

@@ -1,7 +1,7 @@
 'use strict'
 /* global dijit, __ */
 
-let _label_base_index = -1024;
+let LABEL_BASE_INDEX = -1024; /* not const because it's assigned at least once (by backend) */
 let loading_progress = 0;
 
 /* error reporting shim */
@@ -252,12 +252,12 @@ function displayIfChecked(checkbox, elemId) {
 
 // noinspection JSUnusedGlobalSymbols
 function label_to_feed_id(label) {
-	return _label_base_index - 1 - Math.abs(label);
+	return LABEL_BASE_INDEX - 1 - Math.abs(label);
 }
 
 // noinspection JSUnusedGlobalSymbols
 function feed_to_label_id(feed) {
-	return _label_base_index - 1 + Math.abs(feed);
+	return LABEL_BASE_INDEX - 1 + Math.abs(feed);
 }
 
 // http://stackoverflow.com/questions/6251937/how-to-get-selecteduser-highlighted-text-in-contenteditable-element-and-replac
