@@ -562,6 +562,7 @@ body.ttrss_main #feeds-holder #feedTree .counterNode.marked {
 }
 body.ttrss_main #feeds-holder #feedTree .counterNode.marked {
   border-color: #257aa7;
+  background: #ffffff;
 }
 body.ttrss_main #feeds-holder #feedTree .counterNode {
   font-weight: bold;
@@ -876,11 +877,23 @@ body.ttrss_main[view-mode="marked"] #feeds-holder #feedTree .dijitTreeRow.Has_Ma
 body.ttrss_main[view-mode="marked"] #feeds-holder #feedTree .dijitTreeRow.Has_Marked .counterNode.marked {
   display: inline-block;
 }
+body.ttrss_main[view-mode="marked"][hide-read-feeds="true"][hide-read-shows-special="true"] #feeds-holder #feedTree .dijitTreeRow:not(.dijitTreeRowSelected):not(.AlwaysVisible):not(.Special):not(.Has_Marked) {
+  display: none;
+}
+body.ttrss_main[view-mode="marked"][hide-read-feeds="true"][hide-read-shows-special="false"] #feeds-holder #feedTree .dijitTreeRow:not(.dijitTreeRowSelected):not(.AlwaysVisible):not(.Has_Marked) {
+  display: none;
+}
 body.ttrss_main:not([view-mode="marked"]) #feeds-holder #feedTree .dijitTreeRow.Unread .counterNode.unread {
   display: inline-block;
 }
 body.ttrss_main:not([view-mode="marked"]) #feeds-holder #feedTree .dijitTreeRow.Has_Aux:not(.Unread) .counterNode.aux {
   display: inline-block;
+}
+body.ttrss_main:not([view-mode="marked"])[hide-read-feeds="true"][hide-read-shows-special="true"] #feeds-holder #feedTree .dijitTreeRow:not(.dijitTreeRowSelected):not(.Unread):not(.AlwaysVisible):not(.Special) {
+  display: none;
+}
+body.ttrss_main:not([view-mode="marked"])[hide-read-feeds="true"][hide-read-shows-special="false"] #feeds-holder #feedTree .dijitTreeRow:not(.dijitTreeRowSelected):not(.Unread):not(.AlwaysVisible) {
+  display: none;
 }
 body.ttrss_main #toolbar-headlines i.icon-syndicate {
   color: #ff7c4b;
