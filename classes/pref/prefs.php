@@ -674,12 +674,12 @@ class Pref_Prefs extends Handler_Protected {
 						$themes = array_filter($themes, "theme_exists");
 						asort($themes);
 
-						if (!theme_exists($value)) $value = "default.php";
+						if (!theme_exists($value)) $value = "";
 
 						print "<select name='$pref_name' id='$pref_name' dojoType='fox.form.Select'>";
 
-						$issel = $value == "default.php" ? "selected='selected'" : "";
-						print "<option $issel value='default.php'>".__("default")."</option>";
+						$issel = $value == "" ? "selected='selected'" : "";
+						print "<option $issel value=''>".__("default")."</option>";
 
 						foreach ($themes as $theme) {
 							$issel = $value == $theme ? "selected='selected'" : "";

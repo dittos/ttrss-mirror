@@ -523,7 +523,7 @@ class Handler_Public extends Handler {
 		<head>
 			<title><?php echo __("Share with Tiny Tiny RSS") ?></title>
 			<?php
-			echo stylesheet_tag("css/default.css");
+			echo stylesheet_tag("themes/light.css");
 			echo javascript_tag("lib/prototype.js");
 			echo javascript_tag("lib/dojo/dojo.js");
 			echo javascript_tag("lib/dojo/tt-rss-layer.js");
@@ -731,7 +731,7 @@ class Handler_Public extends Handler {
 			<head>
 				<title>Tiny Tiny RSS</title>
 				<?php
-					echo stylesheet_tag("css/default.css");
+					echo stylesheet_tag("themes/light.css");
 					echo javascript_tag("lib/prototype.js");
 					echo javascript_tag("lib/dojo/dojo.js");
 					echo javascript_tag("lib/dojo/tt-rss-layer.js");
@@ -873,7 +873,7 @@ class Handler_Public extends Handler {
 			<link rel="icon" type="image/png" sizes="72x72" href="images/favicon-72px.png">
 			<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 			<?php
-				echo stylesheet_tag("css/default.css");
+				echo stylesheet_tag("themes/light.css");
 				echo javascript_tag("lib/prototype.js");
 				echo javascript_tag("lib/dojo/dojo.js");
 				echo javascript_tag("lib/dojo/tt-rss-layer.js");
@@ -1074,11 +1074,11 @@ class Handler_Public extends Handler {
 			<head>
 			<title>Database Updater</title>
 			<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-			<?php echo stylesheet_tag("css/default.css") ?>
+			<?php echo stylesheet_tag("themes/light.css") ?>
 			<link rel="shortcut icon" type="image/png" href="images/favicon.png">
 			<link rel="icon" type="image/png" sizes="72x72" href="images/favicon-72px.png">
 			<?php
-				echo stylesheet_tag("css/default.css");
+				echo stylesheet_tag("themes/light.css");
 				echo javascript_tag("lib/prototype.js");
 				echo javascript_tag("lib/dojo/dojo.js");
 				echo javascript_tag("lib/dojo/tt-rss-layer.js");

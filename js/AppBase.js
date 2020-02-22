@@ -20,7 +20,7 @@ define(["dojo/_base/declare"], function (declare) {
 			console.log("night mode changed to", is_night);
 
 			if (link) {
-				const css_override = is_night ? "themes/night.css" : "css/default.css";
+				const css_override = is_night ? "themes/night.css" : "themes/light.css";
 				link.setAttribute("href", css_override + "?" + Date.now());
 			}
 		},

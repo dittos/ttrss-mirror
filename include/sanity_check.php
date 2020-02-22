@@ -207,7 +207,7 @@
 			<head>
 			<title>Startup failed</title>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-				<link rel="stylesheet" type="text/css" href="css/default.css">
+				<link rel="stylesheet" type="text/css" href="themes/light.css">
 			</head>
 		<body class='sanity_failed claro ttrss_utility'>
 			<div class="content">

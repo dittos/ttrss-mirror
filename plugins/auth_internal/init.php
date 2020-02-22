@@ -64,7 +64,7 @@ class Auth_Internal extends Plugin implements IAuthModule {
 								<title>Tiny Tiny RSS</title>
 								<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 							</head>
-							<?php echo stylesheet_tag("css/default.css") ?>
+							<?php echo stylesheet_tag("themes/light.css") ?>
 						<body class="ttrss_utility otp">
 						<h1><?php echo __("Authentication") ?></h1>
 						<div class="content">

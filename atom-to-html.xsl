@@ -9,7 +9,7 @@
 <html>
 	<head>
 		<title><xsl:value-of select="atom:title"/></title>
-		<link rel="stylesheet" type="text/css" href="css/default.css"/>
+		<link rel="stylesheet" type="text/css" href="themes/light.css"/>
 		<script language="javascript" src="lib/xsl_mop-up.js"></script>
 	</head>
 

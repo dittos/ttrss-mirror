@@ -1,5 +1,3 @@
-/* we can't simply include default.less here because then phpstorm watcher would consider this the only
-  master file to generate css for, so it duplicates default.less more or less */
 @import "../lib/flat-ttrss/flat_combined.css";
 body.ttrss_main,
 body.ttrss_prefs,

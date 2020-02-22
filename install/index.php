@@ -31,7 +31,7 @@
 		textarea { font-size : 12px; }
 	</style>
 	<?php
-		echo stylesheet_tag("../css/default.css");
+		echo stylesheet_tag("../themes/light.css");
 		echo javascript_tag("../lib/prototype.js");
 		echo javascript_tag("../lib/dojo/dojo.js");
 		echo javascript_tag("../lib/dojo/tt-rss-layer.js");
