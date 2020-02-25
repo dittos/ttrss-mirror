@@ -2008,6 +2008,9 @@ body.flat.ttrss_main #feeds-holder #feedTree .dijitTreeRowSelected {
 body.flat.ttrss_main #feeds-holder #feedTree .dijitTreeRowSelected .dijitTreeLabel {
   text-shadow: none;
 }
+body.flat.ttrss_main #feeds-holder #feedTree i.icon.icon-inbox {
+  color: #AAA;
+}
 body.flat.ttrss_main #floatingTitle {
   background-color: #333;
 }
