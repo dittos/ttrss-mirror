@@ -1578,7 +1578,7 @@ body.ttrss_prefs .prefErrorLog tr .timestamp {
   color: #ccc;
 }
 body.ttrss_prefs hr {
-  border-color: #ecf4ff;
+  border-color: #222;
   max-width: 100%;
 }
 body.ttrss_prefs .phpinfo table {
@@ -2181,5 +2181,8 @@ body.flat.ttrss_main ::-webkit-scrollbar-track {
 body.flat.ttrss_main .alert {
   background: #222;
   border-color: #133d54;
+}
+body.ttrss_prefs hr {
+  border-color: #666;
 }
 /*# sourceMappingURL=night_blue.css.map */

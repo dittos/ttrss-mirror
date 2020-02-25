@@ -1577,7 +1577,7 @@ body.ttrss_prefs .prefErrorLog tr .timestamp {
   color: #555;
 }
 body.ttrss_prefs hr {
-  border-color: #ecf4ff;
+  border-color: #ddd;
   max-width: 100%;
 }
 body.ttrss_prefs .phpinfo table {
