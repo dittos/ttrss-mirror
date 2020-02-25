@@ -2009,7 +2009,7 @@ body.flat.ttrss_main #feeds-holder #feedTree .dijitTreeRowSelected .dijitTreeLab
   text-shadow: none;
 }
 body.flat.ttrss_main #feeds-holder #feedTree i.icon.icon-inbox {
-  color: #AAA;
+  color: #999999;
 }
 body.flat.ttrss_main #floatingTitle {
   background-color: #333;
