@@ -52,7 +52,7 @@ class Af_Comics extends Plugin {
 
 		print "<p>" . __("The following comics are currently supported:") . "</p>";
 
-		$comics = ["GoComics", "The Far Side"];
+		$comics = ["GoComics", "The Far Side (needs cache media)"];
 
 		foreach ($this->filters as $f) {
 			foreach ($f->supported() as $comic) {
