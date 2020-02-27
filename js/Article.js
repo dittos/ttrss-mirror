@@ -194,7 +194,7 @@ define(["dojo/_base/declare"], function (declare) {
 					const comments = this.formatComments(hl);
 					const originally_from = this.formatOriginallyFrom(hl);
 
-					const article = `<div class="post post-${hl.id}">
+					const article = `<div class="post post-${hl.id}" data-article-id="${hl.id}">
 						<div class="header">
 							<div class="row">
 								<div class="title"><a target="_blank" rel="noopener noreferrer"

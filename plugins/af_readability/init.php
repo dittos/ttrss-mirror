@@ -38,12 +38,22 @@ class Af_Readability extends Plugin {
 		$host->add_hook($host::HOOK_PREFS_TAB, $this);
 		$host->add_hook($host::HOOK_PREFS_EDIT_FEED, $this);
 		$host->add_hook($host::HOOK_PREFS_SAVE_FEED, $this);
+		$host->add_hook($host::HOOK_ARTICLE_BUTTON, $this);
 
 		// Note: we have to install the hook even if disabled because init() is being run before plugin data has loaded
 		// so we can't check for our storage-set options here
 		$host->add_hook($host::HOOK_GET_FULL_TEXT, $this);
 
 		$host->add_filter_action($this, "action_inline", __("Inline content"));
+	}
+
+	function get_js() {
+		return file_get_contents(__DIR__ . "/init.js");
+	}
+
+	function hook_article_button($line) {
+		return "<i class='material-icons' onclick=\"Plugins.Af_Readability.embed(".$line["id"].")\"
+			style='cursor : pointer' title='".__('Get full article text')."'>description</i>";
 	}
 
 	function hook_prefs_tab($args) {
@@ -282,6 +292,21 @@ class Af_Readability extends Plugin {
 		}
 
 		return $tmp;
+	}
+
+	function embed() {
+		$article_id = (int) $_REQUEST["param"];
+
+		$sth = $this->pdo->prepare("SELECT link FROM ttrss_entries WHERE id = ?");
+		$sth->execute([$article_id]);
+
+		$ret = [];
+
+		if ($row = $sth->fetch()) {
+			$ret["content"] = $this->extract_content($row["link"]);
+		}
+
+		print json_encode($ret);
 	}
 
 }

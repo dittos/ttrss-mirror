@@ -1,40 +1,17 @@
-Plugins.Note = {
-	edit: function(id) {
-		const query = "backend.php?op=pluginhandler&plugin=note&method=edit&param=" + encodeURIComponent(id);
+Plugins.Af_Readability = {
+	embed: function(id) {
+		Notify.progress("Loading, please wait...");
 
-		if (dijit.byId("editNoteDlg"))
-			dijit.byId("editNoteDlg").destroyRecursive();
+		xhrJson("backend.php",{ op: "pluginhandler", plugin: "af_readability", method: "embed", param: id }, (reply) => {
+			const content = $$(App.isCombinedMode() ? ".cdm[data-article-id=" + id + "] .content-inner" :
+				".post[data-article-id=" + id + "] .content")[0];
 
-		const dialog = new dijit.Dialog({
-			id: "editNoteDlg",
-			title: __("Edit article note"),
-			style: "width: 600px",
-			execute: function () {
-				if (this.validate()) {
-					Notify.progress("Saving article note...", true);
-
-					xhrJson("backend.php", this.attr('value'), (reply) => {
-						Notify.close();
-						dialog.hide();
-
-						if (reply) {
-							const elem = $("POSTNOTE-" + id);
-
-							if (elem) {
-								elem.innerHTML = reply.note;
-
-								if (reply.raw_length != 0)
-									Element.show(elem);
-								else
-									Element.hide(elem);
-							}
-						}
-					});
-				}
-			},
-			href: query,
+			if (content && reply.content) {
+				content.innerHTML = reply.content;
+				Notify.close();
+			} else {
+				Notify.error("Unable to fetch content for this article");
+			}
 		});
-
-		dialog.show();
 	}
 };
