@@ -206,7 +206,7 @@ class Af_Comics extends Plugin {
 						$tpl->setVariable('ARTICLE_CONTENT', "<p> " . $doc->saveHTML($content_node) . "</p>", true);
 
 						$tpl->setVariable('ARTICLE_AUTHOR', '', true);
-						$tpl->setVariable('ARTICLE_SOURCE_LINK', $article_link, true);
+						$tpl->setVariable('ARTICLE_SOURCE_LINK', htmlspecialchars($article_link), true);
 						$tpl->setVariable('ARTICLE_SOURCE_TITLE', "The Far Side", true);
 
 						$tpl->addBlock('entry');
