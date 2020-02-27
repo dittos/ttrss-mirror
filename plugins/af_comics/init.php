@@ -157,6 +157,8 @@ class Af_Comics extends Plugin {
 		} else if (preg_match("#^https?://www\.thefarside\.com#", $fetch_url)) {
 			require_once 'lib/MiniTemplator.class.php';
 
+			$article_link = htmlspecialchars("https://www.thefarside.com" . date('/Y/m/d'));
+
 			$tpl = new MiniTemplator();
 
 			$tpl->readTemplateFromFile('templates/generated_feed.txt');
@@ -166,7 +168,7 @@ class Af_Comics extends Plugin {
 			$tpl->setVariable('FEED_URL', htmlspecialchars($fetch_url), true);
 			$tpl->setVariable('SELF_URL', htmlspecialchars($fetch_url), true);
 
-			$body = fetch_file_contents(['url' => $fetch_url, 'type' => 'text/html', 'followlocation' => false]);
+			$body = fetch_file_contents(['url' => $article_link, 'type' => 'text/html', 'followlocation' => false]);
 
 			if ($body) {
 				$doc = new DOMDocument();
@@ -196,10 +198,8 @@ class Af_Comics extends Plugin {
 							$title = date('l, F d, Y');
 						}
 
-						$article_link = htmlspecialchars($fetch_url . "?" . date('/Y/m/d'));
-
-						$tpl->setVariable('ARTICLE_ID', $article_link, true);
-						$tpl->setVariable('ARTICLE_LINK', $article_link, true);
+						$tpl->setVariable('ARTICLE_ID', htmlspecialchars($article_link), true);
+						$tpl->setVariable('ARTICLE_LINK', htmlspecialchars($article_link), true);
 						$tpl->setVariable('ARTICLE_UPDATED_ATOM', date('c', mktime(11, 0, 0)), true);
 						$tpl->setVariable('ARTICLE_TITLE', htmlspecialchars($title), true);
 						$tpl->setVariable('ARTICLE_EXCERPT', '', true);
