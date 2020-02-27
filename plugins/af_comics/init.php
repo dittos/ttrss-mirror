@@ -190,8 +190,6 @@ class Af_Comics extends Plugin {
 
 						$title = $xpath->query('//h3')->item(0);
 
-						print htmlspecialchars($doc->saveHTML($content_node));
-
 						if ($title) {
 							$title = clean(trim($title->nodeValue));
 						} else {
