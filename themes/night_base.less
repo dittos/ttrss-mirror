@@ -17,6 +17,9 @@
 @fg-text-muted: darken(@default-text, 20%);
 @fg-light : lighten(@default-text, 10%);
 
+@color-alert-info : #3a87ad;
+@color-alert-danger : #b94a48;
+
 body.flat.ttrss_main.ttrss_prefs {
 	#main, #footer {
 		background: @color-panel-bg;
@@ -324,6 +327,17 @@ body.flat.ttrss_main {
 	.alert {
 		background: @color-panel-bg;
 		border-color : darken(@color-accent, 20%);
+		color : @color-accent;
+	}
+
+	.alert.alert-info {
+		color : @color-alert-info;
+		border-color: darken(@color-alert-info, 20%);
+	}
+
+	.alert.alert-danger {
+		color : @color-alert-danger;
+		border-color : darken(@color-alert-danger, 20%);
 	}
 
 }

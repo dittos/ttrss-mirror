@@ -2181,6 +2181,15 @@ body.flat.ttrss_main ::-webkit-scrollbar-track {
 body.flat.ttrss_main .alert {
   background: #222;
   border-color: #133d54;
+  color: #257aa7;
+}
+body.flat.ttrss_main .alert.alert-info {
+  color: #3a87ad;
+  border-color: #204b61;
+}
+body.flat.ttrss_main .alert.alert-danger {
+  color: #b94a48;
+  border-color: #702c2b;
 }
 body.ttrss_prefs hr {
   border-color: #666;
