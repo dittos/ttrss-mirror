@@ -476,12 +476,12 @@ require(["dojo/_base/kernel",
 					this.hotkey_actions["collapse_sidebar"] = function () {
 						Feeds.toggle();
 					};
-					this.hotkey_actions["toggle_embed_original"] = function () {
-						if (typeof embedOriginalArticle != "undefined") {
+					this.hotkey_actions["embed_full_text"] = function () {
+						if (typeof Plugins.Af_Readability != "undefined") {
 							if (Article.getActive())
-								embedOriginalArticle(Article.getActive());
+								Plugins.Af_Readability.embed(Article.getActive());
 						} else {
-							alert(__("Please enable embed_original plugin first."));
+							alert(__("Please enable af_readability first."));
 						}
 					};
 					this.hotkey_actions["toggle_widescreen"] = function () {

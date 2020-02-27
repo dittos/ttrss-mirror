@@ -1053,7 +1053,7 @@
 				"close_article" => __("Close/collapse article"),
 				"toggle_expand" => __("Toggle article expansion (combined mode)"),
 				"toggle_widescreen" => __("Toggle widescreen mode"),
-				"toggle_embed_original" => __("Toggle embed original")),
+				"embed_full_text" => __("Get full article text via Readability")),
 			__("Article selection") => array(
 				"select_all" => __("Select all articles"),
 				"select_unread" => __("Select unread"),
@@ -1124,7 +1124,7 @@
 			"N" => "article_scroll_down",
 			"P" => "article_scroll_up",
 			"a W" => "toggle_widescreen",
-			"a e" => "toggle_embed_original",
+			"a e" => "embed_full_text",
 			"e" => "email_article",
 			"a q" => "close_article",
 			"a a" => "select_all",
