@@ -549,7 +549,7 @@ class Handler_Public extends Handler {
 			const UtilityApp = {
 				init: function() {
 				  	require(['dojo/parser', "dojo/ready", 'dijit/form/Button','dijit/form/CheckBox', 'dijit/form/Form',
-						'dijit/form/Select','dijit/form/TextBox','dijit/form/ValidationTextBox'],function(parser, ready){
+						'dijit/form/Select','dijit/form/TextBox','dijit/form/ValidationTextBox'], function(parser, ready){
 						ready(function() {
 							parser.parse();
 
@@ -746,23 +746,38 @@ class Handler_Public extends Handler {
 			<head>
 				<title>Tiny Tiny RSS</title>
 				<?php
-					echo stylesheet_tag("themes/light.css");
 					echo javascript_tag("lib/prototype.js");
+					echo javascript_tag("js/utility.js");
 					echo javascript_tag("lib/dojo/dojo.js");
 					echo javascript_tag("lib/dojo/tt-rss-layer.js");
 				?>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 				<link rel="shortcut icon" type="image/png" href="images/favicon.png">
 				<link rel="icon" type="image/png" sizes="72x72" href="images/favicon-72px.png">
+				<style type="text/css">
+					@media (prefers-color-scheme: dark) {
+						body {
+							background : #303030;
+						}
+					}
+
+					body.css_loading * {
+						display : none;
+					}
+				</style>
 			</head>
-			<body class='flat ttrss_utility'>
+			<body class='flat ttrss_utility css_loading'>
 			<script type="text/javascript">
-				require(['dojo/parser', "dojo/ready", 'dijit/form/Button','dijit/form/CheckBox', 'dijit/form/Form',
-					'dijit/form/Select','dijit/form/TextBox','dijit/form/ValidationTextBox'],function(parser, ready){
-					ready(function() {
-						parser.parse();
-					});
-				});
+				const UtilityApp = {
+					init: function() {
+                        require(['dojo/parser', "dojo/ready", 'dijit/form/Button','dijit/form/CheckBox', 'dijit/form/Form',
+                            'dijit/form/Select','dijit/form/TextBox','dijit/form/ValidationTextBox'], function(parser, ready){
+                            ready(function() {
+                                parser.parse();
+                            });
+                        });
+					}
+				};
 			</script>
 			<div class="container">
 			<h1><?php echo __("Subscribe to feed...") ?></h1>
