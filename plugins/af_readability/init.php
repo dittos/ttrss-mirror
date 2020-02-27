@@ -303,7 +303,7 @@ class Af_Readability extends Plugin {
 		$ret = [];
 
 		if ($row = $sth->fetch()) {
-			$ret["content"] = $this->extract_content($row["link"]);
+			$ret["content"] = sanitize($this->extract_content($row["link"]));
 		}
 
 		print json_encode($ret);
