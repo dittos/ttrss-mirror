@@ -523,28 +523,43 @@ class Handler_Public extends Handler {
 		<head>
 			<title><?php echo __("Share with Tiny Tiny RSS") ?></title>
 			<?php
-			echo stylesheet_tag("themes/light.css");
 			echo javascript_tag("lib/prototype.js");
 			echo javascript_tag("lib/dojo/dojo.js");
+			echo javascript_tag("js/utility.js");
 			echo javascript_tag("lib/dojo/tt-rss-layer.js");
 			echo javascript_tag("lib/scriptaculous/scriptaculous.js?load=effects,controls")
 			?>
 			<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 			<link rel="shortcut icon" type="image/png" href="images/favicon.png">
 			<link rel="icon" type="image/png" sizes="72x72" href="images/favicon-72px.png">
-		</head>
-		<body class='flat ttrss_utility share_popup'>
-		<script type="text/javascript">
-			require(['dojo/parser', "dojo/ready", 'dijit/form/Button','dijit/form/CheckBox', 'dijit/form/Form',
-				'dijit/form/Select','dijit/form/TextBox','dijit/form/ValidationTextBox'],function(parser, ready){
-				ready(function() {
-					parser.parse();
+			<style type="text/css">
+				@media (prefers-color-scheme: dark) {
+					body {
+						background : #303030;
+					}
+				}
 
-					new Ajax.Autocompleter('labels_value', 'labels_choices',
-						"backend.php?op=rpc&method=completeLabels",
-						{ tokens: ',', paramName: "search" });
-				});
-			});
+				body.css_loading * {
+					display : none;
+				}
+			</style>
+		</head>
+		<body class='flat ttrss_utility share_popup css_loading'>
+		<script type="text/javascript">
+			const UtilityApp = {
+				init: function() {
+				  	require(['dojo/parser', "dojo/ready", 'dijit/form/Button','dijit/form/CheckBox', 'dijit/form/Form',
+						'dijit/form/Select','dijit/form/TextBox','dijit/form/ValidationTextBox'],function(parser, ready){
+						ready(function() {
+							parser.parse();
+
+							new Ajax.Autocompleter('labels_value', 'labels_choices',
+								"backend.php?op=rpc&method=completeLabels",
+								{ tokens: ',', paramName: "search" });
+							});
+				  	});
+				}
+			};
 		</script>
 		<div class="content">
 
