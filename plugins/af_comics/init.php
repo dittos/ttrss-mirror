@@ -52,7 +52,7 @@ class Af_Comics extends Plugin {
 
 		print "<p>" . __("The following comics are currently supported:") . "</p>";
 
-		$comics = array("GoComics");
+		$comics = ["GoComics", "The Far Side"];
 
 		foreach ($this->filters as $f) {
 			foreach ($f->supported() as $comic) {
@@ -85,9 +85,7 @@ class Af_Comics extends Plugin {
 	}
 
 	// GoComics dropped feed support so it needs to be handled when fetching the feed.
-	/**
-	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-	 */
+	// TODO: this should be split into individual methods provided by filters
 	function hook_fetch_feed($feed_data, $fetch_url, $owner_uid, $feed, $last_article_timestamp, $auth_login, $auth_pass) {
 		if ($auth_login || $auth_pass)
 			return $feed_data;
@@ -155,6 +153,74 @@ class Af_Comics extends Plugin {
 
 			if ($tpl->generateOutputToString($tmp_data))
 				$feed_data = $tmp_data;
+
+		} else if (preg_match("#^https?://www\.thefarside\.com#", $fetch_url)) {
+			require_once 'lib/MiniTemplator.class.php';
+
+			$tpl = new MiniTemplator();
+
+			$tpl->readTemplateFromFile('templates/generated_feed.txt');
+
+			$tpl->setVariable('FEED_TITLE', "The Far Side", true);
+			$tpl->setVariable('VERSION', get_version(), true);
+			$tpl->setVariable('FEED_URL', htmlspecialchars($fetch_url), true);
+			$tpl->setVariable('SELF_URL', htmlspecialchars($fetch_url), true);
+
+			$body = fetch_file_contents(['url' => $fetch_url, 'type' => 'text/html', 'followlocation' => false]);
+
+			if ($body) {
+				$doc = new DOMDocument();
+
+				if (@$doc->loadHTML($body)) {
+					$xpath = new DOMXPath($doc);
+
+					$content_node = $xpath->query('//*[contains(@class,"js-daily-dose")]')->item(0);
+
+					if ($content_node) {
+						$imgs = $xpath->query('//img[@data-src]', $content_node);
+
+						foreach ($imgs as $img) {
+							$img->setAttribute('src', $img->getAttribute('data-src'));
+						}
+
+						$junk_elems = $xpath->query("//*[@data-shareable-popover]");
+
+						foreach ($junk_elems as $junk)
+							$junk->parentNode->removeChild($junk);
+
+						$title = $xpath->query('//h3')->item(0);
+
+						print htmlspecialchars($doc->saveHTML($content_node));
+
+						if ($title) {
+							$title = clean(trim($title->nodeValue));
+						} else {
+							$title = date('l, F d, Y');
+						}
+
+						$article_link = htmlspecialchars($fetch_url . "?" . date('/Y/m/d'));
+
+						$tpl->setVariable('ARTICLE_ID', $article_link, true);
+						$tpl->setVariable('ARTICLE_LINK', $article_link, true);
+						$tpl->setVariable('ARTICLE_UPDATED_ATOM', date('c', mktime(11, 0, 0)), true);
+						$tpl->setVariable('ARTICLE_TITLE', htmlspecialchars($title), true);
+						$tpl->setVariable('ARTICLE_EXCERPT', '', true);
+						$tpl->setVariable('ARTICLE_CONTENT', "<p> " . $doc->saveHTML($content_node) . "</p>", true);
+
+						$tpl->setVariable('ARTICLE_AUTHOR', '', true);
+						$tpl->setVariable('ARTICLE_SOURCE_LINK', $article_link, true);
+						$tpl->setVariable('ARTICLE_SOURCE_TITLE', "The Far Side", true);
+
+						$tpl->addBlock('entry');
+					}
+				}
+			}
+
+			$tpl->addBlock('feed');
+
+			if ($tpl->generateOutputToString($tmp_data))
+				$feed_data = $tmp_data;
+
 		}
 
 		return $feed_data;
@@ -164,7 +230,8 @@ class Af_Comics extends Plugin {
 		if ($auth_login || $auth_pass)
 			return $contents;
 
-		if (preg_match('#^https?://www\.gocomics\.com/([-a-z0-9]+)$#i', $url))
+		if (preg_match('#^https?://www\.gocomics\.com/([-a-z0-9]+)$#i', $url) ||
+			preg_match("#^https?://www\.thefarside\.com#", $url))
 			return '<?xml version="1.0" encoding="utf-8"?>'; // Get is_html() to return false.
 
 		return $contents;
@@ -175,7 +242,10 @@ class Af_Comics extends Plugin {
 			return $basic_info;
 
 		if (preg_match('#^https?://www\.gocomics\.com/([-a-z0-9]+)$#i', $fetch_url, $matches))
-			$basic_info = array('title' => ucfirst($matches[1]), 'site_url' => $matches[0]);
+			$basic_info = ['title' => ucfirst($matches[1]), 'site_url' => $matches[0]];
+
+		if (preg_match("#^https?://www.thefarside.com/#", $fetch_url))
+			$basic_info = ['title' => "The Far Side", 'site_url' => 'https://www.thefarside.com'];
 
 		return $basic_info;
 	}
