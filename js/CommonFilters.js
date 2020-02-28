@@ -143,9 +143,6 @@ define(["dojo/_base/declare"], function (declare) {
 			if (dijit.byId("filterNewRuleDlg"))
 				dijit.byId("filterNewRuleDlg").destroyRecursive();
 
-			const query = "backend.php?op=pref-filters&method=newrule&rule=" +
-				encodeURIComponent(ruleStr);
-
 			const rule_dlg = new dijit.Dialog({
 				id: "filterNewRuleDlg",
 				title: ruleStr ? __("Edit rule") : __("Add rule"),
@@ -156,7 +153,15 @@ define(["dojo/_base/declare"], function (declare) {
 						this.hide();
 					}
 				},
-				href: query
+				content: __('Loading, please wait...'),
+			});
+
+			const tmph = dojo.connect(rule_dlg, "onShow", null, function (e) {
+				dojo.disconnect(tmph);
+
+				xhrPost("backend.php", {op: 'pref-filters', method: 'newrule', rule: ruleStr}, (transport) => {
+					rule_dlg.attr('content', transport.responseText);
+				});
 			});
 
 			rule_dlg.show();
