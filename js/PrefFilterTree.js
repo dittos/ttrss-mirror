@@ -149,9 +149,7 @@ define(["dojo/_base/declare", "dojo/dom-construct", "lib/CheckBoxTree"], functio
 				style: "width: 600px",
 
 				test: function () {
-					const query = "backend.php?" + dojo.formToQuery("filter_edit_form") + "&savemode=test";
-
-					Filters.editFilterTest(query);
+					Filters.editFilterTest(dojo.formToObject("filter_edit_form"));
 				},
 				selectRules: function (select) {
 					Lists.select("filterDlg_Matches", select);

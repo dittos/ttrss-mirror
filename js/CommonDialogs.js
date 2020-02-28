@@ -409,7 +409,7 @@ define(["dojo/_base/declare"], function (declare) {
 
 			return false;
 		},
-		editFeed: function (feed) {
+		editFeeed: function (feed) {
 			if (feed <= 0)
 				return alert(__("You can't edit this kind of feed."));
 

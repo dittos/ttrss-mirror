@@ -183,7 +183,7 @@ define(["dojo/_base/declare"], function (declare) {
 
 			rule_dlg.show();
 		},
-		editFilterTest: function(query) {
+		editFilterTest: function(params) {
 
 			if (dijit.byId("filterTestDlg"))
 				dijit.byId("filterTestDlg").destroyRecursive();
@@ -195,12 +195,14 @@ define(["dojo/_base/declare"], function (declare) {
 				results: 0,
 				limit: 100,
 				max_offset: 10000,
-				getTestResults: function (query, offset) {
-					const updquery = query + "&offset=" + offset + "&limit=" + test_dlg.limit;
+				getTestResults: function (params, offset) {
+					params.method = 'testFilterDo';
+					params.offset = offset;
+					params.limit = test_dlg.limit;
 
 					console.log("getTestResults:" + offset);
 
-					xhrPost("backend.php", updquery, (transport) => {
+					xhrPost("backend.php", params, (transport) => {
 						try {
 							const result = JSON.parse(transport.responseText);
 
@@ -216,9 +218,7 @@ define(["dojo/_base/declare"], function (declare) {
 								console.log(offset + " " + test_dlg.max_offset);
 
 								for (let i = 0; i < result.length; i++) {
-									const tmp = new Element("table");
-									tmp.innerHTML = result[i];
-									dojo.parser.parse(tmp);
+									const tmp = dojo.create("table", { innerHTML: result[i]});
 
 									$("prefFilterTestResultList").innerHTML += tmp.innerHTML;
 								}
@@ -262,11 +262,11 @@ define(["dojo/_base/declare"], function (declare) {
 
 					});
 				},
-				href: query
+				href: "backend.php?op=pref-filters&method=testFilterDlg"
 			});
 
 			dojo.connect(test_dlg, "onLoad", null, function (e) {
-				test_dlg.getTestResults(query, 0);
+				test_dlg.getTestResults(params, 0);
 			});
 
 			test_dlg.show();
@@ -296,9 +296,7 @@ define(["dojo/_base/declare"], function (declare) {
 				title: __("Create Filter"),
 				style: "width: 600px",
 				test: function () {
-					const query = "backend.php?" + dojo.formToQuery("filter_new_form") + "&savemode=test";
-
-					Filters.editFilterTest(query);
+					Filters.editFilterTest(dojo.formToObject("filter_new_form"));
 				},
 				selectRules: function (select) {
 					Lists.select("filterDlg_Matches", select);

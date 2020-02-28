@@ -3,7 +3,7 @@ class Pref_Filters extends Handler_Protected {
 
 	function csrf_ignore($method) {
 		$csrf_ignored = array("index", "getfiltertree", "edit", "newfilter", "newrule",
-			"newaction", "savefilterorder");
+			"newaction", "savefilterorder", "testfilterdlg");
 
 		return array_search($method, $csrf_ignored) !== false;
 	}
@@ -159,22 +159,19 @@ class Pref_Filters extends Handler_Protected {
 		print json_encode($rv);
 	}
 
-	function testFilter() {
+	function testFilterDlg() {
+		?>
+			<div>
+				<img id='prefFilterLoadingIndicator' src='images/indicator_tiny.gif'>&nbsp;
+				<span id='prefFilterProgressMsg'>Looking for articles...</span>
+			</div>
 
-		if (isset($_REQUEST["offset"])) return $this->testFilterDo();
+			<ul class='panel panel-scrollable list list-unstyled' id='prefFilterTestResultList'></ul>
 
-		//print __("Articles matching this filter:");
-
-		print "<div><img id='prefFilterLoadingIndicator' src='images/indicator_tiny.gif'>&nbsp;<span id='prefFilterProgressMsg'>Looking for articles...</span></div>";
-
-		print "<ul class='panel panel-scrollable list list-unstyled' id='prefFilterTestResultList'>";
-		print "</ul>";
-
-		print "<footer class='text-center'>";
-		print "<button dojoType='dijit.form.Button' onclick=\"dijit.byId('filterTestDlg').hide()\">".
-			__('Close this window')."</button>";
-		print "</footer>";
-
+			<footer class='text-center'>
+				<button dojoType='dijit.form.Button' onclick="dijit.byId('filterTestDlg').hide()"><?php echo __('Close this window') ?></button>
+			</footer>
+		<?php
 	}
 
 	private function getfilterrules_list($filter_id) {
@@ -600,10 +597,6 @@ class Pref_Filters extends Handler_Protected {
 	}
 
 	function editSave() {
-		if (clean($_REQUEST["savemode"] && $_REQUEST["savemode"]) == "test") {
-			return $this->testFilter();
-		}
-
 		$filter_id = clean($_REQUEST["id"]);
 		$enabled = checkbox_to_sql_bool(clean($_REQUEST["enabled"]));
 		$match_any_rule = checkbox_to_sql_bool(clean($_REQUEST["match_any_rule"]));
@@ -714,10 +707,6 @@ class Pref_Filters extends Handler_Protected {
 	}
 
 	function add() {
-		if (clean($_REQUEST["savemode"] && $_REQUEST["savemode"]) == "test") {
-			return $this->testFilter();
-		}
-
 		$enabled = checkbox_to_sql_bool(clean($_REQUEST["enabled"]));
 		$match_any_rule = checkbox_to_sql_bool(clean($_REQUEST["match_any_rule"]));
 		$title = clean($_REQUEST["title"]);
