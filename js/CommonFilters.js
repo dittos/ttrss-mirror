@@ -232,7 +232,7 @@ define(["dojo/_base/declare"], function (declare) {
 
 									// get the next batch
 									window.setTimeout(function () {
-										test_dlg.getTestResults(query, offset + test_dlg.limit);
+										test_dlg.getTestResults(params, offset + test_dlg.limit);
 									}, 0);
 
 								} else {
