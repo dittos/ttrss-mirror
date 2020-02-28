@@ -1637,6 +1637,8 @@ class Pref_Feeds extends Handler_Protected {
 	}
 
 	function batchSubscribe() {
+		print "<form onsubmit='return false'>";
+
 		print_hidden("op", "pref-feeds");
 		print_hidden("method", "batchaddfeeds");
 
@@ -1645,7 +1647,7 @@ class Pref_Feeds extends Handler_Protected {
 
 		print "<textarea
 			style='font-size : 12px; width : 98%; height: 200px;'
-			dojoType='dijit.form.SimpleTextarea' name='feeds'></textarea>";
+			dojoType='fox.form.ValidationTextArea' required='1' name='feeds'></textarea>";
 
 		if (get_pref('ENABLE_FEED_CATS')) {
 			print "<fieldset>";
@@ -1675,9 +1677,12 @@ class Pref_Feeds extends Handler_Protected {
 		print "</fieldset>";
 
 		print "<footer>
-			<button dojoType='dijit.form.Button' type='submit' class='alt-primary'>".__('Subscribe')."</button>
+			<button dojoType='dijit.form.Button' onclick=\"return dijit.byId('batchSubDlg').execute()\" type='submit' class='alt-primary'>".
+				__('Subscribe')."</button>
 			<button dojoType='dijit.form.Button' onclick=\"return dijit.byId('batchSubDlg').hide()\">".__('Cancel')."</button>
 			</footer>";
+
+		print "</form>";
 	}
 
 	function batchAddFeeds() {
