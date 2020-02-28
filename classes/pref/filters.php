@@ -964,19 +964,18 @@ class Pref_Filters extends Handler_Protected {
 
 		print "<section>";
 
-		print "<input dojoType=\"dijit.form.ValidationTextBox\"
-			 required=\"true\" id=\"filterDlg_regExp\" 
-			 onchange='Filters.filterDlgCheckRegExp(this)'
-			 onblur='Filters.filterDlgCheckRegExp(this)'
-			 onfocus='Filters.filterDlgCheckRegExp(this)'
-			 style=\"font-size : 16px; width : 500px\"
-			 name=\"reg_exp\" value=\"$reg_exp\"/>";
+		print "<textarea dojoType='fox.form.ValidationTextArea'
+			 required='true' id='filterDlg_regExp' 
+			 ValidRegExp='true'
+			 rows='4'
+			 style='font-size : 14px; width : 490px; word-break: break-all'
+			 name='reg_exp'>$reg_exp</textarea>";
 
 		print "<div dojoType='dijit.Tooltip' id='filterDlg_regExp_tip' connectId='filterDlg_regExp' position='below'></div>";
 
 		print "<fieldset>";
-		print "<label class='checkbox'><input id=\"filterDlg_inverse\" dojoType=\"dijit.form.CheckBox\"
-			 name=\"inverse\" $inverse_checked/> ".
+		print "<label class='checkbox'><input id='filterDlg_inverse' dojoType='dijit.form.CheckBox'
+			 name='inverse' $inverse_checked/> ".
 		 	__("Inverse regular expression matching")."</label>";
 		print "</fieldset>";
 

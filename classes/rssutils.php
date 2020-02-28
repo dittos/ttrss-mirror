@@ -1343,6 +1343,7 @@ class RSSUtils {
 			foreach ($filter["rules"] as $rule) {
 				$match = false;
 				$reg_exp = str_replace('/', '\/', $rule["reg_exp"]);
+				$reg_exp = str_replace("\n", "", $reg_exp); // reg_exp may be formatted with CRs now because of textarea, we need to strip those
 				$rule_inverse = $rule["inverse"];
 
 				if (!$reg_exp)

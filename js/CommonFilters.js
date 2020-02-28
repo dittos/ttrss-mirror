@@ -2,24 +2,6 @@
 /* global __, ngettext */
 define(["dojo/_base/declare"], function (declare) {
 	Filters = {
-		filterDlgCheckRegExp: function(sender) {
-			const tooltip = dijit.byId("filterDlg_regExp_tip").domNode;
-
-			try {
-				sender.domNode.removeClassName("invalid");
-				sender.domNode.removeClassName("valid");
-
-				new RegExp("/" + sender.value + "/");
-
-				sender.domNode.addClassName("valid");
-				tooltip.innerText = __("Regular expression, without outer delimiters (i.e. slashes)");
-
-			} catch (e) {
-				sender.domNode.addClassName("invalid");
-
-				tooltip.innerText = e.message;
-			}
-		},
 		filterDlgCheckAction: function(sender) {
 			const action = sender.value;
 
