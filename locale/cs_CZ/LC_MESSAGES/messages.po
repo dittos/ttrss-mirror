@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: TT-RSS CZech\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-17 15:00+0300\n"
-"PO-Revision-Date: 2019-06-17 06:33+0000\n"
+"PO-Revision-Date: 2020-02-05 15:58+0000\n"
 "Last-Translator: Marek Pavelka <mara.pavelka@gmail.com>\n"
-"Language-Team: Czech <https://weblate.tt-rss.org/projects/tt-rss/messages/cs/>\n"
+"Language-Team: Czech <https://weblate.tt-rss.org/projects/tt-rss/messages/cs/"
+">\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 3.5.1\n"
+"X-Generator: Weblate 3.10.3\n"
 
 #: backend.php:58
 msgid "Use default"
@@ -500,23 +501,20 @@ msgid "Open previous feed"
 msgstr "Otevřít předchozí kanál"
 
 #: include/functions.php:1044
-#, fuzzy
 msgid "Open next article (in combined mode, scroll down)"
-msgstr "Otevřít další článek (neposouvat dlouhé články)"
+msgstr "Otevřít další článek (v kombinovaném režimu, posouvat dolů)"
 
 #: include/functions.php:1045
-#, fuzzy
 msgid "Open previous article (in combined mode, scroll up)"
-msgstr "Otevřít předchozí článek (neposouvat dlouhé články)"
+msgstr "Otevřít předchozí článek (v kombinovaném režimu, posouvat nahoru)"
 
 #: include/functions.php:1046
 msgid "Scroll article by one page down"
-msgstr ""
+msgstr "Posunout článek o stránku dolů"
 
 #: include/functions.php:1047
-#, fuzzy
 msgid "Scroll article by one page up"
-msgstr "Vybrat články ve skupině"
+msgstr "Posunout článek o stránku nahoru"
 
 #: include/functions.php:1048
 msgid "Open next article"
@@ -584,14 +582,12 @@ msgid "Scroll up"
 msgstr "Posunout nahoru"
 
 #: include/functions.php:1063
-#, fuzzy
 msgid "Scroll down page"
-msgstr "Posunout dolů"
+msgstr "Posunout o stránku dolů"
 
 #: include/functions.php:1064
-#, fuzzy
 msgid "Scroll up page"
-msgstr "Posunout nahoru"
+msgstr "Posunout o stránku nahoru"
 
 #: include/functions.php:1065
 msgid "Select article under cursor"
@@ -2094,19 +2090,16 @@ msgid "Change password"
 msgstr "Změnit heslo"
 
 #: classes/pref/prefs.php:406
-#, fuzzy
 msgid "App passwords"
-msgstr "Staré heslo:"
+msgstr "Hesla aplikace"
 
 #: classes/pref/prefs.php:418
-#, fuzzy
 msgid "Generate new password"
-msgstr "Generovat novou URL"
+msgstr "Generovat nové heslo"
 
 #: classes/pref/prefs.php:422
-#, fuzzy
 msgid "Remove selected passwords"
-msgstr "Odebrat vybrané profily"
+msgstr "Odebrat vybraná hesla"
 
 #: classes/pref/prefs.php:427
 msgid "One time passwords / Authenticator"
@@ -2122,18 +2115,16 @@ msgid "Disable OTP"
 msgstr "Zakázat jednorázové heslo"
 
 #: classes/pref/prefs.php:477
-#, fuzzy
 msgid "Scan the following code by the Authenticator application or copy the key manually"
-msgstr "Prohledat následující kód ověřovací aplikací:"
+msgstr "Prohledat následující kód ověřovací aplikací nebo kopírovat klíč ručně"
 
 #: classes/pref/prefs.php:483
-#, fuzzy
 msgid "Use the following OTP key with a compatible Authenticator application"
-msgstr "Prohledat následující kód ověřovací aplikací:"
+msgstr "Použít následující jednorázové heslo s kompatibilní ověřovací aplikací"
 
 #: classes/pref/prefs.php:491
 msgid "OTP Key:"
-msgstr ""
+msgstr "Klíč jednorázového hesla:"
 
 #: classes/pref/prefs.php:524
 msgid "One time password:"
@@ -2193,6 +2184,9 @@ msgstr "Obnovit na výchozí hodnoty"
 #, php-format
 msgid "The following plugins use per-feed content hooks. This may cause excessive data usage and origin server load resulting in a ban of your instance: <b>%s</b>"
 msgstr ""
+"Následující doplňky používají \"háčkování\" obsahu jednotlivých zdrojů. To "
+"může způsobit nadměrné využití dat a počáteční zatížení serveru vedoucí k "
+"zablokování vaší instance: <b>%s</b>"
 
 #: classes/pref/prefs.php:870
 msgid "System plugins"
@@ -2232,15 +2226,16 @@ msgstr "Zde můžete přepsat barvy, písma a rozvržení vámi aktuálně vybra
 #: classes/pref/prefs.php:1141
 msgid "User CSS has been applied, you might need to reload the page to see all changes."
 msgstr ""
+"Bylo použito uživatelské CSS, možná bude potřeba znovu načíst stránku, "
+"abyste viděli všechny změny."
 
 #: classes/pref/prefs.php:1149
 msgid "Apply"
-msgstr ""
+msgstr "Použít"
 
 #: classes/pref/prefs.php:1151
-#, fuzzy
 msgid "Save and reload"
-msgstr "Označit nad jako přečtené"
+msgstr "Uložit a znovu načíst"
 
 #: classes/pref/prefs.php:1176
 msgid "Create profile"
@@ -2264,19 +2259,19 @@ msgid "Description"
 msgstr "Popis"
 
 #: classes/pref/prefs.php:1286
-#, fuzzy
 msgid "Created"
-msgstr "Vytvořit"
+msgstr "Vytvořeno"
 
 #: classes/pref/prefs.php:1287
-#, fuzzy
 msgid "Last used"
-msgstr "Poslední aktualizace:"
+msgstr "Naposledy použito"
 
 #: classes/pref/prefs.php:1340
 #, php-format
 msgid "Generated password <strong>%s</strong> for %s. Please remember it for future reference."
 msgstr ""
+"Vygenerované heslo <strong>%s</strong> pro %s. Zapamatujte si ho pro budoucí "
+"potřebu."
 
 #: classes/pref/system.php:8
 #: classes/pref/users.php:6
@@ -2410,9 +2405,8 @@ msgid "Drop any updated filters into <code>filters.local</code> in plugin direct
 msgstr "Všechny aktualizované filtry přetáhněte do <code>filters.local</code> v adresáři modulu."
 
 #: plugins/af_proxy_http/init.php:212
-#, fuzzy
 msgid "Image proxy settings (af_proxy_http)"
-msgstr "Nastavení proxy obrázků (af_zz_imgproxy)"
+msgstr "Nastavení proxy obrázků (af_proxy_http)"
 
 #: plugins/af_proxy_http/init.php:236
 msgid "Enable proxy for all remote images."
@@ -2987,9 +2981,8 @@ msgid "Remove selected filters?"
 msgstr "Odebrat vybrané filtry?"
 
 #: js/PrefHelpers.js:17
-#, fuzzy
 msgid "Remove selected app passwords?"
-msgstr "Odebrat vybrané kategorie?"
+msgstr "Odebrat vybraná hesla aplikace?"
 
 #: js/PrefHelpers.js:42
 msgid "This will invalidate all previously generated feed URLs. Continue?"
