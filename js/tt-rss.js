@@ -56,6 +56,7 @@ require(["dojo/_base/kernel",
 	"fox/FeedStoreModel",
 	"fox/FeedTree",
 	"fox/Toolbar",
+	"fox/form/ValidationTextArea",
 	"fox/form/Select",
 	"fox/form/ComboButton",
 	"fox/form/DropDownButton"], function (dojo, declare, ready, parser, AppBase) {
