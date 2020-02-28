@@ -37,13 +37,14 @@ body.flat.ttrss_main.ttrss_prefs {
 	}
 
 	#filterNewRuleDlg {
-		.invalid {
+		.dijitValidationTextAreaError {
 			background : #503030;
 		}
-		.valid {
+		.dijitValidationTextArea:not(.dijitValidationTextAreaError) {
 			background : #305030;
 		}
 	}
+
 	hr {
 		border-color : @border-light;
 	}
