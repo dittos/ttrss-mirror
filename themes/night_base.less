@@ -42,6 +42,9 @@ body.flat.ttrss_main.ttrss_prefs {
 			background : #305030;
 		}
 	}
+	hr {
+		border-color : @border-light;
+	}
 }
 
 body.flat.ttrss_main {
@@ -340,10 +343,24 @@ body.flat.ttrss_main {
 		border-color : darken(@color-alert-danger, 20%);
 	}
 
-}
+	.dijitTooltipContents {
+		background : @color-accent;
+		color : @color-panel-bg;
+	}
 
-body.ttrss_prefs {
-	hr {
-		border-color : @border-light;
+	.dijitTooltipRight .dijitTooltipConnector {
+		border-right-color : @color-accent;
+	}
+
+	.dijitTooltipLeft .dijitTooltipConnector {
+		border-left-color : @color-accent;
+	}
+
+	.dijitTooltipBelow .dijitTooltipConnector {
+		border-bottom-color : @color-accent;
+	}
+
+	.dijitTooltipAbove .dijitTooltipConnector {
+		border-top-color : @color-accent;
 	}
 }

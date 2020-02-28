@@ -1955,6 +1955,9 @@ body.flat.ttrss_main.ttrss_prefs #filterNewRuleDlg .invalid {
 body.flat.ttrss_main.ttrss_prefs #filterNewRuleDlg .valid {
   background: #305030;
 }
+body.flat.ttrss_main.ttrss_prefs hr {
+  border-color: #666;
+}
 body.flat.ttrss_main {
   /*
 	.post .content img,
@@ -2191,7 +2194,20 @@ body.flat.ttrss_main .alert.alert-danger {
   color: #b94a48;
   border-color: #702c2b;
 }
-body.ttrss_prefs hr {
-  border-color: #666;
+body.flat.ttrss_main .dijitTooltipContents {
+  background: #257aa7;
+  color: #222;
+}
+body.flat.ttrss_main .dijitTooltipRight .dijitTooltipConnector {
+  border-right-color: #257aa7;
+}
+body.flat.ttrss_main .dijitTooltipLeft .dijitTooltipConnector {
+  border-left-color: #257aa7;
+}
+body.flat.ttrss_main .dijitTooltipBelow .dijitTooltipConnector {
+  border-bottom-color: #257aa7;
+}
+body.flat.ttrss_main .dijitTooltipAbove .dijitTooltipConnector {
+  border-top-color: #257aa7;
 }
 /*# sourceMappingURL=night_blue.css.map */
