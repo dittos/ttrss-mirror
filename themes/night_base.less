@@ -20,6 +20,8 @@
 @color-alert-info : #3a87ad;
 @color-alert-danger : #b94a48;
 
+@color-tooltip-bg : lighten(@color-accent, 10%);
+
 body.flat.ttrss_main.ttrss_prefs {
 	#main, #footer {
 		background: @color-panel-bg;
@@ -341,26 +343,5 @@ body.flat.ttrss_main {
 	.alert.alert-danger {
 		color : @color-alert-danger;
 		border-color : darken(@color-alert-danger, 20%);
-	}
-
-	.dijitTooltipContents {
-		background : @color-accent;
-		color : @color-panel-bg;
-	}
-
-	.dijitTooltipRight .dijitTooltipConnector {
-		border-right-color : @color-accent;
-	}
-
-	.dijitTooltipLeft .dijitTooltipConnector {
-		border-left-color : @color-accent;
-	}
-
-	.dijitTooltipBelow .dijitTooltipConnector {
-		border-bottom-color : @color-accent;
-	}
-
-	.dijitTooltipAbove .dijitTooltipConnector {
-		border-top-color : @color-accent;
 	}
 }

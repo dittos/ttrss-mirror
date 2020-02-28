@@ -866,6 +866,22 @@ body.ttrss_main #feedEditDlg img.feedIcon {
   height: auto;
   width: auto;
 }
+body.ttrss_main .dijitTooltipContents {
+  background: #d29745;
+  color: #222;
+}
+body.ttrss_main .dijitTooltipRight .dijitTooltipConnector {
+  border-right-color: #d29745;
+}
+body.ttrss_main .dijitTooltipLeft .dijitTooltipConnector {
+  border-left-color: #d29745;
+}
+body.ttrss_main .dijitTooltipBelow .dijitTooltipConnector {
+  border-bottom-color: #d29745;
+}
+body.ttrss_main .dijitTooltipAbove .dijitTooltipConnector {
+  border-top-color: #d29745;
+}
 body.ttrss_main .dijitDialog h1:first-of-type,
 body.ttrss_main .dijitDialog h2:first-of-type,
 body.ttrss_main .dijitDialog h3:first-of-type,
@@ -2193,21 +2209,5 @@ body.flat.ttrss_main .alert.alert-info {
 body.flat.ttrss_main .alert.alert-danger {
   color: #b94a48;
   border-color: #702c2b;
-}
-body.flat.ttrss_main .dijitTooltipContents {
-  background: #b87d2c;
-  color: #222;
-}
-body.flat.ttrss_main .dijitTooltipRight .dijitTooltipConnector {
-  border-right-color: #b87d2c;
-}
-body.flat.ttrss_main .dijitTooltipLeft .dijitTooltipConnector {
-  border-left-color: #b87d2c;
-}
-body.flat.ttrss_main .dijitTooltipBelow .dijitTooltipConnector {
-  border-bottom-color: #b87d2c;
-}
-body.flat.ttrss_main .dijitTooltipAbove .dijitTooltipConnector {
-  border-top-color: #b87d2c;
 }
 /*# sourceMappingURL=night.css.map */

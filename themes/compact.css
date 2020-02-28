@@ -865,6 +865,22 @@ body.ttrss_main #feedEditDlg img.feedIcon {
   height: auto;
   width: auto;
 }
+body.ttrss_main .dijitTooltipContents {
+  background: #1c5c7d;
+  color: #f5f5f5;
+}
+body.ttrss_main .dijitTooltipRight .dijitTooltipConnector {
+  border-right-color: #1c5c7d;
+}
+body.ttrss_main .dijitTooltipLeft .dijitTooltipConnector {
+  border-left-color: #1c5c7d;
+}
+body.ttrss_main .dijitTooltipBelow .dijitTooltipConnector {
+  border-bottom-color: #1c5c7d;
+}
+body.ttrss_main .dijitTooltipAbove .dijitTooltipConnector {
+  border-top-color: #1c5c7d;
+}
 body.ttrss_main .dijitDialog h1:first-of-type,
 body.ttrss_main .dijitDialog h2:first-of-type,
 body.ttrss_main .dijitDialog h3:first-of-type,
