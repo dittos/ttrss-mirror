@@ -1610,12 +1610,12 @@ body.ttrss_prefs .phpinfo td.v {
   font-family: monospace;
   word-break: break-all;
 }
-body.ttrss_prefs #filterNewRuleDlg .invalid,
-body.ttrss_main #filterNewRuleDlg .invalid {
+body.ttrss_prefs #filterNewRuleDlg .dijitValidationTextAreaError,
+body.ttrss_main #filterNewRuleDlg .dijitValidationTextAreaError {
   background: #ffc0c0;
 }
-body.ttrss_prefs #filterNewRuleDlg .valid,
-body.ttrss_main #filterNewRuleDlg .valid {
+body.ttrss_prefs #filterNewRuleDlg .dijitValidationTextArea:not(.dijitValidationTextAreaError),
+body.ttrss_main #filterNewRuleDlg .dijitValidationTextArea:not(.dijitValidationTextAreaError) {
   background: #c0ffc0;
 }
 body.ttrss_prefs fieldset,
