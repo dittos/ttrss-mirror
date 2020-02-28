@@ -36,15 +36,6 @@ body.flat.ttrss_main.ttrss_prefs {
 		color : @fg-text-muted;
 	}
 
-	#filterNewRuleDlg {
-		.dijitValidationTextAreaError {
-			background : #503030;
-		}
-		.dijitValidationTextArea:not(.dijitValidationTextAreaError) {
-			background : #305030;
-		}
-	}
-
 	hr {
 		border-color : @border-light;
 	}
@@ -344,5 +335,14 @@ body.flat.ttrss_main {
 	.alert.alert-danger {
 		color : @color-alert-danger;
 		border-color : darken(@color-alert-danger, 20%);
+	}
+
+	#filterNewRuleDlg {
+		.dijitValidationTextAreaError {
+			background : #503030;
+		}
+		.dijitValidationTextArea:not(.dijitValidationTextAreaError) {
+			background : #305030;
+		}
 	}
 }

@@ -1964,12 +1964,6 @@ body.flat.ttrss_main.ttrss_prefs td.filename,
 body.flat.ttrss_main.ttrss_prefs div.prefHelp {
   color: #999999;
 }
-body.flat.ttrss_main.ttrss_prefs #filterNewRuleDlg .dijitValidationTextAreaError {
-  background: #503030;
-}
-body.flat.ttrss_main.ttrss_prefs #filterNewRuleDlg .dijitValidationTextArea:not(.dijitValidationTextAreaError) {
-  background: #305030;
-}
 body.flat.ttrss_main.ttrss_prefs hr {
   border-color: #666;
 }
@@ -2208,6 +2202,12 @@ body.flat.ttrss_main .alert.alert-info {
 body.flat.ttrss_main .alert.alert-danger {
   color: #b94a48;
   border-color: #702c2b;
+}
+body.flat.ttrss_main #filterNewRuleDlg .dijitValidationTextAreaError {
+  background: #503030;
+}
+body.flat.ttrss_main #filterNewRuleDlg .dijitValidationTextArea:not(.dijitValidationTextAreaError) {
+  background: #305030;
 }
 /* rules specific to compact.css */
 body.ttrss_main.ttrss_index.flat #feedTree.dijitTree .dijitTreeLabel {
