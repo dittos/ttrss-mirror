@@ -894,10 +894,10 @@ body.ttrss_main[view-mode="marked"] #feeds-holder #feedTree .dijitTreeRow.Has_Ma
 body.ttrss_main[view-mode="marked"] #feeds-holder #feedTree .dijitTreeRow.Has_Marked .counterNode.marked {
   display: inline-block;
 }
-body.ttrss_main[view-mode="marked"][hide-read-feeds="true"][hide-read-shows-special="true"] #feeds-holder #feedTree .dijitTreeRow:not(.dijitTreeRowSelected):not(.AlwaysVisible):not(.Special):not(.Has_Marked) {
+body.ttrss_main[view-mode="marked"][hide-read-feeds="true"][hide-read-shows-special="true"] #feeds-holder #feedTree .dijitTreeRow:not(.AlwaysVisible):not(.Special):not(.Has_Marked) {
   display: none;
 }
-body.ttrss_main[view-mode="marked"][hide-read-feeds="true"][hide-read-shows-special="false"] #feeds-holder #feedTree .dijitTreeRow:not(.dijitTreeRowSelected):not(.AlwaysVisible):not(.Has_Marked) {
+body.ttrss_main[view-mode="marked"][hide-read-feeds="true"][hide-read-shows-special="false"] #feeds-holder #feedTree .dijitTreeRow:not(.AlwaysVisible):not(.Has_Marked) {
   display: none;
 }
 body.ttrss_main:not([view-mode="marked"]) #feeds-holder #feedTree .dijitTreeRow.Unread .counterNode.unread {
@@ -906,10 +906,10 @@ body.ttrss_main:not([view-mode="marked"]) #feeds-holder #feedTree .dijitTreeRow.
 body.ttrss_main:not([view-mode="marked"]) #feeds-holder #feedTree .dijitTreeRow.Has_Aux:not(.Unread) .counterNode.aux {
   display: inline-block;
 }
-body.ttrss_main:not([view-mode="marked"])[hide-read-feeds="true"][hide-read-shows-special="true"] #feeds-holder #feedTree .dijitTreeRow:not(.dijitTreeRowSelected):not(.Unread):not(.AlwaysVisible):not(.Special) {
+body.ttrss_main:not([view-mode="marked"])[hide-read-feeds="true"][hide-read-shows-special="true"] #feeds-holder #feedTree .dijitTreeRow:not(.Unread):not(.AlwaysVisible):not(.Special) {
   display: none;
 }
-body.ttrss_main:not([view-mode="marked"])[hide-read-feeds="true"][hide-read-shows-special="false"] #feeds-holder #feedTree .dijitTreeRow:not(.dijitTreeRowSelected):not(.Unread):not(.AlwaysVisible) {
+body.ttrss_main:not([view-mode="marked"])[hide-read-feeds="true"][hide-read-shows-special="false"] #feeds-holder #feedTree .dijitTreeRow:not(.Unread):not(.AlwaysVisible) {
   display: none;
 }
 body.ttrss_main #toolbar-headlines i.icon-syndicate {
