@@ -1889,9 +1889,7 @@
 		date_default_timezone_set('UTC');
 		$root_dir = dirname(dirname(__FILE__));
 
-		if ('\\' === DIRECTORY_SEPARATOR) {
-			$ttrss_version['version'] = "UNKNOWN (Unsupported, Windows)";
-		} else if (PHP_OS === "Darwin") {
+		if (PHP_OS === "Darwin") {
 			$ttrss_version['version'] = "UNKNOWN (Unsupported, Darwin)";
 		} else if (file_exists("$root_dir/version_static.txt")) {
 			$ttrss_version['version'] = trim(file_get_contents("$root_dir/version_static.txt")) . " (Unsupported)";
@@ -1902,7 +1900,7 @@
 			$cwd = getcwd();
 
 			chdir($root_dir);
-			exec('git --no-pager log --pretty='.escapeshellarg('version: %ct %h').' -n1 HEAD 2>&1', $output, $rc);
+			exec('git --no-pager log --pretty="version: %ct %h" -n1 HEAD 2>&1', $output, $rc);
 			chdir($cwd);
 
 			if (is_array($output) && count($output) > 0) {
