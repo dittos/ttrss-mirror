@@ -89,7 +89,7 @@ class DiskCache {
 			$xpath = new DOMXPath($doc);
 			$cache = new DiskCache("images");
 
-			$entries = $xpath->query('(//img[@src]|//picture/source[@src]|//video[@poster]|//video/source[@src]|//audio/source[@src])');
+			$entries = $xpath->query('(//img[@src]|//picture/source[@src]|//video[@poster]|//video[@src]|//video/source[@src]|//audio/source[@src])');
 
 			$need_saving = false;
 

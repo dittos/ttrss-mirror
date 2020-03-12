@@ -1229,7 +1229,7 @@ class RSSUtils {
 			if ($doc->loadHTML($html)) {
 				$xpath = new DOMXPath($doc);
 
-				$entries = $xpath->query('(//img[@src])|(//video/source[@src])|(//audio/source[@src])|(//video[@poster])');
+				$entries = $xpath->query('(//img[@src])|(//video/source[@src])|(//audio/source[@src])|(//video[@poster])|(//video[@src])');
 
 				foreach ($entries as $entry) {
 					foreach (array('src', 'poster') as $attr) {
