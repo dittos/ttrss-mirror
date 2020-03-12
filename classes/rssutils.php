@@ -1229,33 +1229,35 @@ class RSSUtils {
 			if ($doc->loadHTML($html)) {
 				$xpath = new DOMXPath($doc);
 
-				$entries = $xpath->query('(//img[@src])|(//video/source[@src])|(//audio/source[@src])');
+				$entries = $xpath->query('(//img[@src])|(//video/source[@src])|(//audio/source[@src])|(//video[@poster])|(//video[@src])');
 
 				foreach ($entries as $entry) {
-					if ($entry->hasAttribute('src') && strpos($entry->getAttribute('src'), "data:") !== 0) {
-						$src = rewrite_relative_url($site_url, $entry->getAttribute('src'));
+					foreach (array('src', 'poster') as $attr) {
+						if ($entry->hasAttribute($attr) && strpos($entry->getAttribute($attr), "data:") !== 0) {
+							$src = rewrite_relative_url($site_url, $entry->getAttribute($attr));
 
-						$local_filename = sha1($src);
+							$local_filename = sha1($src);
 
-						Debug::log("cache_media: checking $src", Debug::$LOG_VERBOSE);
+							Debug::log("cache_media: checking $src", Debug::$LOG_VERBOSE);
 
-						if (!$cache->exists($local_filename)) {
-							Debug::log("cache_media: downloading: $src to $local_filename", Debug::$LOG_VERBOSE);
+							if (!$cache->exists($local_filename)) {
+								Debug::log("cache_media: downloading: $src to $local_filename", Debug::$LOG_VERBOSE);
 
-							global $fetch_last_error_code;
-							global $fetch_last_error;
+								global $fetch_last_error_code;
+								global $fetch_last_error;
 
-							$file_content = fetch_file_contents(array("url" => $src,
-								"http_referrer" => $src,
-								"max_size" => MAX_CACHE_FILE_SIZE));
+								$file_content = fetch_file_contents(array("url" => $src,
+									"http_referrer" => $src,
+									"max_size" => MAX_CACHE_FILE_SIZE));
 
-							if ($file_content) {
-								$cache->put($local_filename, $file_content);
-							} else {
-								Debug::log("cache_media: failed with $fetch_last_error_code: $fetch_last_error");
+								if ($file_content) {
+									$cache->put($local_filename, $file_content);
+								} else {
+									Debug::log("cache_media: failed with $fetch_last_error_code: $fetch_last_error");
+								}
+							} else if ($cache->isWritable($local_filename)) {
+								$cache->touch($local_filename);
 							}
-						} else if ($cache->isWritable($local_filename)) {
-							$cache->touch($local_filename);
 						}
 					}
 				}

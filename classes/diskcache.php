@@ -89,30 +89,27 @@ class DiskCache {
 			$xpath = new DOMXPath($doc);
 			$cache = new DiskCache("images");
 
-			$entries = $xpath->query('(//img[@src]|//picture/source[@src]|//video[@poster]|//video/source[@src]|//audio/source[@src])');
+			$entries = $xpath->query('(//img[@src]|//picture/source[@src]|//video[@poster]|//video[@src]|//video/source[@src]|//audio/source[@src])');
 
 			$need_saving = false;
 
 			foreach ($entries as $entry) {
 
-				if ($entry->hasAttribute('src') || $entry->hasAttribute('poster')) {
+				foreach (array('src', 'poster') as $attr) {
+					if ($entry->hasAttribute($attr)) {
+						// should be already absolutized because this is called after sanitize()
+						$src = $entry->getAttribute($attr);
+						$cached_filename = sha1($src);
 
-					// should be already absolutized because this is called after sanitize()
-					$src = $entry->hasAttribute('poster') ? $entry->getAttribute('poster') : $entry->getAttribute('src');
-					$cached_filename = sha1($src);
+						if ($cache->exists($cached_filename)) {
 
-					if ($cache->exists($cached_filename)) {
+							$src = $cache->getUrl(sha1($src));
 
-						$src = $cache->getUrl(sha1($src));
-
-						if ($entry->hasAttribute('poster'))
-							$entry->setAttribute('poster', $src);
-						else {
-							$entry->setAttribute('src', $src);
+							$entry->setAttribute($attr, $src);
 							$entry->removeAttribute("srcset");
-						}
 
-						$need_saving = true;
+							$need_saving = true;
+						}
 					}
 				}
 			}
