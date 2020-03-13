@@ -213,11 +213,9 @@ class Pref_Prefs extends Handler_Protected {
 			if ($old_email != $email) {
 				$mailer = new Mailer();
 
-				require_once "lib/MiniTemplator.class.php";
+				$tpl = new Templator();
 
-				$tpl = new MiniTemplator;
-
-				$tpl->readTemplateFromFile("templates/mail_change_template.txt");
+				$tpl->readTemplateFromFile("mail_change_template.txt");
 
 				$tpl->setVariable('LOGIN', $row["login"]);
 				$tpl->setVariable('NEWMAIL', $email);
@@ -1087,11 +1085,9 @@ class Pref_Prefs extends Handler_Protected {
 			if ($row = $sth->fetch()) {
 				$mailer = new Mailer();
 
-				require_once "lib/MiniTemplator.class.php";
+				$tpl = new Templator();
 
-				$tpl = new MiniTemplator;
-
-				$tpl->readTemplateFromFile("templates/otp_disabled_template.txt");
+				$tpl->readTemplateFromFile("otp_disabled_template.txt");
 
 				$tpl->setVariable('LOGIN', $row["login"]);
 				$tpl->setVariable('TTRSS_HOST', SELF_URL_PATH);

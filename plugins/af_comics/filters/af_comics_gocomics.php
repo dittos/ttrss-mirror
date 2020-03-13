@@ -31,13 +31,11 @@ class Af_Comics_Gocomics extends Af_ComicFilter {
 
 			$body = fetch_file_contents(array('url' => $article_link, 'type' => 'text/html', 'followlocation' => false));
 
-			require_once 'lib/MiniTemplator.class.php';
-
 			$feed_title = htmlspecialchars($comic[1]);
 			$site_url = htmlspecialchars($site_url);
 			$article_link = htmlspecialchars($article_link);
 
-			$tpl = new MiniTemplator();
+			$tpl = new Templator();
 
 			$tpl->readTemplateFromFile('templates/generated_feed.txt');
 

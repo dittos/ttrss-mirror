@@ -5,8 +5,6 @@ class Handler_Public extends Handler {
 		$limit, $offset, $search,
 		$view_mode = false, $format = 'atom', $order = false, $orig_guid = false, $start_ts = false) {
 
-		require_once "lib/MiniTemplator.class.php";
-
 		$note_style = 	"background-color : #fff7d5;
 			border-width : 1px; ".
 			"padding : 5px; border-style : dashed; border-color : #e7d796;".
@@ -80,9 +78,9 @@ class Handler_Public extends Handler {
 		if (!$feed_site_url) $feed_site_url = get_self_url_prefix();
 
 		if ($format == 'atom') {
-			$tpl = new MiniTemplator;
+			$tpl = new Templator();
 
-			$tpl->readTemplateFromFile("templates/generated_feed.txt");
+			$tpl->readTemplateFromFile("generated_feed.txt");
 
 			$tpl->setVariable('FEED_TITLE', $feed_title, true);
 			$tpl->setVariable('VERSION', get_version(), true);
@@ -1030,11 +1028,9 @@ class Handler_Public extends Handler {
 						$resetpass_link = get_self_url_prefix() . "/public.php?op=forgotpass&hash=" . $resetpass_token .
 							"&login=" . urlencode($login);
 
-						require_once "lib/MiniTemplator.class.php";
+						$tpl = new Templator();
 
-						$tpl = new MiniTemplator;
-
-						$tpl->readTemplateFromFile("templates/resetpass_link_template.txt");
+						$tpl->readTemplateFromFile("resetpass_link_template.txt");
 
 						$tpl->setVariable('LOGIN', $login);
 						$tpl->setVariable('RESETPASS_LINK', $resetpass_link);

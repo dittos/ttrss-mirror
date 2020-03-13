@@ -29,11 +29,9 @@ class MailTo extends Plugin {
 		$ids = explode(",", $_REQUEST['param']);
 		$ids_qmarks = arr_qmarks($ids);
 
-		require_once "lib/MiniTemplator.class.php";
+		$tpl = new Templator();
 
-		$tpl = new MiniTemplator;
-
-		$tpl->readTemplateFromFile("templates/email_article_template.txt");
+		$tpl->readTemplateFromFile("email_article_template.txt");
 
 		$tpl->setVariable('USER_NAME', $_SESSION["name"], true);
 		//$tpl->setVariable('USER_EMAIL', $user_email, true);

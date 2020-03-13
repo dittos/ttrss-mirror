@@ -25,11 +25,10 @@ class Af_Comics_Gocomics_FarSide extends Af_ComicFilter {
 
 	public function on_fetch($url) {
 		if (preg_match("#^https?://www\.thefarside\.com#", $url)) {
-			require_once 'lib/MiniTemplator.class.php';
 
 			$article_link = htmlspecialchars("https://www.thefarside.com" . date('/Y/m/d'));
 
-			$tpl = new MiniTemplator();
+			$tpl = new Templator();
 
 			$tpl->readTemplateFromFile('templates/generated_feed.txt');
 

@@ -90,13 +90,11 @@ class Digest
 
 	static function prepare_headlines_digest($user_id, $days = 1, $limit = 1000) {
 
-		require_once "lib/MiniTemplator.class.php";
+		$tpl = new Templator();
+		$tpl_t = new Templator();
 
-		$tpl = new MiniTemplator;
-		$tpl_t = new MiniTemplator;
-
-		$tpl->readTemplateFromFile("templates/digest_template_html.txt");
-		$tpl_t->readTemplateFromFile("templates/digest_template.txt");
+		$tpl->readTemplateFromFile("digest_template_html.txt");
+		$tpl_t->readTemplateFromFile("digest_template.txt");
 
 		$user_tz_string = get_pref('USER_TIMEZONE', $user_id);
 		$local_ts = convert_timestamp(time(), 'UTC', $user_tz_string);
