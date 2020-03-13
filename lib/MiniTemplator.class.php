@@ -792,8 +792,7 @@ function writeString ($s) {
    if ($this->outputError) return;
    switch ($this->outputMode) {
       case 0:            // output to PHP output stream
-         if (!print($s))
-            $this->outputError = true;
+         print $s;
          break;
       case 1:            // output to file
          $rc = fwrite($this->outputFileHandle, $s);
