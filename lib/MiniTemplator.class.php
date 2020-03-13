@@ -309,7 +309,7 @@ function processTemplateCommand ($cmdL, $cmdTPosBegin, $cmdTPosEnd, &$resumeFrom
          $resumeFromStart = true;
          break;
       default:
-         if ($cmd{0} == '$' && !(strlen($cmd) >= 2 && $cmd{1} == '{')) {
+         if ($cmd[0] == '$' && !(strlen($cmd) >= 2 && $cmd[1] == '{')) {
             $this->triggerError ("Unknown command \"$cmd\" in template at offset $cmdTPosBegin.");
             return false; }}
     return true; }
@@ -856,10 +856,10 @@ function readFileIntoString ($fileName, &$s) {
 */
 function parseWord ($s, &$p, &$w) {
    $sLen = strlen($s);
-   while ($p < $sLen && ord($s{$p}) <= 32) $p++;
+   while ($p < $sLen && ord($s[$p]) <= 32) $p++;
    if ($p >= $sLen) return false;
    $p0 = $p;
-   while ($p < $sLen && ord($s{$p}) > 32) $p++;
+   while ($p < $sLen && ord($s[$p]) > 32) $p++;
    $w = substr($s, $p0, $p - $p0);
    return true; }
 
@@ -869,11 +869,11 @@ function parseWord ($s, &$p, &$w) {
 */
 function parseQuotedString ($s, &$p, &$w) {
    $sLen = strlen($s);
-   while ($p < $sLen && ord($s{$p}) <= 32) $p++;
+   while ($p < $sLen && ord($s[$p]) <= 32) $p++;
    if ($p >= $sLen) return false;
    if (substr($s,$p,1) != '"') return false;
    $p++; $p0 = $p;
-   while ($p < $sLen && $s{$p} != '"') $p++;
+   while ($p < $sLen && $s[$p] != '"') $p++;
    if ($p >= $sLen) return false;
    $w = substr($s, $p0, $p - $p0);
    $p++;
@@ -885,7 +885,7 @@ function parseQuotedString ($s, &$p, &$w) {
 */
 function parseWordOrQuotedString ($s, &$p, &$w) {
    $sLen = strlen($s);
-   while ($p < $sLen && ord($s{$p}) <= 32) $p++;
+   while ($p < $sLen && ord($s[$p]) <= 32) $p++;
    if ($p >= $sLen) return false;
    if (substr($s,$p,1) == '"')
       return $this->parseQuotedString($s,$p,$w);
