@@ -1033,8 +1033,8 @@
 				"prev_article_page" => __("Scroll article by one page up"),
 				"next_article_noscroll" => __("Open next article"),
 				"prev_article_noscroll" => __("Open previous article"),
-				"next_article_noexpand" => __("Move to next article (don't expand or mark read)"),
-				"prev_article_noexpand" => __("Move to previous article (don't expand or mark read)"),
+				"next_article_noexpand" => __("Move to next article (don't expand)"),
+				"prev_article_noexpand" => __("Move to previous article (don't expand)"),
 				"search_dialog" => __("Show search dialog")),
 			__("Article") => array(
 				"toggle_mark" => __("Toggle starred"),
