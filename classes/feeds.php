@@ -2267,6 +2267,24 @@ class Feeds extends Handler_Protected {
 						if (!$not) array_push($search_words, $k);
 					}
 					break;
+				case "label":
+					if ($commandpair[1]) {
+						$label_id = Labels::find_id($commandpair[1], $_SESSION["uid"]);
+
+						if ($label_id) {
+							array_push($query_keywords, "($not 
+								(ttrss_entries.id IN (
+									SELECT article_id FROM ttrss_user_labels2 WHERE 
+										label_id = ".$pdo->quote($label_id).")))");
+						} else {
+							array_push($query_keywords, "(false)");
+						}
+					} else {
+						array_push($query_keywords, "(UPPER(ttrss_entries.title) $not LIKE UPPER(".$pdo->quote("%$k%").")
+								OR UPPER(ttrss_entries.content) $not LIKE UPPER(".$pdo->quote("%$k%")."))");
+						if (!$not) array_push($search_words, $k);
+					}
+					break;
 				case "unread":
 					if ($commandpair[1]) {
 						if ($commandpair[1] == "true")
@@ -2323,7 +2341,10 @@ class Feeds extends Handler_Protected {
 
 		}
 
-		$search_query_part = implode("AND", $query_keywords);
+		if (count($query_keywords) > 0)
+			$search_query_part = implode("AND", $query_keywords);
+		else
+			$search_query_part = "false";
 
 		return array($search_query_part, $search_words);
 	}

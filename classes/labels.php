@@ -12,7 +12,7 @@ class Labels
 	static function find_id($label, $owner_uid) {
 		$pdo = Db::pdo();
 
-		$sth = $pdo->prepare("SELECT id FROM ttrss_labels2 WHERE caption = ?
+		$sth = $pdo->prepare("SELECT id FROM ttrss_labels2 WHERE LOWER(caption) = LOWER(?)
 				AND owner_uid = ? LIMIT 1");
 		$sth->execute([$label, $owner_uid]);
 
@@ -186,7 +186,7 @@ class Labels
 		}
 
 		$sth = $pdo->prepare("SELECT id FROM ttrss_labels2
-			WHERE caption = ? AND owner_uid = ?");
+			WHERE LOWER(caption) = LOWER(?) AND owner_uid = ?");
 		$sth->execute([$caption, $owner_uid]);
 
 		if (!$sth->fetch()) {
