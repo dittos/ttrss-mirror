@@ -149,14 +149,14 @@ define(["dojo/_base/declare"], function (declare) {
 		formatComments: function(hl) {
 			let comments = "";
 
-			if (hl.comments) {
+			if (hl.comments || hl.num_comments > 0) {
 				let comments_msg = __("comments");
 
 				if (hl.num_comments > 0) {
 					comments_msg = hl.num_comments + " " + ngettext("comment", "comments", hl.num_comments)
 				}
 
-				comments = `<a href="${escapeHtml(hl.comments)}">(${comments_msg})</a>`;
+				comments = `<a href="${escapeHtml(hl.comments ? hl.comments : hl.link)}">(${comments_msg})</a>`;
 			}
 
 			return comments;
