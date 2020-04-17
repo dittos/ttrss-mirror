@@ -178,9 +178,21 @@ define(["dojo/_base/declare"], function (declare) {
 				if (container.textContent.length == 0)
 					container.innerHTML += "&nbsp;";
 
+				// in expandable mode, save content for later, so that we can pack unfocused rows back
+				if (App.isCombinedMode() && $("main").hasClassName("expandable"))
+					row.setAttribute("data-content-original", row.getAttribute("data-content"));
+
 				row.removeAttribute("data-content");
 
 				PluginHost.run(PluginHost.HOOK_ARTICLE_RENDERED_CDM, row);
+			}
+		},
+		pack: function(row) {
+			if (row.hasAttribute("data-content-original")) {
+				console.log("packing", row.id);
+				row.setAttribute("data-content", row.getAttribute("data-content-original"));
+				row.removeAttribute("data-content-original");
+				row.innerHTML = "&nbsp;";
 			}
 		},
 		view: function (id, noexpand) {
@@ -307,8 +319,9 @@ define(["dojo/_base/declare"], function (declare) {
 		setActive: function (id) {
 			console.log("setActive", id);
 
-			$$("div[id*=RROW][class*=active]").each((e) => {
-				e.removeClassName("active");
+			$$("div[id*=RROW][class*=active]").each((row) => {
+				row.removeClassName("active");
+				Article.pack(row);
 			});
 
 			const row = $("RROW-" + id);
