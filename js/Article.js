@@ -192,7 +192,8 @@ define(["dojo/_base/declare"], function (declare) {
 				console.log("packing", row.id);
 				row.setAttribute("data-content", row.getAttribute("data-content-original"));
 				row.removeAttribute("data-content-original");
-				row.innerHTML = "&nbsp;";
+
+				row.querySelector(".content-inner").innerHTML = "&nbsp;";
 			}
 		},
 		view: function (id, noexpand) {
