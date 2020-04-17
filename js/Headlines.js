@@ -385,8 +385,22 @@ define(["dojo/_base/declare"], function (declare) {
 		objectById: function (id){
 			return this.headlines[id];
 		},
+		setCommonClasses: function() {
+			$("headlines-frame").removeClassName("cdm");
+			$("headlines-frame").removeClassName("normal");
+
+			$("headlines-frame").addClassName(App.isCombinedMode() ? "cdm" : "normal");
+
+			// for floating title because it's placed outside of headlines-frame
+			$("main").removeClassName("expandable");
+			$("main").removeClassName("expanded");
+
+			if (App.isCombinedMode())
+				$("main").addClassName(App.getInitParam("cdm_expanded") ? " expanded" : " expandable");
+		},
 		renderAgain: function() {
 			// TODO: wrap headline elements into a knockoutjs model to prevent all this stuff
+			Headlines.setCommonClasses();
 
 			$$("#headlines-frame > div[id*=RROW]").each((row) => {
 				const id = row.getAttribute("data-article-id");
@@ -401,7 +415,7 @@ define(["dojo/_base/declare"], function (declare) {
 						new_row.addClassName("active");
 
 						if (App.isCombinedMode())
-							Article.cdmScrollToId(id);
+							Article.cdmScrollToId(id, true, null, true);
 						else
 							Article.view(id);
 					}
@@ -598,23 +612,11 @@ define(["dojo/_base/declare"], function (declare) {
 					Feeds.infscroll_disabled = parseInt(headlines_count) != 30;
 					console.log('infscroll_disabled=', Feeds.infscroll_disabled);
 
-					// TODO: the below needs to be applied again when switching expanded/expandable on the fly
-					// via hotkeys, not just on feed load
-
-					$("headlines-frame").removeClassName("cdm");
-					$("headlines-frame").removeClassName("normal");
-
-					$("headlines-frame").addClassName(App.isCombinedMode() ? "cdm" : "normal");
+					// also called in renderAgain() after view mode switch
+					Headlines.setCommonClasses();
 
 					$("headlines-frame").setAttribute("is-vfeed",
 						reply['headlines']['is_vfeed'] ? 1 : 0);
-
-					// for floating title because it's placed outside of headlines-frame
-					$("main").removeClassName("expandable");
-					$("main").removeClassName("expanded");
-
-					if (App.isCombinedMode())
-						$("main").addClassName(App.getInitParam("cdm_expanded") ? " expanded" : " expandable");
 
 					Article.setActive(0);
 

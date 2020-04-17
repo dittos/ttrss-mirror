@@ -289,7 +289,7 @@ define(["dojo/_base/declare"], function (declare) {
 
 			dialog.show();
 		},
-		cdmScrollToId: function (id, force, event) {
+		cdmScrollToId: function (id, force, event, immediate) {
 			const ctr = $("headlines-frame");
 			const e = $("RROW-" + id);
 			const is_expanded = App.getInitParam("cdm_expanded");
@@ -299,7 +299,7 @@ define(["dojo/_base/declare"], function (declare) {
 			if (force || is_expanded || e.offsetTop + e.offsetHeight > (ctr.scrollTop + ctr.offsetHeight) ||
 				e.offsetTop < ctr.scrollTop) {
 
-				if (event && event.repeat || !is_expanded) {
+				if (immediate || event && event.repeat || !is_expanded) {
 					ctr.addClassName("forbid-smooth-scroll");
 					window.clearTimeout(this._scroll_reset_timeout);
 
