@@ -151,35 +151,19 @@
 	function make_config($DB_TYPE, $DB_HOST, $DB_USER, $DB_NAME, $DB_PASS,
 			$DB_PORT, $SELF_URL_PATH) {
 
-		$data = explode("\n", file_get_contents("../config.php-dist"));
+		$rv = file_get_contents("../config.php-dist");
 
-		$rv = "";
+		$settings = [
+			"%DB_TYPE" => $DB_TYPE == 'pgsql' ? 'pgsql' : 'mysql',
+			"%DB_HOST" => addslashes($DB_HOST),
+			"%DB_USER" => addslashes($DB_USER),
+			"%DB_NAME" => addslashes($DB_NAME),
+			"%DB_PASS" => addslashes($DB_PASS),
+			"%DB_PORT" => intval($DB_PORT),
+			"%SELF_URL_PATH" => addslashes($SELF_URL_PATH)
+		];
 
-		$finished = false;
-
-		foreach ($data as $line) {
-			if (preg_match("/define\('DB_TYPE'/", $line)) {
-				$rv .= "\tdefine('DB_TYPE', '$DB_TYPE');\n";
-			} else if (preg_match("/define\('DB_HOST'/", $line)) {
-				$rv .= "\tdefine('DB_HOST', '$DB_HOST');\n";
-			} else if (preg_match("/define\('DB_USER'/", $line)) {
-				$rv .= "\tdefine('DB_USER', '$DB_USER');\n";
-			} else if (preg_match("/define\('DB_NAME'/", $line)) {
-				$rv .= "\tdefine('DB_NAME', '$DB_NAME');\n";
-			} else if (preg_match("/define\('DB_PASS'/", $line)) {
-				$rv .= "\tdefine('DB_PASS', '$DB_PASS');\n";
-			} else if (preg_match("/define\('DB_PORT'/", $line)) {
-				$rv .= "\tdefine('DB_PORT', '$DB_PORT');\n";
-			} else if (preg_match("/define\('SELF_URL_PATH'/", $line)) {
-				$rv .= "\tdefine('SELF_URL_PATH', '$SELF_URL_PATH');\n";
-			} else if (!$finished) {
-				$rv .= "$line\n";
-			}
-
-			if (preg_match("/\?\>/", $line)) {
-				$finished = true;
-			}
-		}
+		$rv = str_replace(array_keys($settings), array_values($settings), $rv);
 
 		return $rv;
 	}
