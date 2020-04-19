@@ -3,12 +3,12 @@
 	// *** Database configuration (important!) ***
 	// *******************************************
 
-	define('DB_TYPE', "pgsql"); // or mysql
-	define('DB_HOST', "localhost");
-	define('DB_USER', "fox");
-	define('DB_NAME', "fox");
-	define('DB_PASS', "XXXXXX");
-	define('DB_PORT', ''); // usually 5432 for PostgreSQL, 3306 for MySQL
+	define('DB_TYPE', "%DB_TYPE"); // pgsql or mysql
+	define('DB_HOST', "%DB_HOST");
+	define('DB_USER', "%DB_USER");
+	define('DB_NAME', "%DB_NAME");
+	define('DB_PASS', "%DB_PASS");
+	define('DB_PORT', '%DB_PORT'); // usually 5432 for PostgreSQL, 3306 for MySQL
 
 	define('MYSQL_CHARSET', 'UTF8');
 	// Connection charset for MySQL. If you have a legacy database and/or experience
@@ -18,9 +18,9 @@
 	// *** Basic settings (important!) ***
 	// ***********************************
 
-	define('SELF_URL_PATH', 'https://example.org/tt-rss/');
+	define('SELF_URL_PATH', '%SELF_URL_PATH');
 	// This should be set to a fully qualified URL used to access
-	// your tt-rss instance over the net.
+	// your tt-rss instance over the net, such as: https://example.org/tt-rss/
 	// The value should be a constant string literal. Please don't use
 	// PHP server variables here - you might introduce security
 	// issues on your install and cause hard to debug problems.
