@@ -234,28 +234,28 @@
 
 	<fieldset>
 		<label>Username:</label>
-		<input dojoType="dijit.form.TextBox" required name="DB_USER" size="20" value="<?php echo $DB_USER ?>"/>
+		<input dojoType="dijit.form.TextBox" required name="DB_USER" size="20" value="<?php echo htmlspecialchars($DB_USER) ?>"/>
 	</fieldset>
 
 	<fieldset>
 		<label>Password:</label>
-		<input dojoType="dijit.form.TextBox" name="DB_PASS" size="20" type="password" value="<?php echo $DB_PASS ?>"/>
+		<input dojoType="dijit.form.TextBox" name="DB_PASS" size="20" type="password" value="<?php echo htmlspecialchars($DB_PASS) ?>"/>
 	</fieldset>
 
 	<fieldset>
 		<label>Database name:</label>
-		<input dojoType="dijit.form.TextBox" required name="DB_NAME" size="20" value="<?php echo $DB_NAME ?>"/>
+		<input dojoType="dijit.form.TextBox" required name="DB_NAME" size="20" value="<?php echo htmlspecialchars($DB_NAME) ?>"/>
 	</fieldset>
 
 	<fieldset>
 		<label>Host name:</label>
-		<input dojoType="dijit.form.TextBox" name="DB_HOST" size="20" value="<?php echo $DB_HOST ?>"/>
+		<input dojoType="dijit.form.TextBox" name="DB_HOST" size="20" value="<?php echo htmlspecialchars($DB_HOST) ?>"/>
 		<span class="hint">If needed</span>
 	</fieldset>
 
 	<fieldset>
 		<label>Port:</label>
-		<input dojoType="dijit.form.TextBox" name="DB_PORT" type="number" size="20" value="<?php echo $DB_PORT ?>"/>
+		<input dojoType="dijit.form.TextBox" name="DB_PORT" type="number" size="20" value="<?php echo htmlspecialchars($DB_PORT) ?>"/>
 		<span class="hint">Usually 3306 for MySQL or 5432 for PostgreSQL</span>
 	</fieldset>
 
@@ -265,7 +265,7 @@
 
 	<fieldset>
 		<label>Tiny Tiny RSS URL:</label>
-		<input dojoType="dijit.form.TextBox" type="url" name="SELF_URL_PATH" placeholder="<?php echo $SELF_URL_PATH; ?>" value="<?php echo $SELF_URL_PATH ?>"/>
+		<input dojoType="dijit.form.TextBox" type="url" name="SELF_URL_PATH" placeholder="<?php echo htmlspecialchars($SELF_URL_PATH); ?>" value="<?php echo htmlspecialchars($SELF_URL_PATH) ?>"/>
 	</fieldset>
 
 	<p><button type="submit" dojoType="dijit.form.Button" class="alt-primary">Test configuration</button></p>
@@ -336,7 +336,7 @@
 		$pdo = pdo_connect($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME, $DB_TYPE, $DB_PORT);
 
 		if (!$pdo) {
-			print_error("Unable to connect to database using specified parameters (driver: $DB_TYPE).");
+			print_error("Unable to connect to database using specified parameters (driver: " . htmlspecialchars($DB_TYPE) . ").");
 			exit;
 		}
 
@@ -362,13 +362,13 @@
 	<form method="post">
 		<input type="hidden" name="op" value="installschema">
 
-		<input type="hidden" name="DB_USER" value="<?php echo $DB_USER ?>"/>
-		<input type="hidden" name="DB_PASS" value="<?php echo $DB_PASS ?>"/>
-		<input type="hidden" name="DB_NAME" value="<?php echo $DB_NAME ?>"/>
-		<input type="hidden" name="DB_HOST" value="<?php echo $DB_HOST ?>"/>
-		<input type="hidden" name="DB_PORT" value="<?php echo $DB_PORT ?>"/>
-		<input type="hidden" name="DB_TYPE" value="<?php echo $DB_TYPE ?>"/>
-		<input type="hidden" name="SELF_URL_PATH" value="<?php echo $SELF_URL_PATH ?>"/>
+		<input type="hidden" name="DB_USER" value="<?php echo htmlspecialchars($DB_USER) ?>"/>
+		<input type="hidden" name="DB_PASS" value="<?php echo htmlspecialchars($DB_PASS) ?>"/>
+		<input type="hidden" name="DB_NAME" value="<?php echo htmlspecialchars($DB_NAME) ?>"/>
+		<input type="hidden" name="DB_HOST" value="<?php echo htmlspecialchars($DB_HOST) ?>"/>
+		<input type="hidden" name="DB_PORT" value="<?php echo htmlspecialchars($DB_PORT) ?>"/>
+		<input type="hidden" name="DB_TYPE" value="<?php echo htmlspecialchars($DB_TYPE) ?>"/>
+		<input type="hidden" name="SELF_URL_PATH" value="<?php echo htmlspecialchars($SELF_URL_PATH) ?>"/>
 
 		<p>
 		<?php if ($need_confirm) { ?>
@@ -382,13 +382,13 @@
 
 	</td><td>
 	<form method="post">
-		<input type="hidden" name="DB_USER" value="<?php echo $DB_USER ?>"/>
-		<input type="hidden" name="DB_PASS" value="<?php echo $DB_PASS ?>"/>
-		<input type="hidden" name="DB_NAME" value="<?php echo $DB_NAME ?>"/>
-		<input type="hidden" name="DB_HOST" value="<?php echo $DB_HOST ?>"/>
-		<input type="hidden" name="DB_PORT" value="<?php echo $DB_PORT ?>"/>
-		<input type="hidden" name="DB_TYPE" value="<?php echo $DB_TYPE ?>"/>
-		<input type="hidden" name="SELF_URL_PATH" value="<?php echo $SELF_URL_PATH ?>"/>
+		<input type="hidden" name="DB_USER" value="<?php echo htmlspecialchars($DB_USER) ?>"/>
+		<input type="hidden" name="DB_PASS" value="<?php echo htmlspecialchars($DB_PASS) ?>"/>
+		<input type="hidden" name="DB_NAME" value="<?php echo htmlspecialchars($DB_NAME) ?>"/>
+		<input type="hidden" name="DB_HOST" value="<?php echo htmlspecialchars($DB_HOST) ?>"/>
+		<input type="hidden" name="DB_PORT" value="<?php echo htmlspecialchars($DB_PORT) ?>"/>
+		<input type="hidden" name="DB_TYPE" value="<?php echo htmlspecialchars($DB_TYPE) ?>"/>
+		<input type="hidden" name="SELF_URL_PATH" value="<?php echo htmlspecialchars($SELF_URL_PATH) ?>"/>
 
 		<input type="hidden" name="op" value="skipschema">
 
@@ -440,16 +440,16 @@
 
 			<form action="" method="post">
 				<input type="hidden" name="op" value="saveconfig">
-				<input type="hidden" name="DB_USER" value="<?php echo $DB_USER ?>"/>
-				<input type="hidden" name="DB_PASS" value="<?php echo $DB_PASS ?>"/>
-				<input type="hidden" name="DB_NAME" value="<?php echo $DB_NAME ?>"/>
-				<input type="hidden" name="DB_HOST" value="<?php echo $DB_HOST ?>"/>
-				<input type="hidden" name="DB_PORT" value="<?php echo $DB_PORT ?>"/>
-				<input type="hidden" name="DB_TYPE" value="<?php echo $DB_TYPE ?>"/>
-				<input type="hidden" name="SELF_URL_PATH" value="<?php echo $SELF_URL_PATH ?>"/>
+				<input type="hidden" name="DB_USER" value="<?php echo htmlspecialchars($DB_USER) ?>"/>
+				<input type="hidden" name="DB_PASS" value="<?php echo htmlspecialchars($DB_PASS) ?>"/>
+				<input type="hidden" name="DB_NAME" value="<?php echo htmlspecialchars($DB_NAME) ?>"/>
+				<input type="hidden" name="DB_HOST" value="<?php echo htmlspecialchars($DB_HOST) ?>"/>
+				<input type="hidden" name="DB_PORT" value="<?php echo htmlspecialchars($DB_PORT) ?>"/>
+				<input type="hidden" name="DB_TYPE" value="<?php echo htmlspecialchars($DB_TYPE) ?>"/>
+				<input type="hidden" name="SELF_URL_PATH" value="<?php echo htmlspecialchars($SELF_URL_PATH) ?>"/>
 			<?php print "<textarea rows='20' style='width : 100%'>";
-			echo make_config($DB_TYPE, $DB_HOST, $DB_USER, $DB_NAME, $DB_PASS,
-				$DB_PORT, $SELF_URL_PATH);
+			echo htmlspecialchars(make_config($DB_TYPE, $DB_HOST, $DB_USER, $DB_NAME, $DB_PASS,
+				$DB_PORT, $SELF_URL_PATH));
 			print "</textarea>"; ?>
 
 			<hr/>
