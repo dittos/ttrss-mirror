@@ -153,14 +153,16 @@
 
 		$rv = file_get_contents("../config.php-dist");
 
+		$escape_chars = "\\'";
+
 		$settings = [
 			"%DB_TYPE" => $DB_TYPE == 'pgsql' ? 'pgsql' : 'mysql',
-			"%DB_HOST" => addslashes($DB_HOST),
-			"%DB_USER" => addslashes($DB_USER),
-			"%DB_NAME" => addslashes($DB_NAME),
-			"%DB_PASS" => addslashes($DB_PASS),
-			"%DB_PORT" => intval($DB_PORT),
-			"%SELF_URL_PATH" => addslashes($SELF_URL_PATH)
+			"%DB_HOST" => addcslashes($DB_HOST, $escape_chars),
+			"%DB_USER" => addcslashes($DB_USER, $escape_chars),
+			"%DB_NAME" => addcslashes($DB_NAME, $escape_chars),
+			"%DB_PASS" => addcslashes($DB_PASS, $escape_chars),
+			"%DB_PORT" => $DB_PORT ? intval($DB_PORT) : '',
+			"%SELF_URL_PATH" => addcslashes($SELF_URL_PATH, $escape_chars)
 		];
 
 		$rv = str_replace(array_keys($settings), array_values($settings), $rv);
