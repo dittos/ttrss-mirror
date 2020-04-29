@@ -1037,8 +1037,6 @@ class RSSUtils {
 							$e = $plugin->hook_enclosure_imported($e, $feed);
 						}
 
-						var_dump($e);
-
 						$e_item = array(
 							rewrite_relative_url($site_url, $e->link),
 							$e->type, $e->length, $e->title, $e->width, $e->height);
