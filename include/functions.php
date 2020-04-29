@@ -1264,7 +1264,7 @@
 
 		$rewrite_base_url = $site_url ? $site_url : get_self_url_prefix();
 
-		$entries = $xpath->query('(//a[@href]|//img[@src]|//video/source[@src]|//audio/source[@src]|//picture/source[@src])');
+		$entries = $xpath->query('(//a[@href]|//img[@src]|//video/source[@src]|//audio/source[@src]|//picture/source[@src]|//picture/source[@srcset])');
 
 		foreach ($entries as $entry) {
 
@@ -1301,6 +1301,22 @@
 						}
 					}
 				}
+			}
+
+			if ($entry->hasAttribute('srcset')) {
+				$tokens = explode(",", $entry->getAttribute('srcset'));
+
+				for ($i = 0; $i < count($tokens); $i++) {
+					$token = trim($tokens[$i]);
+
+					list ($url, $width) = explode(" ", $token, 2);
+
+					$url = rewrite_relative_url($rewrite_base_url, $url);
+
+					$tokens[$i] = "$url $width";
+				}
+
+				$entry->setAttribute("srcset", implode(", ", $tokens));
 			}
 
 			if ($entry->hasAttribute('src') &&
