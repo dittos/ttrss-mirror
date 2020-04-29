@@ -1226,6 +1226,32 @@ class RSSUtils {
 		}
 	}
 
+	static function cache_media_url($cache, $url, $site_url) {
+		$url = rewrite_relative_url($site_url, $url);
+		$local_filename = sha1($url);
+
+		Debug::log("cache_media: checking $url", Debug::$LOG_VERBOSE);
+
+		if (!$cache->exists($local_filename)) {
+			Debug::log("cache_media: downloading: $url to $local_filename", Debug::$LOG_VERBOSE);
+
+			global $fetch_last_error_code;
+			global $fetch_last_error;
+
+			$file_content = fetch_file_contents(array("url" => $url,
+				"http_referrer" => $url,
+				"max_size" => MAX_CACHE_FILE_SIZE));
+
+			if ($file_content) {
+				$cache->put($local_filename, $file_content);
+			} else {
+				Debug::log("cache_media: failed with $fetch_last_error_code: $fetch_last_error");
+			}
+		} else if ($cache->isWritable($local_filename)) {
+			$cache->touch($local_filename);
+		}
+	}
+
 	static function cache_media($html, $site_url) {
 		$cache = new DiskCache("images");
 
@@ -1234,35 +1260,24 @@ class RSSUtils {
 			if ($doc->loadHTML($html)) {
 				$xpath = new DOMXPath($doc);
 
-				$entries = $xpath->query('(//img[@src])|(//video/source[@src])|(//audio/source[@src])|(//video[@poster])|(//video[@src])');
+				$entries = $xpath->query('(//img[@src]|//source[@src|@srcset]|//video[@poster|@src])');
 
 				foreach ($entries as $entry) {
 					foreach (array('src', 'poster') as $attr) {
 						if ($entry->hasAttribute($attr) && strpos($entry->getAttribute($attr), "data:") !== 0) {
-							$src = rewrite_relative_url($site_url, $entry->getAttribute($attr));
+							RSSUtils::cache_media_url($cache, $entry->getAttribute($attr), $site_url);
+						}
+					}
 
-							$local_filename = sha1($src);
+					if ($entry->hasAttribute("srcset")) {
+						$tokens = explode(",", $entry->getAttribute('srcset'));
 
-							Debug::log("cache_media: checking $src", Debug::$LOG_VERBOSE);
+						for ($i = 0; $i < count($tokens); $i++) {
+							$token = trim($tokens[$i]);
 
-							if (!$cache->exists($local_filename)) {
-								Debug::log("cache_media: downloading: $src to $local_filename", Debug::$LOG_VERBOSE);
+							list ($url, $width) = explode(" ", $token, 2);
 
-								global $fetch_last_error_code;
-								global $fetch_last_error;
-
-								$file_content = fetch_file_contents(array("url" => $src,
-									"http_referrer" => $src,
-									"max_size" => MAX_CACHE_FILE_SIZE));
-
-								if ($file_content) {
-									$cache->put($local_filename, $file_content);
-								} else {
-									Debug::log("cache_media: failed with $fetch_last_error_code: $fetch_last_error");
-								}
-							} else if ($cache->isWritable($local_filename)) {
-								$cache->touch($local_filename);
-							}
+							RSSUtils::cache_media_url($cache, $url, $site_url);
 						}
 					}
 				}

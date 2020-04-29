@@ -79,6 +79,7 @@ class DiskCache {
 	// check for locally cached (media) URLs and rewrite to local versions
 	// this is called separately after sanitize() and plugin render article hooks to allow
 	// plugins work on original source URLs used before caching
+	// NOTE: URLs should be already absolutized because this is called after sanitize()
 	static public function rewriteUrls($str)
 	{
 		$res = trim($str);
@@ -89,28 +90,44 @@ class DiskCache {
 			$xpath = new DOMXPath($doc);
 			$cache = new DiskCache("images");
 
-			$entries = $xpath->query('(//img[@src]|//picture/source[@src]|//video[@poster]|//video[@src]|//video/source[@src]|//audio/source[@src])');
+			$entries = $xpath->query('(//img[@src]|//source[@src|@srcset]|//video[@poster|@src])');
 
 			$need_saving = false;
 
 			foreach ($entries as $entry) {
-
 				foreach (array('src', 'poster') as $attr) {
 					if ($entry->hasAttribute($attr)) {
-						// should be already absolutized because this is called after sanitize()
-						$src = $entry->getAttribute($attr);
-						$cached_filename = sha1($src);
+						$url = $entry->getAttribute($attr);
+						$cached_filename = sha1($url);
 
 						if ($cache->exists($cached_filename)) {
+							$url = $cache->getUrl($cached_filename);
 
-							$src = $cache->getUrl(sha1($src));
-
-							$entry->setAttribute($attr, $src);
+							$entry->setAttribute($attr, $url);
 							$entry->removeAttribute("srcset");
 
 							$need_saving = true;
 						}
 					}
+				}
+
+				if ($entry->hasAttribute("srcset")) {
+					$tokens = explode(",", $entry->getAttribute('srcset'));
+
+					for ($i = 0; $i < count($tokens); $i++) {
+						$token = trim($tokens[$i]);
+
+						list ($url, $width) = explode(" ", $token, 2);
+						$cached_filename = sha1($url);
+
+						if ($cache->exists($cached_filename)) {
+							$tokens[$i] = $cache->getUrl($cached_filename) . " " . $width;
+
+							$need_saving = true;
+						}
+					}
+
+					$entry->setAttribute("srcset", implode(", ", $tokens));
 				}
 			}
 
