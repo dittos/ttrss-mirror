@@ -1264,7 +1264,7 @@
 
 		$rewrite_base_url = $site_url ? $site_url : get_self_url_prefix();
 
-		$entries = $xpath->query('(//a[@href]|//img[@src]|//video/source[@src]|//audio/source[@src]|//picture/source[@src]|//picture/source[@srcset])');
+		$entries = $xpath->query('(//a[@href]|//img[@src]|//source[@srcset|@src])');
 
 		foreach ($entries as $entry) {
 
@@ -1273,11 +1273,12 @@
 					rewrite_relative_url($rewrite_base_url, $entry->getAttribute('href')));
 
 				$entry->setAttribute('rel', 'noopener noreferrer');
+				$entry->setAttribute("target", "_blank");
 			}
 
 			if ($entry->hasAttribute('src')) {
-				$src = rewrite_relative_url($rewrite_base_url, $entry->getAttribute('src'));
-				$entry->setAttribute('src', $src);
+				$entry->setAttribute('src',
+					rewrite_relative_url($rewrite_base_url, $entry->getAttribute('src')));
 			}
 
 			if ($entry->nodeName == 'img') {
@@ -1321,16 +1322,9 @@
 						$entry->parentNode->parentNode->replaceChild($p, $entry->parentNode);
 
 				} else if ($entry->nodeName == 'img') {
-
 					if ($entry->parentNode)
 						$entry->parentNode->replaceChild($p, $entry);
-
 				}
-			}
-
-			if (strtolower($entry->nodeName) == "a") {
-				$entry->setAttribute("target", "_blank");
-				$entry->setAttribute("rel", "noopener noreferrer");
 			}
 		}
 
@@ -1377,7 +1371,7 @@
 		$doc->removeChild($doc->firstChild); //remove doctype
 		$doc = strip_harmful_tags($doc, $allowed_elements, $disallowed_attributes);
 
-		if ($highlight_words) {
+		if ($highlight_words && is_array($highlight_words)) {
 			foreach ($highlight_words as $word) {
 
 				// http://stackoverflow.com/questions/4081372/highlight-keywords-in-a-paragraph
@@ -1767,6 +1761,7 @@
 	 */
 	function error_json($code) {
 		require_once "errors.php";
+		global $ERRORS;
 
 		@$message = $ERRORS[$code];
 
