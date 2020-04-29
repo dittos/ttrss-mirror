@@ -469,7 +469,7 @@ class RSSUtils {
 			foreach ($pluginhost->get_hooks(PluginHost::HOOK_FEED_PARSED) as $plugin) {
 				Debug::log("... " . get_class($plugin), Debug::$LOG_VERBOSE);
 				$start = microtime(true);
-				$plugin->hook_feed_parsed($rss);
+				$plugin->hook_feed_parsed($rss, $feed);
 				Debug::log(sprintf("=== %.4f (sec)", microtime(true) - $start), Debug::$LOG_VERBOSE);
 			}
 
@@ -1032,6 +1032,13 @@ class RSSUtils {
 
 				if (is_array($encs)) {
 					foreach ($encs as $e) {
+
+						foreach ($pluginhost->get_hooks(PluginHost::HOOK_ENCLOSURE_IMPORTED) as $plugin) {
+							$e = $plugin->hook_enclosure_imported($e, $feed);
+						}
+
+						var_dump($e);
+
 						$e_item = array(
 							rewrite_relative_url($site_url, $e->link),
 							$e->type, $e->length, $e->title, $e->width, $e->height);
