@@ -1283,24 +1283,6 @@
 			if ($entry->nodeName == 'img') {
 				$entry->setAttribute('referrerpolicy', 'no-referrer');
 				$entry->setAttribute('loading', 'lazy');
-
-				$entry->removeAttribute('width');
-				$entry->removeAttribute('height');
-
-				if ($entry->hasAttribute('src')) {
-					$is_https_url = parse_url($entry->getAttribute('src'), PHP_URL_SCHEME) === 'https';
-
-					if (is_prefix_https() && !$is_https_url) {
-
-						if ($entry->hasAttribute('srcset')) {
-							$entry->removeAttribute('srcset');
-						}
-
-						if ($entry->hasAttribute('sizes')) {
-							$entry->removeAttribute('sizes');
-						}
-					}
-				}
 			}
 
 			if ($entry->hasAttribute('srcset')) {
@@ -1379,7 +1361,7 @@
 
 		if ($_SESSION['hasSandbox']) $allowed_elements[] = 'iframe';
 
-		$disallowed_attributes = array('id', 'style', 'class');
+		$disallowed_attributes = array('id', 'style', 'class', 'width', 'height');
 
 		foreach (PluginHost::getInstance()->get_hooks(PluginHost::HOOK_SANITIZE) as $plugin) {
 			$retval = $plugin->hook_sanitize($doc, $site_url, $allowed_elements, $disallowed_attributes, $article_id);
