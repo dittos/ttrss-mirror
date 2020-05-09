@@ -1357,7 +1357,7 @@
 
 		if ($_SESSION['hasSandbox']) $allowed_elements[] = 'iframe';
 
-		$disallowed_attributes = array('id', 'style', 'class', 'width', 'height');
+		$disallowed_attributes = array('id', 'style', 'class', 'width', 'height', 'allow');
 
 		foreach (PluginHost::getInstance()->get_hooks(PluginHost::HOOK_SANITIZE) as $plugin) {
 			$retval = $plugin->hook_sanitize($doc, $site_url, $allowed_elements, $disallowed_attributes, $article_id);

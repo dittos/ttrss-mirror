@@ -71,13 +71,6 @@ body.ttrss_main div.post div.content video {
   max-width: 98%;
   height: auto;
 }
-body.ttrss_main div.post div.content p {
-  hyphens: auto;
-}
-body.ttrss_main div.post div.content iframe {
-  min-width: 50%;
-  max-width: 98%;
-}
 body.ttrss_main .inline-player {
   display: flex;
   align-items: center;
@@ -1284,16 +1277,6 @@ div.cdm.vgrlf .feed {
   font-style: italic;
   font-size: 11px;
 }
-.cdm div.content-inner p {
-  /*max-width : 650px;*/
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  hyphens: auto;
-}
-.cdm div.content-inner iframe {
-  min-width: 50%;
-  max-width: 98%;
-}
 .cdm div.header span.author {
   white-space: nowrap;
   color: #ccc;
@@ -1913,11 +1896,6 @@ body.ttrss_zoom div.post div.header .row {
   flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
-}
-body.ttrss_zoom div.post p {
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  hyphens: auto;
 }
 body.ttrss_zoom div.post div.content {
   font-size: 15px;
