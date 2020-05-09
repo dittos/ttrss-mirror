@@ -305,6 +305,9 @@ require(["dojo/_base/kernel",
 					this.hotkey_actions["search_dialog"] = function () {
 						Feeds.search();
 					};
+					this.hotkey_actions["cancel_search"] = function () {
+						Feeds.cancelSearch();
+					};
 					this.hotkey_actions["toggle_mark"] = function () {
 						Headlines.selectionToggleMarked();
 					};
