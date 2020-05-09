@@ -9,7 +9,7 @@ Plugins.Af_Readability = {
             content.innerHTML = content.getAttribute(self.orig_attr_name);
             content.removeAttribute(self.orig_attr_name);
 
-            if (App.isCombinedMode()) Article.cdmScrollToId(id);
+            if (App.isCombinedMode()) Article.cdmMoveToId(id);
 
             return;
         }
@@ -23,7 +23,7 @@ Plugins.Af_Readability = {
                 content.innerHTML = reply.content;
                 Notify.close();
 
-                if (App.isCombinedMode()) Article.cdmScrollToId(id);
+                if (App.isCombinedMode()) Article.cdmMoveToId(id);
 
             } else {
                 Notify.error("Unable to fetch full text for this article");

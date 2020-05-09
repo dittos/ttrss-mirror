@@ -185,7 +185,7 @@ define(["dojo/_base/declare"], function (declare) {
 
 							Headlines.toggleUnread(id, 0);
 						} else {
-							Article.cdmScrollToId(id);
+							Article.cdmMoveToId(id);
 						}
 
 					} else if (in_body) {
@@ -333,7 +333,7 @@ define(["dojo/_base/declare"], function (declare) {
 							ft.setAttribute("data-article-id", id);
 							ft.innerHTML = header.innerHTML;
 
-							ft.select(".dijitCheckBox")[0].outerHTML = "<i class=\"material-icons icon-anchor\" onclick=\"Article.cdmScrollToId(" + id + ", true)\">expand_more</i>";
+							ft.select(".dijitCheckBox")[0].outerHTML = "<i class=\"material-icons icon-anchor\" onclick=\"Article.cdmMoveToId(" + id + ")\">expand_more</i>";
 
 							this.initFloatingMenu();
 
@@ -415,7 +415,7 @@ define(["dojo/_base/declare"], function (declare) {
 						new_row.addClassName("active");
 
 						if (App.isCombinedMode())
-							Article.cdmScrollToId(id, true, null, true);
+							Article.cdmMoveToId(id, {noscroll: true});
 						else
 							Article.view(id);
 					}
@@ -884,11 +884,11 @@ define(["dojo/_base/declare"], function (declare) {
 						//const row = $("RROW-" + Article.getActive());
 						const ctr = $("headlines-frame");
 
-						if (!noscroll) {
-							Article.scroll(ctr.offsetHeight / 2, event);
-						} else if (next_id) {
+						if (noscroll) {
 							Article.setActive(next_id);
-							Article.cdmScrollToId(next_id, true, event);
+							Article.cdmMoveToId(next_id, { event: event, noscroll: noscroll });
+						} else if (next_id) {
+							Article.scroll(ctr.offsetHeight / 2, event);
 						}
 
 					} else if (next_id) {
@@ -906,15 +906,15 @@ define(["dojo/_base/declare"], function (declare) {
 						//const prev_row = $("RROW-" + prev_id);
 						const ctr = $("headlines-frame");
 
-						if (!noscroll) {
-							Article.scroll(-ctr.offsetHeight / 2, event);
-						} else {
+						if (noscroll) {
 							if (row && Math.round(row.offsetTop) < Math.round(ctr.scrollTop)) {
-								Article.cdmScrollToId(Article.getActive(), noscroll, event);
+								Article.cdmMoveToId(Article.getActive(), { force: noscroll, event: event });
 							} else if (prev_id) {
 								Article.setActive(prev_id);
-								Article.cdmScrollToId(prev_id, noscroll, event);
+								Article.cdmMoveToId(prev_id, { force: noscroll, event: event, noscroll: noscroll });
 							}
+						} else {
+							Article.scroll(-ctr.offsetHeight / 2, event);
 						}
 
 					} else if (prev_id) {
