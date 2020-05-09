@@ -291,6 +291,8 @@ define(["dojo/_base/declare"], function (declare) {
 			dialog.show();
 		},
 		cdmMoveToId: function (id, params) {
+			params = params || {};
+
 			const force = params.force || true;
 			const event = params.event || null;
 			const noscroll = params.noscroll || false;
