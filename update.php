@@ -85,6 +85,7 @@
 			"debug-feed:",
 			"force-refetch",
 			"force-rehash",
+			"opml-export:",
 			"help");
 
 	foreach (PluginHost::getInstance()->get_commands() as $command => $data) {
@@ -122,29 +123,30 @@
 	if (count($options) == 0 || isset($options["help"]) ) {
 		print "Tiny Tiny RSS data update script.\n\n";
 		print "Options:\n";
-		print "  --feeds              - update feeds\n";
-		print "  --daemon             - start single-process update daemon\n";
-		print "  --task N             - create lockfile using this task id\n";
-		print "  --cleanup-tags       - perform tags table maintenance\n";
-		print "  --quiet              - don't output messages to stdout\n";
-		print "  --log FILE           - log messages to FILE\n";
-		print "  --log-level N        - log verbosity level\n";
-		print "  --indexes            - recreate missing schema indexes\n";
-		print "  --update-schema      - update database schema\n";
-		print "  --gen-search-idx     - generate basic PostgreSQL fulltext search index\n";
-		print "  --convert-filters    - convert type1 filters to type2\n";
-		print "  --send-digests       - send pending email digests\n";
-		print "  --force-update       - force update of all feeds\n";
-		print "  --list-plugins       - list all available plugins\n";
-		print "  --debug-feed N       - perform debug update of feed N\n";
-		print "  --force-refetch      - debug update: force refetch feed data\n";
-		print "  --force-rehash       - debug update: force rehash articles\n";
-		print "  --help               - show this help\n";
+		print "  --feeds                     - update feeds\n";
+		print "  --daemon                    - start single-process update daemon\n";
+		print "  --task N                    - create lockfile using this task id\n";
+		print "  --cleanup-tags              - perform tags table maintenance\n";
+		print "  --quiet                     - don't output messages to stdout\n";
+		print "  --log FILE                  - log messages to FILE\n";
+		print "  --log-level N               - log verbosity level\n";
+		print "  --indexes                   - recreate missing schema indexes\n";
+		print "  --update-schema             - update database schema\n";
+		print "  --gen-search-idx            - generate basic PostgreSQL fulltext search index\n";
+		print "  --convert-filters           - convert type1 filters to type2\n";
+		print "  --send-digests              - send pending email digests\n";
+		print "  --force-update              - force update of all feeds\n";
+		print "  --list-plugins              - list all available plugins\n";
+		print "  --debug-feed N              - perform debug update of feed N\n";
+		print "  --force-refetch             - debug update: force refetch feed data\n";
+		print "  --force-rehash              - debug update: force rehash articles\n";
+		print "  --opml-export \"USER FILE\"   - export feeds of selected user to OPML\n";
+		print "  --help                      - show this help\n";
 		print "Plugin options:\n";
 
 		foreach (PluginHost::getInstance()->get_commands() as $command => $data) {
 			$args = $data['arghelp'];
-			printf(" --%-19s - %s\n", "$command $args", $data["description"]);
+			printf(" --%-26s - %s\n", "$command $args", $data["description"]);
 		}
 
 		return;
@@ -481,6 +483,26 @@
 
 	if (isset($options["send-digests"])) {
 		Digest::send_headlines_digests();
+	}
+
+	if (isset($options["opml-export"])) {
+		list ($user, $filename) = explode(" ", $options["opml-export"], 2);
+
+		Debug::log("Exporting feeds of user $user to $filename as OPML...");
+
+		$sth = $pdo->prepare("SELECT id FROM ttrss_users WHERE login = ?");
+		$sth->execute([$user]);
+
+		if ($res = $sth->fetch()) {
+			$opml = new OPML("");
+
+			$rc = $opml->opml_export($filename, $res["id"], false, true, true);
+
+			Debug::log($rc ? "Success." : "Failed.");
+		} else {
+			Debug::log("User not found: $user");
+		}
+
 	}
 
 	PluginHost::getInstance()->run_commands($options);

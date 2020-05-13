@@ -125,15 +125,16 @@ class Opml extends Handler_Protected {
 		return $out;
 	}
 
-	function opml_export($name, $owner_uid, $hide_private_feeds = false, $include_settings = true) {
+	function opml_export($filename, $owner_uid, $hide_private_feeds = false, $include_settings = true, $file_output = false) {
 		if (!$owner_uid) return;
 
-		if (!isset($_REQUEST["debug"])) {
-			header("Content-type: application/xml+opml");
-			header("Content-Disposition: attachment; filename=" . $name );
-		} else {
-			header("Content-type: text/xml");
-		}
+		if (!$file_output)
+			if (!isset($_REQUEST["debug"])) {
+				header("Content-type: application/xml+opml");
+				header("Content-Disposition: attachment; filename=$filename");
+			} else {
+				header("Content-type: text/xml");
+			}
 
 		$out = "<?xml version=\"1.0\" encoding=\"utf-8\"?".">";
 
@@ -288,7 +289,10 @@ class Opml extends Handler_Protected {
 				'return str_repeat("\t", intval(strlen($matches[0])/2));'),
 			$res); */
 
-		print $res;
+		if ($file_output)
+			return file_put_contents($filename, $res) > 0;
+		else
+			print $res;
 	}
 
 	// Import
