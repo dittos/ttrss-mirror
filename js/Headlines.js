@@ -8,7 +8,7 @@ define(["dojo/_base/declare"], function (declare) {
 		headlines: [],
 		current_first_id: 0,
 		_scroll_reset_timeout: false,
-		intersection_observer: new IntersectionObserver(
+		sticky_header_observer: new IntersectionObserver(
 			(entries, observer) => {
 				entries.forEach((entry) => {
 					const header = entry.target.nextElementSibling;
@@ -25,6 +25,15 @@ define(["dojo/_base/declare"], function (declare) {
 				});
 			},
 			{threshold: [0, 1], root: document.querySelector("#headlines-frame")}
+		),
+		unpack_observer: new IntersectionObserver(
+			(entries, observer) => {
+				entries.forEach((entry) => {
+					if (entry.intersectionRatio > 0)
+						Article.unpack(entry.target);
+				});
+			},
+			{threshold: [0], root: document.querySelector("#headlines-frame")}
 		),
 		row_observer: new MutationObserver((mutations) => {
 			const modified = [];
@@ -287,8 +296,6 @@ define(["dojo/_base/declare"], function (declare) {
 		},
 		scrollHandler: function (/*event*/) {
 			try {
-				Headlines.unpackVisible();
-
 				if (!Feeds.infscroll_disabled && !Feeds.infscroll_in_progress) {
 					const hsp = $("headlines-spacer");
 					const container = $("headlines-frame");
@@ -323,22 +330,6 @@ define(["dojo/_base/declare"], function (declare) {
 				}
 			} catch (e) {
 				console.warn("scrollHandler", e);
-			}
-		},
-		unpackVisible: function () {
-			if (!App.isCombinedMode() || !App.getInitParam("cdm_expanded")) return;
-
-			const rows = $$("#headlines-frame div[id*=RROW][data-content]");
-			const threshold = $("headlines-frame").scrollTop + $("headlines-frame").offsetHeight + 600;
-
-			for (let i = 0; i < rows.length; i++) {
-				const row = rows[i];
-
-				if (row.offsetTop <= threshold) {
-					Article.unpack(row);
-				} else {
-					break;
-				}
 			}
 		},
 		objectById: function (id){
@@ -380,13 +371,12 @@ define(["dojo/_base/declare"], function (declare) {
 					}
 
 					if (hl.selected) this.select("all", id);
-
-					Article.unpack(new_row);
-
 				}
 			});
 
-			$$(".cdm .header-sticky-guard").each((e) => { this.intersection_observer.observe(e) });
+			$$(".cdm .header-sticky-guard").each((e) => { this.sticky_header_observer.observe(e) });
+			$$("#headlines-frame > div[id*=RROW].cdm").each((e) => { this.unpack_observer.observe(e) });
+
 		},
 		render: function (headlines, hl) {
 			let row = null;
@@ -695,7 +685,8 @@ define(["dojo/_base/declare"], function (declare) {
 					}
 				}
 
-				$$(".cdm .header-sticky-guard").each((e) => { this.intersection_observer.observe(e) });
+				$$(".cdm .header-sticky-guard").each((e) => { this.sticky_header_observer.observe(e) });
+				$$("#headlines-frame > div[id*=RROW].cdm").each((e) => { this.unpack_observer.observe(e) });
 
 			} else {
 				console.error("Invalid object received: " + transport.responseText);

@@ -42,8 +42,6 @@ require(['dojo/_base/kernel', 'dojo/ready'], function  (dojo, ready) {
 								${__("Click to expand article")}</button>`;
 
 						dojo.parser.parse(c_inner);
-
-						Headlines.unpackVisible();
 					}
 				}
 			}, 150);
