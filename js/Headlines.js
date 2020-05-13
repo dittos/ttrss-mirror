@@ -368,6 +368,8 @@ define(["dojo/_base/declare"], function (declare) {
 							Article.cdmMoveToId(id, {noscroll: true});
 						else
 							Article.view(id);
+
+						Article.unpack(row);
 					}
 
 					if (hl.selected) this.select("all", id);
@@ -375,7 +377,9 @@ define(["dojo/_base/declare"], function (declare) {
 			});
 
 			$$(".cdm .header-sticky-guard").each((e) => { this.sticky_header_observer.observe(e) });
-			$$("#headlines-frame > div[id*=RROW].cdm").each((e) => { this.unpack_observer.observe(e) });
+
+			if (App.getInitParam("cdm_expanded"))
+				$$("#headlines-frame > div[id*=RROW].cdm").each((e) => { this.unpack_observer.observe(e) });
 
 		},
 		render: function (headlines, hl) {
@@ -686,7 +690,9 @@ define(["dojo/_base/declare"], function (declare) {
 				}
 
 				$$(".cdm .header-sticky-guard").each((e) => { this.sticky_header_observer.observe(e) });
-				$$("#headlines-frame > div[id*=RROW].cdm").each((e) => { this.unpack_observer.observe(e) });
+
+				if (App.getInitParam("cdm_expanded"))
+					$$("#headlines-frame > div[id*=RROW].cdm").each((e) => { this.unpack_observer.observe(e) });
 
 			} else {
 				console.error("Invalid object received: " + transport.responseText);
