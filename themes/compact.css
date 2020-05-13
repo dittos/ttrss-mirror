@@ -926,12 +926,10 @@ body.ttrss_main i.icon-no-feed {
 body.ttrss_main .dijitTreeRow.UpdatesDisabled .dijitTreeLabel {
   opacity: 0.5;
 }
-body.ttrss_main #floatingTitle.marked i.marked-pic,
 body.ttrss_main .cdm.marked .left i.marked-pic,
 body.ttrss_main .hl.marked .left i.marked-pic {
   color: #ffc069;
 }
-body.ttrss_main #floatingTitle.published i.pub-pic,
 body.ttrss_main .cdm.published .left i.pub-pic,
 body.ttrss_main .hl.published .left i.pub-pic {
   color: #ff7c4b;
@@ -1125,6 +1123,10 @@ video::-webkit-media-controls-overlay-play-button {
 .cdm i.material-icons {
   color: #777;
 }
+.cdm .header {
+  position: sticky;
+  top: 0;
+}
 .cdm .header,
 .cdm .footer {
   display: flex;
@@ -1136,6 +1138,9 @@ video::-webkit-media-controls-overlay-play-button {
 .cdm .footer i.material-icons {
   margin: 0px 4px;
   vertical-align: middle;
+}
+.cdm .header-sticky-guard {
+  height: 0;
 }
 .cdm .header {
   align-items: center;
@@ -1168,6 +1173,14 @@ video::-webkit-media-controls-overlay-play-button {
 }
 .cdm .header input {
   margin: 0px 4px;
+}
+.cdm .header[stuck] {
+  box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.1);
+  border: 0 solid #ddd;
+  border-bottom-width: 1px;
+  background: white ! important;
+  opacity: 0.9;
+  backdrop-filter: blur(6px);
 }
 .cdm .footer {
   height: 30px;
@@ -1216,7 +1229,7 @@ video::-webkit-media-controls-overlay-play-button {
   margin-top: 0px;
   margin-bottom: 0px;
 }
-div.cdm.expanded div.header {
+div.cdm.expanded .header:not([stuck]) {
   background: transparent ! important;
 }
 div.cdm.expanded div.header a.title {
@@ -1286,115 +1299,6 @@ div.cdm.vgrlf .feed {
   border-radius: 4px;
   display: inline-block;
   padding: 1px 4px 1px 4px;
-}
-#main:not(.expandable) div#floatingTitle .collapse {
-  display: none;
-}
-div#floatingTitle {
-  position: absolute;
-  z-index: 5;
-  top: 0px;
-  right: 0px;
-  left: 0px;
-  border: 0px solid #ddd;
-  border-bottom-width: 1px;
-  background: white;
-  color: #555;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  box-shadow: 0px 1px 1px -1px rgba(0, 0, 0, 0.1);
-  align-items: center;
-}
-div#floatingTitle > * {
-  white-space: nowrap;
-  padding: 4px;
-}
-div#floatingTitle .left,
-div#floatingTitle .right {
-  display: flex;
-  align-items: center;
-}
-div#floatingTitle .left i.material-icons,
-div#floatingTitle .right i.material-icons {
-  margin-left: 2px;
-  font-size: 21px;
-  padding: 2px;
-  user-select: none;
-}
-div#floatingTitle .left i.icon-anchor,
-div#floatingTitle .right i.icon-anchor {
-  margin-left: 0px;
-  margin-right: 1px;
-  padding: 0px;
-  color: #ccc;
-  cursor: pointer;
-}
-div#floatingTitle .excerpt {
-  display: none;
-}
-div#floatingTitle .collapse i.material-icons {
-  color: #257aa7;
-  cursor: pointer;
-}
-div#floatingTitle span.author {
-  color: #555;
-  font-size: 11px;
-  font-weight: normal;
-}
-div#floatingTitle a.title {
-  font-size: 16px;
-  color: #999;
-  transition: color 0.2s, background 0.2s;
-  font-weight: 600;
-  text-rendering: optimizelegibility;
-  font-family: "Segoe WP Semibold", "Segoe UI Semibold", "Segoe UI Web Semibold", "Segoe UI", Ubuntu, "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-div#floatingTitle div.feed {
-  padding-right: 10px;
-  color: #555;
-  font-weight: normal;
-  font-style: italic;
-  font-size: 11px;
-  white-space: nowrap;
-}
-div#floatingTitle div.feed a {
-  border-radius: 4px;
-  display: inline-block;
-  padding: 1px 4px 1px 4px;
-}
-div#floatingTitle span.updated {
-  padding-right: 10px;
-  white-space: nowrap;
-  color: #555;
-  font-size: 11px;
-}
-div#floatingTitle div.feed a {
-  color: #555;
-}
-div#floatingTitle span.titleWrap {
-  width: 100%;
-  white-space: normal;
-}
-div#floatingTitle .feed-title > * {
-  display: table-cell;
-  vertical-align: middle;
-}
-div#floatingTitle .feed-title a.title {
-  width: 100%;
-}
-div#floatingTitle .feed-title a.catchup {
-  text-align: right;
-  color: #555;
-  padding-right: 10px;
-  font-size: 11px;
-  white-space: nowrap;
-}
-div#floatingTitle .feed-title a.catchup:hover {
-  color: #257aa7;
-}
-div#floatingTitle.Unread a.title {
-  color: black;
 }
 .cdm.expandable {
   background-color: #f5f5f5;
@@ -1956,7 +1860,6 @@ body.ttrss_main.ttrss_index.flat div[id*=RROW] i.material-icons {
 }
 body.ttrss_main.ttrss_index.flat .hl,
 body.ttrss_main.ttrss_index.flat .post .header .title,
-body.ttrss_main.ttrss_index.flat #floatingTitle a.title,
 body.ttrss_main.ttrss_index.flat .cdm .title {
   font-size: 13px ! important;
 }

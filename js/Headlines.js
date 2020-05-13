@@ -8,6 +8,24 @@ define(["dojo/_base/declare"], function (declare) {
 		headlines: [],
 		current_first_id: 0,
 		_scroll_reset_timeout: false,
+		intersection_observer: new IntersectionObserver(
+			(entries, observer) => {
+				entries.forEach((entry) => {
+					const header = entry.target.nextElementSibling;
+
+					if (entry.intersectionRatio == 0) {
+						header.setAttribute("stuck", "1");
+
+					} else if (entry.intersectionRatio == 1) {
+						header.removeAttribute("stuck");
+					}
+
+					//console.log(entry.target, header, entry.intersectionRatio);
+
+				});
+			},
+			{threshold: [0, 1], root: document.querySelector("#headlines-frame")}
+		),
 		row_observer: new MutationObserver((mutations) => {
 			const modified = [];
 
@@ -40,7 +58,6 @@ define(["dojo/_base/declare"], function (declare) {
 			});
 
 			Headlines.updateSelectedPrompt();
-			Headlines.updateFloatingTitle(true);
 
 			if ('requestIdleCallback' in window)
 				window.requestIdleCallback(() => {
@@ -272,9 +289,6 @@ define(["dojo/_base/declare"], function (declare) {
 			try {
 				Headlines.unpackVisible();
 
-				if (App.isCombinedMode())
-					Headlines.updateFloatingTitle();
-
 				if (!Feeds.infscroll_disabled && !Feeds.infscroll_in_progress) {
 					const hsp = $("headlines-spacer");
 					const container = $("headlines-frame");
@@ -309,61 +323,6 @@ define(["dojo/_base/declare"], function (declare) {
 				}
 			} catch (e) {
 				console.warn("scrollHandler", e);
-			}
-		},
-		updateFloatingTitle: function (status_only) {
-			if (!App.isCombinedMode()/* || !App.getInitParam("cdm_expanded")*/) return;
-
-			const safety_offset = 120; /* px, needed for firefox */
-			const hf = $("headlines-frame");
-			const elems = $$("#headlines-frame > div[id*=RROW]");
-			const ft = $("floatingTitle");
-
-			for (let i = 0; i < elems.length; i++) {
-				const row = elems[i];
-
-				if (row && row.offsetTop + row.offsetHeight > hf.scrollTop + safety_offset) {
-
-					const header = row.select(".header")[0];
-					const id = row.getAttribute("data-article-id");
-
-					if (status_only || id != ft.getAttribute("data-article-id")) {
-						if (id != ft.getAttribute("data-article-id")) {
-
-							ft.setAttribute("data-article-id", id);
-							ft.innerHTML = header.innerHTML;
-
-							ft.select(".dijitCheckBox")[0].outerHTML = "<i class=\"material-icons icon-anchor\" onclick=\"Article.cdmMoveToId(" + id + ")\">expand_more</i>";
-
-							this.initFloatingMenu();
-
-						}
-
-						if (row.hasClassName("Unread"))
-							ft.addClassName("Unread");
-						else
-							ft.removeClassName("Unread");
-
-						if (row.hasClassName("marked"))
-							ft.addClassName("marked");
-						else
-							ft.removeClassName("marked");
-
-						if (row.hasClassName("published"))
-							ft.addClassName("published");
-						else
-							ft.removeClassName("published");
-
-						PluginHost.run(PluginHost.HOOK_FLOATING_TITLE, row);
-					}
-
-					if (hf.scrollTop - row.offsetTop <= header.offsetHeight + safety_offset)
-						ft.fade({duration: 0.2});
-					else
-						ft.appear({duration: 0.2});
-
-					return;
-				}
 			}
 		},
 		unpackVisible: function () {
@@ -426,6 +385,8 @@ define(["dojo/_base/declare"], function (declare) {
 
 				}
 			});
+
+			$$(".cdm .header-sticky-guard").each((e) => { this.intersection_observer.observe(e) });
 		},
 		render: function (headlines, hl) {
 			let row = null;
@@ -467,7 +428,7 @@ define(["dojo/_base/declare"], function (declare) {
 							data-article-title="${escapeHtml(hl.title)}"
 							onmouseover="Article.mouseIn(${hl.id})"
 							onmouseout="Article.mouseOut(${hl.id})">
-							
+							<div class="header-sticky-guard"></div>
 							<div class="header">
 								<div class="left">
 									<input dojoType="dijit.form.CheckBox" type="checkbox" onclick="Headlines.onRowChecked(this)" class='rchk'>
@@ -624,10 +585,6 @@ define(["dojo/_base/declare"], function (declare) {
 						$("headlines-frame").removeClassName("smooth-scroll");
 						$("headlines-frame").scrollTop = 0;
 						$("headlines-frame").addClassName("smooth-scroll");
-
-						Element.hide("floatingTitle");
-						$("floatingTitle").setAttribute("data-article-id", 0);
-						$("floatingTitle").innerHTML = "";
 					} catch (e) {
 						console.warn(e);
 					}
@@ -737,6 +694,8 @@ define(["dojo/_base/declare"], function (declare) {
 						}
 					}
 				}
+
+				$$(".cdm .header-sticky-guard").each((e) => { this.intersection_observer.observe(e) });
 
 			} else {
 				console.error("Invalid object received: " + transport.responseText);
@@ -1274,20 +1233,6 @@ define(["dojo/_base/declare"], function (declare) {
 				container.scrollTop = row.offsetTop;
 			} else if (rel_offset_bottom > viewport) {
 				container.scrollTop = row.offsetTop + row.offsetHeight - viewport;
-			}
-		},
-		initFloatingMenu: function () {
-			if (!dijit.byId("floatingMenu")) {
-
-				const menu = new dijit.Menu({
-					id: "floatingMenu",
-					selector: ".hlMenuAttach",
-					targetNodeIds: ["floatingTitle"]
-				});
-
-				this.headlinesMenuCommon(menu);
-
-				menu.startup();
 			}
 		},
 		headlinesMenuCommon: function (menu) {

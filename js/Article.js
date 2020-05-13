@@ -319,8 +319,6 @@ define(["dojo/_base/declare"], function (declare) {
 				}
 
 				ctr.scrollTop = e.offsetTop;
-
-				Element.hide("floatingTitle");
 			}
 		},
 		setActive: function (id) {
