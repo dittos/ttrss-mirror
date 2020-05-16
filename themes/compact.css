@@ -1140,6 +1140,7 @@ video::-webkit-media-controls-overlay-play-button {
 .cdm .header {
   position: sticky;
   top: 0;
+  z-index: 3;
 }
 .cdm .header,
 .cdm .footer {
