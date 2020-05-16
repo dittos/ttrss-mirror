@@ -71,6 +71,20 @@ body.ttrss_main div.post div.content video {
   max-width: 98%;
   height: auto;
 }
+body.ttrss_main div.post div.content div.embed-responsive {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+}
+body.ttrss_main div.post div.content div.embed-responsive iframe {
+  border: 0;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
 body.ttrss_main .inline-player {
   display: flex;
   align-items: center;
@@ -1289,6 +1303,20 @@ div.cdm.vgrlf .feed {
   font-weight: normal;
   font-style: italic;
   font-size: 11px;
+}
+.cdm div.content-inner div.embed-responsive {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+}
+.cdm div.content-inner div.embed-responsive iframe {
+  border: 0;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 .cdm div.header span.author {
   white-space: nowrap;
