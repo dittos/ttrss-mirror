@@ -65,6 +65,22 @@ body.ttrss_main {
 				max-width : 98%;
 				height: auto;
 			}
+
+			div.embed-responsive {
+				overflow : hidden;
+				padding-bottom : @embed-responsive-padding;
+				position : relative;
+
+				iframe {
+					border : 0;
+					bottom : 0;
+					height : 100%;
+					left : 0;
+					position : absolute;
+					top : 0;
+					width : 100%;
+				}
+			}
 		}
 	}
 

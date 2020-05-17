@@ -6,6 +6,7 @@
 	.header {
 		position: sticky;
 		top : 0;
+		z-index: 3;
 	}
 
 	.header, .footer {
@@ -201,6 +202,22 @@ div.cdm.vgrlf .feed {
 		font-weight: normal;
 		font-style: italic;
 		font-size: 11px;
+	}
+
+	div.content-inner div.embed-responsive {
+		overflow : hidden;
+		padding-bottom : @embed-responsive-padding;
+		position : relative;
+
+		iframe {
+			border : 0;
+			bottom : 0;
+			height : 100%;
+			left : 0;
+			position : absolute;
+			top : 0;
+			width : 100%;
+		}
 	}
 
 	div.header span.author {

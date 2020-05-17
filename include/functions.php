@@ -1373,6 +1373,14 @@
 		$doc->removeChild($doc->firstChild); //remove doctype
 		$doc = strip_harmful_tags($doc, $allowed_elements, $disallowed_attributes);
 
+		$entries = $xpath->query('//iframe');
+		foreach ($entries as $entry) {
+			$div = $doc->createElement('div');
+			$div->setAttribute('class', 'embed-responsive');
+			$entry->parentNode->replaceChild($div, $entry);
+			$div->appendChild($entry);
+		}
+
 		if ($highlight_words && is_array($highlight_words)) {
 			foreach ($highlight_words as $word) {
 
