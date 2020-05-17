@@ -62,15 +62,6 @@
 		}
 	}
 
-	.header[stuck] {
-		box-shadow : 0 1px 1px -1px rgba(0,0,0,0.1);
-		border: 0 solid @border-default;
-		border-bottom-width: 1px;
-		background : @default-bg ! important;
-		opacity: 0.9;
-		backdrop-filter: blur(6px);
-	}
-
 	.footer {
 		height : 30px;
 		padding-left : 5px;
@@ -127,10 +118,6 @@
 		margin-bottom : 0px;
 	}
 
-}
-
-div.cdm.expanded .header:not([stuck]) {
-	background: transparent ! important;
 }
 
 div.cdm.expanded div.header a.title {
@@ -322,5 +309,19 @@ div.cdm.expandable:not(.active) {
 
 	.content, .collapse {
 		display : none;
+	}
+}
+
+div.cdm {
+	&.expandable.active,
+	&.expanded {
+		.header[stuck] {
+			box-shadow : 0 1px 1px -1px rgba(0,0,0,0.1);
+			border: 0 solid @border-default;
+			border-bottom-width: 1px;
+			background : @default-bg ! important;
+			opacity: 0.9;
+			backdrop-filter: blur(6px);
+		}
 	}
 }

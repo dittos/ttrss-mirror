@@ -1189,14 +1189,6 @@ video::-webkit-media-controls-overlay-play-button {
 .cdm .header input {
   margin: 0px 4px;
 }
-.cdm .header[stuck] {
-  box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.1);
-  border: 0 solid #222;
-  border-bottom-width: 1px;
-  background: #333 ! important;
-  opacity: 0.9;
-  backdrop-filter: blur(6px);
-}
 .cdm .footer {
   height: 30px;
   padding-left: 5px;
@@ -1243,9 +1235,6 @@ video::-webkit-media-controls-overlay-play-button {
 .cdm.expanded > hr {
   margin-top: 0px;
   margin-bottom: 0px;
-}
-div.cdm.expanded .header:not([stuck]) {
-  background: transparent ! important;
 }
 div.cdm.expanded div.header a.title {
   font-size: 16px;
@@ -1400,6 +1389,15 @@ div.cdm.expandable:not(.active) {
 div.cdm.expandable:not(.active) .content,
 div.cdm.expandable:not(.active) .collapse {
   display: none;
+}
+div.cdm.expandable.active .header[stuck],
+div.cdm.expanded .header[stuck] {
+  box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.1);
+  border: 0 solid #222;
+  border-bottom-width: 1px;
+  background: #333 ! important;
+  opacity: 0.9;
+  backdrop-filter: blur(6px);
 }
 body.ttrss_prefs {
   background-color: #222;
