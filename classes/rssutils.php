@@ -3,13 +3,20 @@ class RSSUtils {
 	static function calculate_article_hash($article, $pluginhost) {
 		$tmp = "";
 
+		$ignored_fields = [ "feed", "guid", "guid_hashed", "owner_uid", "force_catchup" ];
+
 		foreach ($article as $k => $v) {
+			if (in_array($k, $ignored_fields))
+				continue;
+
 			if ($k != "feed" && isset($v)) {
 				$x = strip_tags(is_array($v) ? implode(",", $v) : $v);
 
 				$tmp .= sha1("$k:" . sha1($x));
 			}
 		}
+
+		die;
 
 		return sha1(implode(",", $pluginhost->get_plugin_names()) . $tmp);
 	}
