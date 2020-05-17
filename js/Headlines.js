@@ -835,7 +835,6 @@ define(["dojo/_base/declare"], function (declare) {
 						Article.setActive(next_id);
 						Article.cdmMoveToId(next_id, {event: event, noscroll: noscroll});
 					} else {
-						Headlines.correctHeadlinesOffset(next_id);
 						Article.view(next_id, noexpand);
 					}
 				}
@@ -855,7 +854,6 @@ define(["dojo/_base/declare"], function (declare) {
 						}
 
 					} else if (prev_id) {
-						Headlines.correctHeadlinesOffset(prev_id);
 						Article.view(prev_id, noexpand);
 					}
 				}
@@ -1193,7 +1191,7 @@ define(["dojo/_base/declare"], function (declare) {
 			eval(elem.value);
 			elem.attr('value', 'false');
 		},
-		correctHeadlinesOffset: function (id) {
+		scrollToArticleId: function (id) {
 			const container = $("headlines-frame");
 			const row = $("RROW-" + id);
 

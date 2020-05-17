@@ -139,7 +139,7 @@ define(["dojo/_base/declare"], function (declare) {
 			c.attr('content', article);
 			PluginHost.run(PluginHost.HOOK_ARTICLE_RENDERED, c.domNode);
 
-			Headlines.correctHeadlinesOffset(Article.getActive());
+			//Headlines.correctHeadlinesOffset(Article.getActive());
 
 			try {
 				c.focus();
@@ -198,6 +198,7 @@ define(["dojo/_base/declare"], function (declare) {
 		},
 		view: function (id, noexpand) {
 			this.setActive(id);
+			Headlines.scrollToArticleId(id);
 
 			if (!noexpand) {
 				const hl = Headlines.objectById(id);
