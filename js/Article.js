@@ -349,29 +349,10 @@ define(["dojo/_base/declare"], function (declare) {
 				return 0;
 		},
 		scrollByPages: function (page_offset, event) {
-			const elem = App.isCombinedMode() ? $("headlines-frame") : $("content-insert");
-
-			const offset = elem.offsetHeight * page_offset * 0.99;
-
-			this.scroll(offset, event);
+			App.Scrollable.scrollByPages($("content-insert"), page_offset, event);
 		},
 		scroll: function (offset, event) {
-
-			const elem = App.isCombinedMode() ? $("headlines-frame") : $("content-insert");
-
-			if (event && event.repeat) {
-				elem.addClassName("forbid-smooth-scroll");
-				window.clearTimeout(this._scroll_reset_timeout);
-
-				this._scroll_reset_timeout = window.setTimeout(() => {
-					if (elem) elem.removeClassName("forbid-smooth-scroll");
-				}, 250)
-
-			} else {
-				elem.removeClassName("forbid-smooth-scroll");
-			}
-
-			elem.scrollTop += offset;
+			App.Scrollable.scroll($("content-insert"), offset, event);
 		},
 		mouseIn: function (id) {
 			this.post_under_pointer = id;

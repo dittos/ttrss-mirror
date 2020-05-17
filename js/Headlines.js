@@ -8,6 +8,7 @@ define(["dojo/_base/declare"], function (declare) {
 		headlines: [],
 		current_first_id: 0,
 		_scroll_reset_timeout: false,
+		line_scroll_offset: 120, /* px */
 		sticky_header_observer: new IntersectionObserver(
 			(entries, observer) => {
 				entries.forEach((entry) => {
@@ -75,7 +76,7 @@ define(["dojo/_base/declare"], function (declare) {
 			else
 				Headlines.syncModified(modified);
 		}),
-		syncModified: function(modified) {
+		syncModified: function (modified) {
 			const ops = {
 				tmark: [],
 				tpub: [],
@@ -88,7 +89,7 @@ define(["dojo/_base/declare"], function (declare) {
 				rescore: {},
 			};
 
-			modified.each(function(m) {
+			modified.each(function (m) {
 				if (m.old.marked != m.new.marked)
 					ops.tmark.push(m.id);
 
@@ -144,26 +145,26 @@ define(["dojo/_base/declare"], function (declare) {
 
 			if (ops.tmark.length != 0)
 				promises.push(xhrPost("backend.php",
-					{ op: "rpc", method: "markSelected", ids: ops.tmark.toString(), cmode: 2}));
+					{op: "rpc", method: "markSelected", ids: ops.tmark.toString(), cmode: 2}));
 
 			if (ops.tpub.length != 0)
 				promises.push(xhrPost("backend.php",
-					{ op: "rpc", method: "publishSelected", ids: ops.tpub.toString(), cmode: 2}));
+					{op: "rpc", method: "publishSelected", ids: ops.tpub.toString(), cmode: 2}));
 
 			if (ops.read.length != 0)
 				promises.push(xhrPost("backend.php",
-					{ op: "rpc", method: "catchupSelected", ids: ops.read.toString(), cmode: 0}));
+					{op: "rpc", method: "catchupSelected", ids: ops.read.toString(), cmode: 0}));
 
 			if (ops.unread.length != 0)
 				promises.push(xhrPost("backend.php",
-					{ op: "rpc", method: "catchupSelected", ids: ops.unread.toString(), cmode: 1}));
+					{op: "rpc", method: "catchupSelected", ids: ops.unread.toString(), cmode: 1}));
 
 			const scores = Object.keys(ops.rescore);
 
 			if (scores.length != 0) {
 				scores.each((score) => {
 					promises.push(xhrPost("backend.php",
-						{ op: "article", method: "setScore", id: ops.rescore[score].toString(), score: score }));
+						{op: "article", method: "setScore", id: ops.rescore[score].toString(), score: score}));
 				});
 			}
 
@@ -282,7 +283,7 @@ define(["dojo/_base/declare"], function (declare) {
 				etop < ctop && ebottom > ctop || ebottom > cbottom && etop < cbottom
 
 		},
-		firstVisible: function() {
+		firstVisible: function () {
 			const rows = $$("#headlines-frame > div[id*=RROW]");
 			const ctr = $("headlines-frame");
 
@@ -332,10 +333,10 @@ define(["dojo/_base/declare"], function (declare) {
 				console.warn("scrollHandler", e);
 			}
 		},
-		objectById: function (id){
+		objectById: function (id) {
 			return this.headlines[id];
 		},
-		setCommonClasses: function() {
+		setCommonClasses: function () {
 			$("headlines-frame").removeClassName("cdm");
 			$("headlines-frame").removeClassName("normal");
 
@@ -348,7 +349,7 @@ define(["dojo/_base/declare"], function (declare) {
 			if (App.isCombinedMode())
 				$("main").addClassName(App.getInitParam("cdm_expanded") ? " expanded" : " expandable");
 		},
-		renderAgain: function() {
+		renderAgain: function () {
 			// TODO: wrap headline elements into a knockoutjs model to prevent all this stuff
 			Headlines.setCommonClasses();
 
@@ -363,23 +364,26 @@ define(["dojo/_base/declare"], function (declare) {
 
 					if (hl.active) {
 						new_row.addClassName("active");
+						Article.unpack(new_row);
 
 						if (App.isCombinedMode())
 							Article.cdmMoveToId(id, {noscroll: true});
 						else
 							Article.view(id);
-
-						Article.unpack(row);
 					}
 
 					if (hl.selected) this.select("all", id);
 				}
 			});
 
-			$$(".cdm .header-sticky-guard").each((e) => { this.sticky_header_observer.observe(e) });
+			$$(".cdm .header-sticky-guard").each((e) => {
+				this.sticky_header_observer.observe(e)
+			});
 
 			if (App.getInitParam("cdm_expanded"))
-				$$("#headlines-frame > div[id*=RROW].cdm").each((e) => { this.unpack_observer.observe(e) });
+				$$("#headlines-frame > div[id*=RROW].cdm").each((e) => {
+					this.unpack_observer.observe(e)
+				});
 
 		},
 		render: function (headlines, hl) {
@@ -527,7 +531,7 @@ define(["dojo/_base/declare"], function (declare) {
 
 			return tmp.firstChild;
 		},
-		updateCurrentUnread: function() {
+		updateCurrentUnread: function () {
 			if ($("feed_current_unread")) {
 				const feed_unread = Feeds.getUnread(Feeds.getActive(), Feeds.activeIsCat());
 
@@ -689,10 +693,14 @@ define(["dojo/_base/declare"], function (declare) {
 					}
 				}
 
-				$$(".cdm .header-sticky-guard").each((e) => { this.sticky_header_observer.observe(e) });
+				$$(".cdm .header-sticky-guard").each((e) => {
+					this.sticky_header_observer.observe(e)
+				});
 
 				if (App.getInitParam("cdm_expanded"))
-					$$("#headlines-frame > div[id*=RROW].cdm").each((e) => { this.unpack_observer.observe(e) });
+					$$("#headlines-frame > div[id*=RROW].cdm").each((e) => {
+						this.unpack_observer.observe(e)
+					});
 
 			} else {
 				console.error("Invalid object received: " + transport.responseText);
@@ -799,21 +807,20 @@ define(["dojo/_base/declare"], function (declare) {
 			const noexpand = params.noexpand || false;
 			const event = params.event;
 
-			const rows = Headlines.getLoaded();
-
 			let prev_id = false;
 			let next_id = false;
 
 			const active_row = $("RROW-" + Article.getActive());
 
-			if (!active_row) {
+			if (!active_row)
 				Article.setActive(0);
-			}
 
 			if (!Article.getActive() || (active_row && !Headlines.isChildVisible(active_row, $("headlines-frame")))) {
 				next_id = Headlines.firstVisible();
 				prev_id = next_id;
 			} else {
+				const rows = Headlines.getLoaded();
+
 				for (let i = 0; i < rows.length; i++) {
 					if (rows[i] == Article.getActive()) {
 
@@ -831,46 +838,30 @@ define(["dojo/_base/declare"], function (declare) {
 				}
 			}
 
-			console.log("cur: " + Article.getActive() + " next: " + next_id);
+			console.log("cur: " + Article.getActive() + " next: " + next_id + " prev:" + prev_id);
 
 			if (mode === "next") {
-				if (next_id || Article.getActive()) {
+				if (next_id) {
 					if (App.isCombinedMode()) {
-
-						//const row = $("RROW-" + Article.getActive());
-						const ctr = $("headlines-frame");
-
-						if (noscroll) {
-							Article.setActive(next_id);
-							Article.cdmMoveToId(next_id, { event: event, noscroll: noscroll });
-						} else if (next_id) {
-							Article.scroll(ctr.offsetHeight / 2, event);
-						}
-
-					} else if (next_id) {
+						Article.setActive(next_id);
+						Article.cdmMoveToId(next_id, {event: event, noscroll: noscroll});
+					} else {
 						Headlines.correctHeadlinesOffset(next_id);
 						Article.view(next_id, noexpand);
 					}
 				}
-			}
-
-			if (mode === "prev") {
+			} else if (mode === "prev") {
 				if (prev_id || Article.getActive()) {
 					if (App.isCombinedMode()) {
 
 						const row = $("RROW-" + Article.getActive());
-						//const prev_row = $("RROW-" + prev_id);
 						const ctr = $("headlines-frame");
 
-						if (noscroll) {
-							if (row && Math.round(row.offsetTop) < Math.round(ctr.scrollTop)) {
-								Article.cdmMoveToId(Article.getActive(), { force: noscroll, event: event });
-							} else if (prev_id) {
-								Article.setActive(prev_id);
-								Article.cdmMoveToId(prev_id, { force: noscroll, event: event, noscroll: noscroll });
-							}
-						} else {
-							Article.scroll(-ctr.offsetHeight / 2, event);
+						if (row && Math.round(row.offsetTop) < Math.round(ctr.scrollTop)) {
+							Article.cdmMoveToId(Article.getActive(), {force: noscroll, event: event});
+						} else if (prev_id) {
+							Article.setActive(prev_id);
+							Article.cdmMoveToId(prev_id, {force: noscroll, event: event, noscroll: noscroll});
 						}
 
 					} else if (prev_id) {
@@ -1360,21 +1351,11 @@ define(["dojo/_base/declare"], function (declare) {
 
 			}
 		},
-		scrollByPages: function (offset, event) {
-			const elem = $("headlines-frame");
-
-			if (event && event.repeat) {
-				elem.addClassName("forbid-smooth-scroll");
-				window.clearTimeout(this._scroll_reset_timeout);
-
-				this._scroll_reset_timeout = window.setTimeout(() => {
-					if (elem) elem.removeClassName("forbid-smooth-scroll");
-				}, 250)
-			} else {
-				elem.removeClassName("forbid-smooth-scroll");
-			}
-
-			elem.scrollTop += elem.offsetHeight * offset * 0.99;
+		scrollByPages: function (page_offset, event) {
+			App.Scrollable.scrollByPages($("headlines-frame"), page_offset, event);
+		},
+		scroll: function (offset, event) {
+			App.Scrollable.scroll($("headlines-frame"), offset, event);
 		},
 		initHeadlinesMenu: function () {
 			if (!dijit.byId("headlinesMenu")) {
