@@ -586,11 +586,11 @@ class RSSUtils {
 					continue;
 				}
 
+				$entry_guid_hashed_compat = 'SHA1:' . sha1("$owner_uid,$entry_guid");
+				$entry_guid_hashed = json_encode(["ver" => 2, "uid" => $owner_uid, "hash" => 'SHA1:' . sha1($entry_guid)]);
 				$entry_guid = "$owner_uid,$entry_guid";
 
-				$entry_guid_hashed = 'SHA1:' . sha1($entry_guid);
-
-				Debug::log("guid $entry_guid / $entry_guid_hashed", Debug::$LOG_VERBOSE);
+				Debug::log("guid $entry_guid (hash: $entry_guid_hashed compat: $entry_guid_hashed_compat)", Debug::$LOG_VERBOSE);
 
 				$entry_timestamp = (int)$item->get_date();
 
@@ -632,8 +632,8 @@ class RSSUtils {
 				Debug::log("done collecting data.", Debug::$LOG_VERBOSE);
 
 				$sth = $pdo->prepare("SELECT id, content_hash, lang FROM ttrss_entries
-					WHERE guid = ? OR guid = ?");
-				$sth->execute([$entry_guid, $entry_guid_hashed]);
+					WHERE guid IN (?, ?, ?)");
+				$sth->execute([$entry_guid, $entry_guid_hashed, $entry_guid_hashed_compat]);
 
 				if ($row = $sth->fetch()) {
 					$base_entry_id = $row["id"];
@@ -828,8 +828,8 @@ class RSSUtils {
 					RSSUtils::cache_media($entry_content, $site_url);
 
 				$csth = $pdo->prepare("SELECT id FROM ttrss_entries
-					WHERE guid = ? OR guid = ?");
-				$csth->execute([$entry_guid, $entry_guid_hashed]);
+					WHERE guid IN (?, ?, ?)");
+				$csth->execute([$entry_guid, $entry_guid_hashed, $entry_guid_hashed_compat]);
 
 				if (!$row = $csth->fetch()) {
 
@@ -874,7 +874,7 @@ class RSSUtils {
 
 				}
 
-				$csth->execute([$entry_guid, $entry_guid_hashed]);
+				$csth->execute([$entry_guid, $entry_guid_hashed, $entry_guid_hashed_compat]);
 
 				$entry_ref_id = 0;
 				$entry_int_id = 0;
