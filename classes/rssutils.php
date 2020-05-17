@@ -16,8 +16,6 @@ class RSSUtils {
 			}
 		}
 
-		die;
-
 		return sha1(implode(",", $pluginhost->get_plugin_names()) . $tmp);
 	}
 
