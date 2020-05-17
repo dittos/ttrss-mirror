@@ -844,8 +844,9 @@ define(["dojo/_base/declare"], function (declare) {
 
 						const row = $("RROW-" + current_id);
 						const ctr = $("headlines-frame");
+						const delta_px = Math.max(row.offsetTop, ctr.scrollTop) - Math.min(row.offsetTop, ctr.scrollTop);
 
-						if (row && Math.round(row.offsetTop) < Math.round(ctr.scrollTop)) {
+						if (row && delta_px > 16) {
 							Article.setActive(current_id);
 							Article.cdmMoveToId(current_id, {force: noscroll, event: event});
 						} else if (prev_id) {
