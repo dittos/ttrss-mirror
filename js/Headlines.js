@@ -272,25 +272,16 @@ define(["dojo/_base/declare"], function (declare) {
 
 			Feeds.open({feed: Feeds.getActive(), is_cat: Feeds.activeIsCat(), offset: offset, append: true});
 		},
-		isChildVisible: function (elem, ctr) {
-			const ctop = ctr.scrollTop;
-			const cbottom = ctop + ctr.offsetHeight;
-
-			const etop = elem.offsetTop;
-			const ebottom = etop + elem.offsetHeight;
-
-			return etop >= ctop && ebottom <= cbottom ||
-				etop < ctop && ebottom > ctop || ebottom > cbottom && etop < cbottom
-
+		isChildVisible: function (elem) {
+			return App.Scrollable.isChildVisible(elem, $("headlines-frame"));
 		},
 		firstVisible: function () {
 			const rows = $$("#headlines-frame > div[id*=RROW]");
-			const ctr = $("headlines-frame");
 
 			for (let i = 0; i < rows.length; i++) {
 				const row = rows[i];
 
-				if (this.isChildVisible(row, ctr)) {
+				if (this.isChildVisible(row)) {
 					return row.getAttribute("data-article-id");
 				}
 			}
@@ -809,26 +800,24 @@ define(["dojo/_base/declare"], function (declare) {
 
 			let prev_id = false;
 			let next_id = false;
+			let current_id = Article.getActive();
 
-			const active_row = $("RROW-" + Article.getActive());
-
-			if (!active_row)
-				Article.setActive(0);
-
-			if (!Article.getActive() || (active_row && !Headlines.isChildVisible(active_row, $("headlines-frame")))) {
-				next_id = Headlines.firstVisible();
-				prev_id = next_id;
+			if (!Headlines.isChildVisible($("RROW-" + current_id))) {
+				console.log('active article is obscured, resetting to first visible...');
+				current_id = Headlines.firstVisible();
+				prev_id = current_id;
+				next_id = current_id;
 			} else {
 				const rows = Headlines.getLoaded();
 
 				for (let i = 0; i < rows.length; i++) {
-					if (rows[i] == Article.getActive()) {
+					if (rows[i] == current_id) {
 
 						// Account for adjacent identical article ids.
 						if (i > 0) prev_id = rows[i - 1];
 
 						for (let j = i + 1; j < rows.length; j++) {
-							if (rows[j] != Article.getActive()) {
+							if (rows[j] != current_id) {
 								next_id = rows[j];
 								break;
 							}
@@ -838,7 +827,7 @@ define(["dojo/_base/declare"], function (declare) {
 				}
 			}
 
-			console.log("cur: " + Article.getActive() + " next: " + next_id + " prev:" + prev_id);
+			console.log("cur: " + current_id + " next: " + next_id + " prev:" + prev_id);
 
 			if (mode === "next") {
 				if (next_id) {
@@ -851,14 +840,15 @@ define(["dojo/_base/declare"], function (declare) {
 					}
 				}
 			} else if (mode === "prev") {
-				if (prev_id || Article.getActive()) {
+				if (prev_id || current_id) {
 					if (App.isCombinedMode()) {
 
-						const row = $("RROW-" + Article.getActive());
+						const row = $("RROW-" + current_id);
 						const ctr = $("headlines-frame");
 
 						if (row && Math.round(row.offsetTop) < Math.round(ctr.scrollTop)) {
-							Article.cdmMoveToId(Article.getActive(), {force: noscroll, event: event});
+							Article.setActive(current_id);
+							Article.cdmMoveToId(current_id, {force: noscroll, event: event});
 						} else if (prev_id) {
 							Article.setActive(prev_id);
 							Article.cdmMoveToId(prev_id, {force: noscroll, event: event, noscroll: noscroll});

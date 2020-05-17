@@ -322,22 +322,24 @@ define(["dojo/_base/declare"], function (declare) {
 			}
 		},
 		setActive: function (id) {
-			console.log("setActive", id);
+			if (id != Article.getActive()) {
+				console.log("setActive", id, "was", Article.getActive());
 
-			$$("div[id*=RROW][class*=active]").each((row) => {
-				row.removeClassName("active");
-				Article.pack(row);
-			});
+				$$("div[id*=RROW][class*=active]").each((row) => {
+					row.removeClassName("active");
+					Article.pack(row);
+				});
 
-			const row = $("RROW-" + id);
+				const row = $("RROW-" + id);
 
-			if (row) {
-				Article.unpack(row);
+				if (row) {
+					Article.unpack(row);
 
-				row.removeClassName("Unread");
-				row.addClassName("active");
+					row.removeClassName("Unread");
+					row.addClassName("active");
 
-				PluginHost.run(PluginHost.HOOK_ARTICLE_SET_ACTIVE, row.getAttribute("data-article-id"));
+					PluginHost.run(PluginHost.HOOK_ARTICLE_SET_ACTIVE, row.getAttribute("data-article-id"));
+				}
 			}
 		},
 		getActive: function () {

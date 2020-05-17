@@ -33,6 +33,18 @@ define(["dojo/_base/declare"], function (declare) {
 
 				elem.scrollTop += offset;
 			},
+			isChildVisible: function(elem, ctr) {
+				if (!elem) return;
+
+				const ctop = ctr.scrollTop;
+				const cbottom = ctop + ctr.offsetHeight;
+
+				const etop = elem.offsetTop;
+				const ebottom = etop + elem.offsetHeight;
+
+				return etop >= ctop && ebottom <= cbottom ||
+					etop < ctop && ebottom > ctop || ebottom > cbottom && etop < cbottom;
+			},
 		},
 		constructor: function() {
 			window.onerror = this.Error.onWindowError;
