@@ -796,6 +796,7 @@ define(["dojo/_base/declare"], function (declare) {
 
 			const noscroll = params.noscroll || false;
 			const noexpand = params.noexpand || false;
+			const force_previous = params.force_previous || false;
 			const event = params.event;
 
 			let prev_id = false;
@@ -848,12 +849,12 @@ define(["dojo/_base/declare"], function (declare) {
 							const ctr = $("headlines-frame");
 							const delta_px = Math.max(row.offsetTop, ctr.scrollTop) - Math.min(row.offsetTop, ctr.scrollTop);
 
-							if (row && delta_px > 16) {
+							if (!force_previous && row && delta_px > 16) {
 								Article.setActive(current_id);
 								Article.cdmMoveToId(current_id, {force: noscroll, event: event});
 							} else if (prev_id) {
-									Article.setActive(prev_id);
-									Article.cdmMoveToId(prev_id, {force: noscroll, event: event, noscroll: noscroll});
+								Article.setActive(prev_id);
+								Article.cdmMoveToId(prev_id, {force: noscroll, event: event, noscroll: noscroll});
 							}
 						});
 					} else if (prev_id) {
