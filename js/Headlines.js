@@ -832,8 +832,10 @@ define(["dojo/_base/declare"], function (declare) {
 			if (mode === "next") {
 				if (next_id) {
 					if (App.isCombinedMode()) {
-						Article.setActive(next_id);
-						Article.cdmMoveToId(next_id, {event: event, noscroll: noscroll});
+						window.requestAnimationFrame(() => {
+							Article.setActive(next_id);
+							Article.cdmMoveToId(next_id, {event: event, noscroll: noscroll});
+						});
 					} else {
 						Article.view(next_id, noexpand);
 					}
@@ -841,19 +843,19 @@ define(["dojo/_base/declare"], function (declare) {
 			} else if (mode === "prev") {
 				if (prev_id || current_id) {
 					if (App.isCombinedMode()) {
+						window.requestAnimationFrame(() => {
+							const row = $("RROW-" + current_id);
+							const ctr = $("headlines-frame");
+							const delta_px = Math.max(row.offsetTop, ctr.scrollTop) - Math.min(row.offsetTop, ctr.scrollTop);
 
-						const row = $("RROW-" + current_id);
-						const ctr = $("headlines-frame");
-						const delta_px = Math.max(row.offsetTop, ctr.scrollTop) - Math.min(row.offsetTop, ctr.scrollTop);
-
-						if (row && delta_px > 16) {
-							Article.setActive(current_id);
-							Article.cdmMoveToId(current_id, {force: noscroll, event: event});
-						} else if (prev_id) {
-							Article.setActive(prev_id);
-							Article.cdmMoveToId(prev_id, {force: noscroll, event: event, noscroll: noscroll});
-						}
-
+							if (row && delta_px > 16) {
+								Article.setActive(current_id);
+								Article.cdmMoveToId(current_id, {force: noscroll, event: event});
+							} else if (prev_id) {
+									Article.setActive(prev_id);
+									Article.cdmMoveToId(prev_id, {force: noscroll, event: event, noscroll: noscroll});
+							}
+						});
 					} else if (prev_id) {
 						Article.view(prev_id, noexpand);
 					}
