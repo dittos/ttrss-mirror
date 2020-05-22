@@ -8,28 +8,16 @@ define(["dojo/_base/declare"], function (declare) {
 		hotkey_prefix_pressed: false,
 		hotkey_prefix_timeout: 0,
 		Scrollable: {
-			scrollByPages: function (elem, page_offset, event) {
+			scrollByPages: function (elem, page_offset) {
 				if (!elem) return;
 
 				/* keep a line or so from the previous page  */
 				const offset = (elem.offsetHeight - (page_offset > 0 ? 50 : -50)) * page_offset;
 
-				this.scroll(elem, offset, event);
+				this.scroll(elem, offset);
 			},
-			scroll: function(elem, offset, event) {
+			scroll: function(elem, offset) {
 				if (!elem) return;
-
-				if (event && event.repeat) {
-					elem.addClassName("forbid-smooth-scroll");
-					window.clearTimeout(this._scroll_reset_timeout);
-
-					this._scroll_reset_timeout = window.setTimeout(() => {
-						if (elem) elem.removeClassName("forbid-smooth-scroll");
-					}, 250)
-
-				} else {
-					elem.removeClassName("forbid-smooth-scroll");
-				}
 
 				elem.scrollTop += offset;
 			},
@@ -45,6 +33,12 @@ define(["dojo/_base/declare"], function (declare) {
 				return etop >= ctop && ebottom <= cbottom ||
 					etop < ctop && ebottom > ctop || ebottom > cbottom && etop < cbottom;
 			},
+			fitsInContainer: function (elem, ctr) {
+				if (!elem) return;
+
+				return elem.offsetTop + elem.offsetHeight <= ctr.scrollTop + ctr.offsetHeight &&
+					elem.offsetTop >= ctr.scrollTop;
+			}
 		},
 		constructor: function() {
 			window.onerror = this.Error.onWindowError;

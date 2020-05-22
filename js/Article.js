@@ -196,11 +196,11 @@ define(["dojo/_base/declare"], function (declare) {
 				row.querySelector(".content-inner").innerHTML = "&nbsp;";
 			}
 		},
-		view: function (id, noexpand) {
+		view: function (id, no_expand) {
 			this.setActive(id);
 			Headlines.scrollToArticleId(id);
 
-			if (!noexpand) {
+			if (!no_expand) {
 				const hl = Headlines.objectById(id);
 
 				if (hl) {
@@ -294,32 +294,15 @@ define(["dojo/_base/declare"], function (declare) {
 		cdmMoveToId: function (id, params) {
 			params = params || {};
 
-			const force = params.force || true;
-			const event = params.event || null;
-			const noscroll = params.noscroll || false;
+			const force_to_top = params.force_to_top || false;
 
 			const ctr = $("headlines-frame");
-			const e = $("RROW-" + id);
-			const is_expanded = App.getInitParam("cdm_expanded");
+			const row = $("RROW-" + id);
 
-			if (!e || !ctr) return;
+			if (!row || !ctr) return;
 
-			if (force || is_expanded || e.offsetTop + e.offsetHeight > (ctr.scrollTop + ctr.offsetHeight) ||
-				e.offsetTop < ctr.scrollTop) {
-
-				if (noscroll || event && event.repeat || !is_expanded) {
-					ctr.addClassName("forbid-smooth-scroll");
-					window.clearTimeout(this._scroll_reset_timeout);
-
-					this._scroll_reset_timeout = window.setTimeout(() => {
-						if (ctr) ctr.removeClassName("forbid-smooth-scroll");
-					}, 250)
-
-				} else {
-					ctr.removeClassName("forbid-smooth-scroll");
-				}
-
-				ctr.scrollTop = e.offsetTop;
+			if (force_to_top || !App.Scrollable.fitsInContainer(row, ctr)) {
+				ctr.scrollTop = row.offsetTop;
 			}
 		},
 		setActive: function (id) {
@@ -351,11 +334,11 @@ define(["dojo/_base/declare"], function (declare) {
 			else
 				return 0;
 		},
-		scrollByPages: function (page_offset, event) {
-			App.Scrollable.scrollByPages($("content-insert"), page_offset, event);
+		scrollByPages: function (page_offset) {
+			App.Scrollable.scrollByPages($("content-insert"), page_offset);
 		},
-		scroll: function (offset, event) {
-			App.Scrollable.scroll($("content-insert"), offset, event);
+		scroll: function (offset) {
+			App.Scrollable.scroll($("content-insert"), offset);
 		},
 		mouseIn: function (id) {
 			this.post_under_pointer = id;

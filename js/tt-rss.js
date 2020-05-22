@@ -288,25 +288,25 @@ require(["dojo/_base/kernel",
 						if (App.isCombinedMode())
 							Headlines.scroll(Headlines.line_scroll_offset, event);
 						else
-							Headlines.move('next', {event: event});
+							Headlines.move('next');
 					};
 					this.hotkey_actions["prev_article_or_scroll"] = function (event) {
 						if (App.isCombinedMode())
 							Headlines.scroll(-Headlines.line_scroll_offset, event);
 						else
-							Headlines.move('prev', {event: event});
+							Headlines.move('prev');
 					};
-					this.hotkey_actions["next_article_noscroll"] = function (event) {
-						Headlines.move('next', {noscroll: true, event: event});
+					this.hotkey_actions["next_article_noscroll"] = function () {
+						Headlines.move('next');
 					};
-					this.hotkey_actions["prev_article_noscroll"] = function (event) {
-						Headlines.move('prev', {noscroll: true, event: event});
+					this.hotkey_actions["prev_article_noscroll"] = function () {
+						Headlines.move('prev');
 					};
-					this.hotkey_actions["next_article_noexpand"] = function (event) {
-						Headlines.move('next', {noscroll: true, noexpand: true, event: event});
+					this.hotkey_actions["next_article_noexpand"] = function () {
+						Headlines.move('next', {no_expand: true});
 					};
-					this.hotkey_actions["prev_article_noexpand"] = function (event) {
-						Headlines.move('prev', {noscroll: true, noexpand: true, event: event});
+					this.hotkey_actions["prev_article_noexpand"] = function () {
+						Headlines.move('prev', {no_expand: true});
 					};
 					this.hotkey_actions["search_dialog"] = function () {
 						Feeds.search();
