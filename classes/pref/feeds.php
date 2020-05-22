@@ -449,7 +449,7 @@ class Pref_Feeds extends Handler_Protected {
 		if ($row = $sth->fetch()) {
 			@unlink(ICONS_DIR . "/$feed_id.ico");
 
-			$sth = $this->pdo->prepare("UPDATE ttrss_feeds SET favicon_avg_color = NULL
+			$sth = $this->pdo->prepare("UPDATE ttrss_feeds SET favicon_avg_color = NULL, favicon_last_checked = '1970-01-01'
 				where id = ?");
 			$sth->execute([$feed_id]);
 		}
