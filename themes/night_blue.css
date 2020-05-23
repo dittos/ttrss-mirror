@@ -669,6 +669,9 @@ body.ttrss_main #headlines-frame div.feed-title a {
 body.ttrss_main #headlines-frame div.feed-title a:hover {
   color: #257aa7;
 }
+body.ttrss_main #toolbar-frame_splitter {
+  display: none;
+}
 body.ttrss_main #toolbar-frame {
   padding: 0px;
   margin: 0px;
