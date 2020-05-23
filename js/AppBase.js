@@ -134,6 +134,17 @@ define(["dojo/_base/declare"], function (declare) {
 			}
 
 		},
+		getActionByHotkeySequence: function (sequence) {
+			const hotkeys_map = App.getInitParam("hotkeys");
+
+			for (const seq in hotkeys_map[1]) {
+				if (hotkeys_map[1].hasOwnProperty(seq)) {
+					if (seq == sequence) {
+						return hotkeys_map[1][seq];
+					}
+				}
+			}
+		},
 		keyeventToAction: function(event) {
 
 			const hotkeys_map = App.getInitParam("hotkeys");
@@ -177,18 +188,16 @@ define(["dojo/_base/declare"], function (declare) {
 				hotkey_name = keychar ? keychar : "(" + keycode + ")";
 			}
 
-			const hotkey_full = this.hotkey_prefix ? this.hotkey_prefix + " " + hotkey_name : hotkey_name;
+			let hotkey_full = this.hotkey_prefix ? this.hotkey_prefix + " " + hotkey_name : hotkey_name;
 			this.hotkey_prefix = false;
 
-			let action_name = false;
+			let action_name = this.getActionByHotkeySequence(hotkey_full);
 
-			for (const sequence in hotkeys_map[1]) {
-				if (hotkeys_map[1].hasOwnProperty(sequence)) {
-					if (sequence == hotkey_full) {
-						action_name = hotkeys_map[1][sequence];
-						break;
-					}
-				}
+			// check for mode-specific hotkey
+			if (!action_name) {
+				hotkey_full = (App.isCombinedMode() ? "{C}" : "{3}") + hotkey_full;
+
+				action_name = this.getActionByHotkeySequence(hotkey_full);
 			}
 
 			console.log('keyeventToAction', hotkey_full, '=>', action_name);

@@ -1098,6 +1098,8 @@
 		return $hotkeys;
 	}
 
+	// {3} - 3 panel mode only
+	// {C} - combined mode only
 	function get_hotkeys_map() {
 		$hotkeys = array(
 			"k" => "next_feed",
@@ -1108,8 +1110,8 @@
 			"P" => "article_page_up",
 			"*(33)|Shift+PgUp" => "article_page_up",
 			"*(34)|Shift+PgDn" => "article_page_down",
-			"(38)|Up" => "prev_article_or_scroll",
-			"(40)|Down" => "next_article_or_scroll",
+			"{3}(38)|Up" => "prev_article_or_scroll",
+			"{3}(40)|Down" => "next_article_or_scroll",
 			"*(38)|Shift+Up" => "article_scroll_up",
 			"*(40)|Shift+Down" => "article_scroll_down",
 			"^(38)|Ctrl+Up" => "prev_article_noscroll",
