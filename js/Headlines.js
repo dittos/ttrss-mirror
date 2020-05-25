@@ -8,6 +8,8 @@ define(["dojo/_base/declare"], function (declare) {
 		headlines: [],
 		current_first_id: 0,
 		_scroll_reset_timeout: false,
+		default_force_previous: false,
+		default_force_to_top: false,
 		line_scroll_offset: 120, /* px */
 		sticky_header_observer: new IntersectionObserver(
 			(entries, observer) => {
@@ -804,8 +806,8 @@ define(["dojo/_base/declare"], function (declare) {
 			params = params || {};
 
 			const no_expand = params.no_expand || false;
-			const force_previous = params.force_previous || false;
-			const force_to_top = params.force_to_top || false;
+			const force_previous = params.force_previous || this.default_force_previous;
+			const force_to_top = params.force_to_top || this.default_force_to_top;
 
 			let prev_id = false;
 			let next_id = false;
