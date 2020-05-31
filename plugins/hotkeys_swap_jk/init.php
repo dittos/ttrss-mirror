@@ -1,5 +1,5 @@
 <?php
-class Swap_JK extends Plugin {
+class Hotkeys_Swap_JK extends Plugin {
 
 	private $host;
 
