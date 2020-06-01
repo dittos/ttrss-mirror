@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: tt-rss git\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-28 08:08+0300\n"
-"PO-Revision-Date: 2020-06-01 15:15+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2020-06-01 22:02+0000\n"
+"Last-Translator: Eike <weblate.tt-rss.org@lotz.me>\n"
 "Language-Team: German <https://weblate.tt-rss.org/projects/tt-rss/messages/"
 "de/>\n"
 "Language: de_DE\n"
@@ -1211,7 +1211,7 @@ msgstr "Sonderfeeds"
 #: classes/feeds.php:1480
 #, php-format
 msgid "Incorrect search syntax: %s."
-msgstr "Inkorrekter Suchsyntax"
+msgstr "Falsche Suchsyntax: %s."
 
 #: classes/feeds.php:1665
 #, php-format
