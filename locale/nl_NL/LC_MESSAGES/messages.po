@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: tt-rss git\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-28 08:08+0300\n"
-"PO-Revision-Date: 2019-12-21 21:37+0000\n"
+"PO-Revision-Date: 2020-06-01 22:02+0000\n"
 "Last-Translator: Patrick Ahles <p.ahles+weblate@gmail.com>\n"
-"Language-Team: Dutch <https://weblate.tt-rss.org/projects/tt-rss/messages/nl/>\n"
+"Language-Team: Dutch <https://weblate.tt-rss.org/projects/tt-rss/messages/nl/"
+">\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.7.1\n"
+"X-Generator: Weblate 4.0.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _\n"
 "X-Poedit-Basepath: .\n"
@@ -585,14 +586,12 @@ msgid "Scroll up"
 msgstr "Omhoog scrollen"
 
 #: include/functions.php:1049
-#, fuzzy
 msgid "Scroll down page"
-msgstr "Omlaag scrollen"
+msgstr "Pagina omlaag scrollen"
 
 #: include/functions.php:1050
-#, fuzzy
 msgid "Scroll up page"
-msgstr "Omhoog scrollen"
+msgstr "Pagina omhoog scrollen"
 
 #: include/functions.php:1051
 msgid "Select article under cursor"
@@ -612,7 +611,7 @@ msgstr "In/uitschakelen artikel uitklappen (gecombineerde modus)"
 
 #: include/functions.php:1056
 msgid "Toggle full article text via Readability"
-msgstr ""
+msgstr "Inschakelen volledige artikeltekst via Readability"
 
 #: include/functions.php:1057
 msgid "Article selection"
@@ -2095,21 +2094,20 @@ msgstr "Wijzig wachtwoord"
 #, php-format
 msgid "Authentication module used for this session (<b>%s</b>) does not provide an ability to set passwords."
 msgstr ""
+"Gebruikte authenticatie module voor deze sessie <b>%s</b> geeft geen "
+"mogelijkheid om wachtwoorden in te geven."
 
 #: classes/pref/prefs.php:410
-#, fuzzy
 msgid "App passwords"
-msgstr "Oud wachtwoord:"
+msgstr "Applicatiewachtwoorden"
 
 #: classes/pref/prefs.php:422
-#, fuzzy
 msgid "Generate new password"
-msgstr "Genereer nieuwe URL"
+msgstr "Genereer nieuw wachtwoord"
 
 #: classes/pref/prefs.php:426
-#, fuzzy
 msgid "Remove selected passwords"
-msgstr "Verwijder geselecteerde profielen"
+msgstr "Verwijder geselecteerde wachtwoorden"
 
 #: classes/pref/prefs.php:430
 msgid "One time passwords / Authenticator"
@@ -2125,14 +2123,15 @@ msgid "Disable OTP"
 msgstr "Eenmalig Wachtwoord uitschakelen"
 
 #: classes/pref/prefs.php:480
-#, fuzzy
 msgid "Scan the following code by the Authenticator application or copy the key manually"
-msgstr "Scan de volgende code met de Authenticator applicatie:"
+msgstr ""
+"Scan de volgende code met de Authenticator applicatie of kopieer de sleutel "
+"handmatig"
 
 #: classes/pref/prefs.php:486
-#, fuzzy
 msgid "Use the following OTP key with a compatible Authenticator application"
-msgstr "Scan de volgende code met de Authenticator applicatie:"
+msgstr ""
+"Gebruik de volgende OTP code met een compatibele Authenticator applicatie"
 
 #: classes/pref/prefs.php:494
 msgid "OTP Key:"
@@ -2241,9 +2240,8 @@ msgid "Apply"
 msgstr "Pas toe"
 
 #: classes/pref/prefs.php:1156
-#, fuzzy
 msgid "Save and reload"
-msgstr "Hierboven markeren als gelezen"
+msgstr "Opslaan en opnieuw laden"
 
 #: classes/pref/prefs.php:1181
 msgid "Create profile"
@@ -2267,14 +2265,12 @@ msgid "Description"
 msgstr "Omschrijving"
 
 #: classes/pref/prefs.php:1291
-#, fuzzy
 msgid "Created"
-msgstr "Aanmaken"
+msgstr "Aangemaakt"
 
 #: classes/pref/prefs.php:1292
-#, fuzzy
 msgid "Last used"
-msgstr "Laatste update:"
+msgstr "Laatst gebruikt"
 
 #: classes/pref/prefs.php:1345
 #, php-format
@@ -2405,9 +2401,8 @@ msgid "The following comics are currently supported:"
 msgstr "De volgende comics worden op dit moment ondersteund:"
 
 #: plugins/af_proxy_http/init.php:212
-#, fuzzy
 msgid "Image proxy settings (af_proxy_http)"
-msgstr "Afbeelding proxy-instellingen (af_zz_imgproxy)"
+msgstr "Afbeelding proxy-instellingen (af_proxy_http)"
 
 #: plugins/af_proxy_http/init.php:236
 msgid "Enable proxy for all remote images."
@@ -2475,9 +2470,8 @@ msgid "Inline content"
 msgstr "Inhoud weergeven"
 
 #: plugins/af_readability/init.php:56
-#, fuzzy
 msgid "Toggle full article text"
-msgstr "Artikelinhoud weergeven"
+msgstr "In-/uitschakelen volledige artikeltekst"
 
 #: plugins/af_readability/init.php:63
 msgid "Readability settings (af_readability)"
@@ -2980,9 +2974,8 @@ msgid "Remove selected filters?"
 msgstr "Geselecteerde filters verwijderen?"
 
 #: js/PrefHelpers.js:17
-#, fuzzy
 msgid "Remove selected app passwords?"
-msgstr "Geselecteerde categorieën verwijderen?"
+msgstr "Verwijder geselecteerde app wachtwoorden?"
 
 #: js/PrefHelpers.js:42
 msgid "This will invalidate all previously generated feed URLs. Continue?"
@@ -3041,9 +3034,8 @@ msgid "Please enable mail or mailto plugin first."
 msgstr "Eerst de e-mail plug-in inschakelen aub."
 
 #: js/tt-rss.js:484
-#, fuzzy
 msgid "Please enable af_readability first."
-msgstr "Eerst de e-mail plug-in inschakelen aub."
+msgstr "Eerst de af_readability plug-in inschakelen aub."
 
 #: js/tt-rss.js:497
 #: js/tt-rss.js:584
@@ -3345,9 +3337,8 @@ msgid "Removing selected users..."
 msgstr "Geselecteerde gebruikers verwijderen..."
 
 #: plugins/af_readability/init.js:29
-#, fuzzy
 msgid "Unable to fetch full text for this article"
-msgstr "Geef aub een nieuwe score voor dit artikel:"
+msgstr "Niet mogelijk om volledige tekst op te halen voor dit artikel"
 
 #: plugins/note/note.js:14
 msgid "Saving article note..."
