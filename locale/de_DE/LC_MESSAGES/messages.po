@@ -12,15 +12,16 @@ msgstr ""
 "Project-Id-Version: tt-rss git\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-28 08:08+0300\n"
-"PO-Revision-Date: 2019-08-27 12:06+0000\n"
-"Last-Translator: Oliver Meyer <olm@cativa.net>\n"
-"Language-Team: German <https://weblate.tt-rss.org/projects/tt-rss/messages/de/>\n"
+"PO-Revision-Date: 2020-06-01 15:13+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: German <https://weblate.tt-rss.org/projects/tt-rss/messages/"
+"de/>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.7.1\n"
+"X-Generator: Weblate 4.0.4\n"
 "X-Poedit-Bookmarks: -1,557,558,-1,-1,-1,-1,-1,-1,-1\n"
 
 #: backend.php:58
@@ -517,7 +518,7 @@ msgstr "Vorherigen Artikel laden (lange Artikel werden nicht gescrollt)"
 
 #: include/functions.php:1032
 msgid "Scroll article by one page down"
-msgstr ""
+msgstr "Artikel um eine Seite nach unten scrollen"
 
 #: include/functions.php:1033
 #, fuzzy
@@ -2240,6 +2241,8 @@ msgstr "Sie können Farben, Schriftarten und das Layout Ihres aktuell gewählten
 #: classes/pref/prefs.php:1146
 msgid "User CSS has been applied, you might need to reload the page to see all changes."
 msgstr ""
+"Benutzer-CSS wurde angewendet, möglicherweise müssen Sie die Seite neu "
+"laden, um alle Änderungen zu sehen."
 
 #: classes/pref/prefs.php:1154
 msgid "Apply"
