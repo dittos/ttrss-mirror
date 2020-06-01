@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: Tiny Tiny RSS\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-28 08:08+0300\n"
-"PO-Revision-Date: 2019-12-20 18:29+0000\n"
+"PO-Revision-Date: 2020-02-28 14:59+0000\n"
 "Last-Translator: Ptsa Daniel <ptsa1987@gmail.com>\n"
-"Language-Team: Chinese (Simplified) <https://weblate.tt-rss.org/projects/tt-rss/messages/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified) <https://weblate.tt-rss.org/projects/"
+"tt-rss/messages/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.7.1\n"
+"X-Generator: Weblate 3.11.2\n"
 
 #: backend.php:58
 msgid "Use default"
@@ -608,7 +609,7 @@ msgstr "切换文章展开 (合并模式)"
 
 #: include/functions.php:1056
 msgid "Toggle full article text via Readability"
-msgstr ""
+msgstr "查看全文(使用Readability)"
 
 #: include/functions.php:1057
 msgid "Article selection"
@@ -2087,7 +2088,7 @@ msgstr "更改密码"
 #: classes/pref/prefs.php:404
 #, php-format
 msgid "Authentication module used for this session (<b>%s</b>) does not provide an ability to set passwords."
-msgstr ""
+msgstr "用于此会话的身份验证模块(<b>%s</b>)不提供设置密码的功能。"
 
 #: classes/pref/prefs.php:410
 msgid "App passwords"
@@ -2459,9 +2460,8 @@ msgid "Inline content"
 msgstr "Inline 内容"
 
 #: plugins/af_readability/init.php:56
-#, fuzzy
 msgid "Toggle full article text"
-msgstr "Inline 文章内容"
+msgstr "查看全文"
 
 #: plugins/af_readability/init.php:63
 msgid "Readability settings (af_readability)"
@@ -3017,9 +3017,8 @@ msgid "Please enable mail or mailto plugin first."
 msgstr "请先启用邮件或邮件插件。"
 
 #: js/tt-rss.js:484
-#, fuzzy
 msgid "Please enable af_readability first."
-msgstr "请先启用邮件或邮件插件。"
+msgstr "请先启用af_readability."
 
 #: js/tt-rss.js:497
 #: js/tt-rss.js:584
@@ -3320,9 +3319,8 @@ msgid "Removing selected users..."
 msgstr "删除所选用户..."
 
 #: plugins/af_readability/init.js:29
-#, fuzzy
 msgid "Unable to fetch full text for this article"
-msgstr "请输入本文的新分数："
+msgstr "无法获取本文的全文"
 
 #: plugins/note/note.js:14
 msgid "Saving article note..."

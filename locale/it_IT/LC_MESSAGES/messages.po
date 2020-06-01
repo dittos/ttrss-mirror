@@ -10,15 +10,16 @@ msgstr ""
 "Project-Id-Version: Tiny Tiny RSS\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-28 08:08+0300\n"
-"PO-Revision-Date: 2020-02-16 13:27+0000\n"
+"PO-Revision-Date: 2020-03-08 21:12+0000\n"
 "Last-Translator: Dario Di Ludovico <dario@diludovico.it>\n"
-"Language-Team: Italian <https://weblate.tt-rss.org/projects/tt-rss/messages/it/>\n"
+"Language-Team: Italian <https://weblate.tt-rss.org/projects/tt-rss/messages/"
+"it/>\n"
 "Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.10.3\n"
+"X-Generator: Weblate 3.11.2\n"
 
 #: backend.php:58
 msgid "Use default"
@@ -609,7 +610,7 @@ msgstr "Attiva/disattiva l'espansione degli articoli (modalità combinata)"
 
 #: include/functions.php:1056
 msgid "Toggle full article text via Readability"
-msgstr ""
+msgstr "Attiva testo completo tramite Readability"
 
 #: include/functions.php:1057
 msgid "Article selection"
@@ -2092,6 +2093,8 @@ msgstr "Cambia password"
 #, php-format
 msgid "Authentication module used for this session (<b>%s</b>) does not provide an ability to set passwords."
 msgstr ""
+"Il modulo di autenticazione usato per questa sessione (<b>%s</b>) non "
+"fornisce la possibilità di impostare password."
 
 #: classes/pref/prefs.php:410
 msgid "App passwords"
@@ -2463,7 +2466,6 @@ msgid "Inline content"
 msgstr "Contenuto completo dell'articolo"
 
 #: plugins/af_readability/init.php:56
-#, fuzzy
 msgid "Toggle full article text"
 msgstr "Contenuto completo dell'articolo"
 
@@ -3028,9 +3030,8 @@ msgid "Please enable mail or mailto plugin first."
 msgstr "Per favore, prima attiva il plugin email."
 
 #: js/tt-rss.js:484
-#, fuzzy
 msgid "Please enable af_readability first."
-msgstr "Per favore, prima attiva il plugin email."
+msgstr "Per favore, prima attiva il plugin af_readability."
 
 #: js/tt-rss.js:497
 #: js/tt-rss.js:584
@@ -3332,9 +3333,8 @@ msgid "Removing selected users..."
 msgstr "Rimuovendo gli utenti selezionati..."
 
 #: plugins/af_readability/init.js:29
-#, fuzzy
 msgid "Unable to fetch full text for this article"
-msgstr "Inserire il nuovo punteggio per questo articolo:"
+msgstr "Impossibile recuperare il testo completo di questo articolo"
 
 #: plugins/note/note.js:14
 msgid "Saving article note..."
