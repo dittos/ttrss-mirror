@@ -134,6 +134,9 @@ define(["dojo/_base/declare"], function (declare) {
 			}
 
 		},
+		isCombinedMode: function() {
+			return this.getInitParam("combined_display_mode");
+		},
 		getActionByHotkeySequence: function (sequence) {
 			const hotkeys_map = App.getInitParam("hotkeys");
 

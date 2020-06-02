@@ -204,9 +204,6 @@ require(["dojo/_base/kernel",
 
 					return Feeds.reloadCurrent('');
 				},
-				isCombinedMode: function() {
-					return App.getInitParam("combined_display_mode");
-				},
 				hotkeyHandler: function(event) {
 					if (event.target.nodeName == "INPUT" || event.target.nodeName == "TEXTAREA") return;
 
