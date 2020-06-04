@@ -1,5 +1,6 @@
 'use strict'
-/* global __, ngettext */
+
+/* global __, ngettext, App, Headlines, xhrPost, dojo, dijit, Form, fox, PluginHost, Notify, $$ */
 
 const	Feeds = {
 	counters_last_request: 0,
@@ -207,6 +208,7 @@ const	Feeds = {
 		//document.onkeypress = (event) => { return App.hotkeyHandler(event) };
 		window.onresize = () => { Headlines.scrollHandler(); }
 
+		/* global hash_get */
 		const hash_feed_id = hash_get('f');
 		const hash_feed_is_cat = hash_get('c') == "1";
 
@@ -262,6 +264,7 @@ const	Feeds = {
 	setActive: function(id, is_cat) {
 		console.log('setActive', id, is_cat);
 
+		/* global hash_set */
 		hash_set('f', id);
 		hash_set('c', is_cat ? 1 : 0);
 

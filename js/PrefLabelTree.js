@@ -1,4 +1,5 @@
-/* global lib,dijit */
+/* global __, define, lib, dijit, dojo, xhrPost, Notify */
+
 define(["dojo/_base/declare", "dojo/dom-construct", "lib/CheckBoxTree", "dijit/form/DropDownButton"], function (declare, domConstruct) {
 
 	return declare("fox.PrefLabelTree", lib.CheckBoxTree, {

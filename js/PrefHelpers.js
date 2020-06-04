@@ -1,3 +1,7 @@
+'use strict';
+
+/* global __, dijit, dojo, Tables, xhrPost, Notify, xhrJson */
+
 const	Helpers = {
 	AppPasswords: {
 		getSelected: function() {
@@ -12,16 +16,14 @@ const	Helpers = {
 
 			if (rows.length == 0) {
 				alert("No passwords selected.");
-			} else {
-				if (confirm(__("Remove selected app passwords?"))) {
+			} else if (confirm(__("Remove selected app passwords?"))) {
 
-					xhrPost("backend.php", {op: "pref-prefs", method: "deleteAppPassword", ids: rows.toString()}, (transport) => {
-						this.updateContent(transport.responseText);
-						Notify.close();
-					});
+				xhrPost("backend.php", {op: "pref-prefs", method: "deleteAppPassword", ids: rows.toString()}, (transport) => {
+					this.updateContent(transport.responseText);
+					Notify.close();
+				});
 
-					Notify.progress("Loading, please wait...");
-				}
+				Notify.progress("Loading, please wait...");
 			}
 		},
 		generate: function() {
@@ -132,6 +134,7 @@ const	Helpers = {
 			},
 			execute: function () {
 				if (this.validate()) {
+					//
 				}
 			},
 			href: query

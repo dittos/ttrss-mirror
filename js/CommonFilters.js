@@ -1,5 +1,7 @@
 'use strict'
-/* global __, ngettext */
+
+/* global __, ngettext, App, Article, Lists */
+/* global xhrPost, xhrJson, dojo, dijit, Notify, $$, Feeds */
 
 const	Filters = {
 	filterDlgCheckAction: function(sender) {
@@ -138,7 +140,7 @@ const	Filters = {
 			content: __('Loading, please wait...'),
 		});
 
-		const tmph = dojo.connect(rule_dlg, "onShow", null, function (e) {
+		const tmph = dojo.connect(rule_dlg, "onShow", null, function (/* e */) {
 			dojo.disconnect(tmph);
 
 			xhrPost("backend.php", {op: 'pref-filters', method: 'newrule', rule: ruleStr}, (transport) => {
@@ -252,7 +254,7 @@ const	Filters = {
 			href: "backend.php?op=pref-filters&method=testFilterDlg"
 		});
 
-		dojo.connect(test_dlg, "onLoad", null, function (e) {
+		dojo.connect(test_dlg, "onLoad", null, function (/* e */) {
 			test_dlg.getTestResults(params, 0);
 		});
 

@@ -1,10 +1,11 @@
-/* global dijit */
+/* global dijit, define */
+
 define(["dojo/_base/declare", "dijit/Toolbar"], function (declare) {
 	return declare("fox.Toolbar", dijit.Toolbar, {
-		_onContainerKeydown: function(/* Event */ e) {
+		_onContainerKeydown: function(/* Event */ /* e */) {
 			return; // Stop dijit.Toolbar from interpreting keystrokes
 		},
-		_onContainerKeypress: function(/* Event */ e) {
+		_onContainerKeypress: function(/* Event */ /* e */) {
 			return; // Stop dijit.Toolbar from interpreting keystrokes
 		},
 		focus: function() {

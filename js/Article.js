@@ -1,5 +1,7 @@
 'use strict'
-/* global __, ngettext */
+
+/* global __, ngettext, App, Headlines, xhrPost, xhrJson, dojo, dijit, PluginHost, Notify, $$, escapeHtml */
+
 const Article = {
 	_scroll_reset_timeout: false,
 	getScoreClass: function (score) {
@@ -342,7 +344,7 @@ const Article = {
 	mouseIn: function (id) {
 		this.post_under_pointer = id;
 	},
-	mouseOut: function (id) {
+	mouseOut: function (/* id */) {
 		this.post_under_pointer = false;
 	},
 	getUnderPointer: function () {

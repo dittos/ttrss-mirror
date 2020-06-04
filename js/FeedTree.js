@@ -1,4 +1,5 @@
-/* global dijit */
+/* global dojo, dijit, define, App, Feeds, CommonDialogs, LABEL_BASE_INDEX */
+
 define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"], function (declare, domConstruct) {
 
 	return declare("fox.FeedTree", dijit.Tree, {

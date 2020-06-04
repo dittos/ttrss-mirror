@@ -1,4 +1,6 @@
-/* TODO: this should probably be something like night_mode.js since it does nothing specific to utility scripts */2
+/* global UtilityApp */
+
+/* TODO: this should probably be something like night_mode.js since it does nothing specific to utility scripts */
 
 Event.observe(window, "load", function() {
     const UtilityJS = {

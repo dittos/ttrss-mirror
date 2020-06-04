@@ -1,4 +1,5 @@
-/* global dijit,lib */
+/* global __, $$, define, lib, dijit, dojo, xhrPost, Notify, Filters, Lists */
+
 define(["dojo/_base/declare", "dojo/dom-construct", "lib/CheckBoxTree"], function (declare, domConstruct) {
 
 	return declare("fox.PrefFilterTree", lib.CheckBoxTree, {
@@ -236,9 +237,6 @@ define(["dojo/_base/declare", "dojo/dom-construct", "lib/CheckBoxTree"], functio
 
 			return false;
 		},
-
-
-
 });
 });
 

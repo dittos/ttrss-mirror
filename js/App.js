@@ -1,3 +1,9 @@
+'use strict';
+
+/* global __, ngettext, Article, Headlines, Filters */
+/* global xhrPost, xhrJson, dojo, dijit, PluginHost, Notify, $$, Feeds, Cookie */
+/* global CommonDialogs, CommonFilters, Plugins */
+
 const App = {
    _initParams: [],
 	_rpc_seq: 0,
@@ -505,12 +511,12 @@ const App = {
 					stack_msg += `<div><b>Additional information:</b></div>
 						<textarea name="stack" readonly="1">${params.info}</textarea>`;
 
-				let content = `<div class="error-contents">
+				const content = `<div class="error-contents">
 						<p class="message">${message}</p>
 						${stack_msg}
 						<div class="dlgButtons">
 							<button dojoType="dijit.form.Button"
-								onclick=\"dijit.byId('exceptionDlg').hide()">${__('Close this window')}</button>
+								onclick="dijit.byId('exceptionDlg').hide()">${__('Close this window')}</button>
 						</div>
 					</div>`;
 
@@ -579,7 +585,7 @@ const App = {
       let errorMsg = "";
 
       ['MutationObserver'].each(function(wf) {
-         if (! (wf in window)) {
+         if (!(wf in window)) {
             errorMsg = `Browser feature check failed: <code>window.${wf}</code> not found.`;
             throw $break;
          }
@@ -611,7 +617,7 @@ const App = {
 
                switch (this.urlParam('method')) {
                   case "editfeed":
-                     window.setTimeout(function () {
+                     window.setTimeout(() => {
                         CommonDialogs.editFeed(this.urlParam('methodparam'))
                      }, 100);
                      break;
@@ -1099,22 +1105,24 @@ const App = {
                CommonDialogs.editFeed(Feeds.getActive());
             break;
          case "qmcRemoveFeed":
-            const actid = Feeds.getActive();
+            {
+               const actid = Feeds.getActive();
 
-            if (!actid) {
-               alert(__("Please select some feed first."));
-               return;
-            }
+               if (!actid) {
+                  alert(__("Please select some feed first."));
+                  return;
+               }
 
-            if (Feeds.activeIsCat()) {
-               alert(__("You can't unsubscribe from the category."));
-               return;
-            }
+               if (Feeds.activeIsCat()) {
+                  alert(__("You can't unsubscribe from the category."));
+                  return;
+               }
 
-            const fn = Feeds.getName(actid);
+               const fn = Feeds.getName(actid);
 
-            if (confirm(__("Unsubscribe from %s?").replace("%s", fn))) {
-               CommonDialogs.unsubscribeFeed(actid);
+               if (confirm(__("Unsubscribe from %s?").replace("%s", fn))) {
+                  CommonDialogs.unsubscribeFeed(actid);
+               }
             }
             break;
          case "qmcCatchupAll":

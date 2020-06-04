@@ -1,5 +1,8 @@
 'use strict';
-/* global __, ngettext */
+
+/* global __, ngettext, Article, App, escapeHtml */
+/* global xhrPost, xhrJson, dojo, dijit, PluginHost, Notify, $$, Feeds */
+/* global CommonDialogs */
 
 const Headlines = {
 	vgroup_last_feed: undefined,
@@ -319,7 +322,7 @@ const Headlines = {
 
 			if (App.getInitParam("cdm_auto_catchup")) {
 
-				let rows = $$("#headlines-frame > div[id*=RROW][class*=Unread]");
+				const rows = $$("#headlines-frame > div[id*=RROW][class*=Unread]");
 
 				for (let i = 0; i < rows.length; i++) {
 					const row = rows[i];
@@ -1185,8 +1188,8 @@ const Headlines = {
 
 			if (App.getInitParam("confirm_feed_catchup") != 1 || confirm(msg)) {
 
-				for (var i = 0; i < ids_to_mark.length; i++) {
-					var e = $("RROW-" + ids_to_mark[i]);
+				for (let i = 0; i < ids_to_mark.length; i++) {
+					const e = $("RROW-" + ids_to_mark[i]);
 					e.removeClassName("Unread");
 				}
 			}
@@ -1231,14 +1234,14 @@ const Headlines = {
 
 		menu.addChild(new dijit.MenuItem({
 			label: __("Open original article"),
-			onClick: function (event) {
+			onClick: function (/* event */) {
 				Article.openInNewWindow(this.getParent().currentTarget.getAttribute("data-article-id"));
 			}
 		}));
 
 		menu.addChild(new dijit.MenuItem({
 			label: __("Display article URL"),
-			onClick: function (event) {
+			onClick: function (/* event */) {
 				Article.displayUrl(this.getParent().currentTarget.getAttribute("data-article-id"));
 			}
 		}));
@@ -1387,7 +1390,7 @@ const Headlines = {
 
 			menu.addChild(new dijit.MenuItem({
 				label: __("Select articles in group"),
-				onClick: function (event) {
+				onClick: function (/* event */) {
 					Headlines.select("all",
 						"#headlines-frame > div[id*=RROW]" +
 						"[data-orig-feed-id='" + this.getParent().currentTarget.getAttribute("data-feed-id") + "']");

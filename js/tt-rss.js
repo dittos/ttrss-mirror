@@ -1,6 +1,8 @@
 'use strict'
-/* global dijit,__ */
 
+/* global require, App */
+
+/* exported Plugins */
 const Plugins = {};
 
 require(["dojo/_base/kernel",
@@ -65,11 +67,13 @@ require(["dojo/_base/kernel",
 	});
 });
 
+/* exported hash_get */
 function hash_get(key) {
 	const kv = window.location.hash.substring(1).toQueryParams();
 	return kv[key];
 }
 
+/* exported hash_set */
 function hash_set(key, value) {
 	const kv = window.location.hash.substring(1).toQueryParams();
 	kv[key] = value;

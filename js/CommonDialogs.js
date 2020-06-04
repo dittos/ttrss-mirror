@@ -1,6 +1,8 @@
 'use strict'
-/* global __, ngettext */
-// noinspection JSUnusedGlobalSymbols
+
+/* global __, ngettext, dojo, dijit, Notify, App, Feeds, $$, xhrPost, xhrJson, Tables, Effect */
+
+/* exported CommonDialogs */
 const	CommonDialogs = {
 		closeInfoBox: function() {
 			const dialog = dijit.byId("infoBox");
@@ -102,8 +104,10 @@ const	CommonDialogs = {
 						xhrPost("backend.php", this.attr('value'), (transport) => {
 							try {
 
+								let reply;
+
 								try {
-									var reply = JSON.parse(transport.responseText);
+									reply = JSON.parse(transport.responseText);
 								} catch (e) {
 									Element.hide("feed_add_spinner");
 									alert(__("Failed to parse output. This can indicate server timeout and/or network issues. Backend output was logged to browser console."));
@@ -136,27 +140,26 @@ const	CommonDialogs = {
 										dialog.show_error(__("Specified URL doesn't seem to contain any feeds."));
 										break;
 									case 4:
-										const feeds = rc['feeds'];
+										{
+											const feeds = rc['feeds'];
 
-										Element.show("fadd_multiple_notify");
+											Element.show("fadd_multiple_notify");
 
-										const select = dijit.byId("feedDlg_feedContainerSelect");
+											const select = dijit.byId("feedDlg_feedContainerSelect");
 
-										while (select.getOptions().length > 0)
-											select.removeOption(0);
+											while (select.getOptions().length > 0)
+												select.removeOption(0);
 
-										select.addOption({value: '', label: __("Expand to select feed")});
+											select.addOption({value: '', label: __("Expand to select feed")});
 
-										let count = 0;
-										for (const feedUrl in feeds) {
-											if (feeds.hasOwnProperty(feedUrl)) {
-												select.addOption({value: feedUrl, label: feeds[feedUrl]});
-												count++;
+											for (const feedUrl in feeds) {
+												if (feeds.hasOwnProperty(feedUrl)) {
+													select.addOption({value: feedUrl, label: feeds[feedUrl]});
+												}
 											}
+
+											Effect.Appear('feedDlg_feedsContainer', {duration: 0.5});
 										}
-
-										Effect.Appear('feedDlg_feedsContainer', {duration: 0.5});
-
 										break;
 									case 5:
 										dialog.show_error(__("Couldn't download the specified URL: %s").replace("%s", rc['message']));

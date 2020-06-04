@@ -1,5 +1,8 @@
 'use strict'
 
+/* global require, App */
+
+/* exported Plugins */
 const Plugins = {};
 
 require(["dojo/_base/kernel",

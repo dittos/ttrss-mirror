@@ -1,5 +1,7 @@
 'use strict'
-/* global __, ngettext */
+
+/* global __  */
+/* global xhrPost, dojo, dijit, Notify, Tables */
 
 const	Users = {
 	reload: function(sort) {
@@ -39,7 +41,7 @@ const	Users = {
 				if (this.validate()) {
 					Notify.progress("Saving data...", true);
 
-					xhrPost("backend.php", dojo.formToObject("user_edit_form"), (transport) => {
+					xhrPost("backend.php", dojo.formToObject("user_edit_form"), (/* transport */) => {
 						dialog.hide();
 						Users.reload();
 					});
