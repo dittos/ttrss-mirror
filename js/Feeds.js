@@ -203,8 +203,8 @@ const	Feeds = {
 
 		App.setLoadingProgress(50);
 
-		document.onkeydown = (event) => { return App.hotkeyHandler(event) };
-		document.onkeypress = (event) => { return App.hotkeyHandler(event) };
+		//document.onkeydown = (event) => { return App.hotkeyHandler(event) };
+		//document.onkeypress = (event) => { return App.hotkeyHandler(event) };
 		window.onresize = () => { Headlines.scrollHandler(); }
 
 		const hash_feed_id = hash_get('f');

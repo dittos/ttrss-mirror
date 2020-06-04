@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "amd"
+    },
+    "include": [
+        "js/*.js",
+        "plugins/**/*.js"
+    ]
+}

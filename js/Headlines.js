@@ -1,5 +1,6 @@
 'use strict';
 /* global __, ngettext */
+
 const Headlines = {
 	vgroup_last_feed: undefined,
 	_headlines_scroll_timeout: 0,

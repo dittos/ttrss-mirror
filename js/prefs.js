@@ -1,7 +1,4 @@
 'use strict'
-/* global dijit, __ */
-
-let App;
 
 const Plugins = {};
 
@@ -9,7 +6,7 @@ require(["dojo/_base/kernel",
 	"dojo/_base/declare",
 	"dojo/ready",
 	"dojo/parser",
-	"fox/AppBase",
+	"fox/App",
 	"dojo/_base/loader",
 	"dojo/_base/html",
 	"dijit/ColorPalette",
@@ -54,107 +51,13 @@ require(["dojo/_base/kernel",
 	"fox/form/ValidationTextArea",
 	"fox/form/Select",
 	"fox/form/ComboButton",
-	"fox/form/DropDownButton"], function (dojo, declare, ready, parser, AppBase) {
+	"fox/form/DropDownButton"], function (dojo, declare, ready, parser) {
 
 	ready(function () {
 		try {
-			const _App = declare("fox.App", AppBase, {
-				constructor: function() {
-					this.setupNightModeDetection(() => {
-						parser.parse();
-
-						this.setLoadingProgress(50);
-
-						const clientTzOffset = new Date().getTimezoneOffset() * 60;
-						const params = {op: "rpc", method: "sanityCheck", clientTzOffset: clientTzOffset};
-
-						xhrPost("backend.php", params, (transport) => {
-							try {
-								this.backendSanityCallback(transport);
-							} catch (e) {
-								this.Error.report(e);
-							}
-						});
-					});
-				},
-				initSecondStage: function() {
-					this.enableCsrfSupport();
-
-					document.onkeydown = (event) => { return App.hotkeyHandler(event) };
-					document.onkeypress = (event) => { return App.hotkeyHandler(event) };
-					App.setLoadingProgress(50);
-					Notify.close();
-
-					let tab = App.urlParam('tab');
-
-					if (tab) {
-						tab = dijit.byId(tab + "Tab");
-						if (tab) {
-							dijit.byId("pref-tabs").selectChild(tab);
-
-							switch (App.urlParam('method')) {
-								case "editfeed":
-									window.setTimeout(function () {
-										CommonDialogs.editFeed(App.urlParam('methodparam'))
-									}, 100);
-									break;
-								default:
-									console.warn("initSecondStage, unknown method:", App.urlParam("method"));
-							}
-						}
-					} else {
-						let tab = localStorage.getItem("ttrss:prefs-tab");
-
-						if (tab) {
-							tab = dijit.byId(tab);
-							if (tab) {
-								dijit.byId("pref-tabs").selectChild(tab);
-							}
-						}
-					}
-
-					dojo.connect(dijit.byId("pref-tabs"), "selectChild", function (elem) {
-						localStorage.setItem("ttrss:prefs-tab", elem.id);
-					});
-
-				},
-				hotkeyHandler: function (event) {
-					if (event.target.nodeName == "INPUT" || event.target.nodeName == "TEXTAREA") return;
-
-					// Arrow buttons and escape are not reported via keypress, handle them via keydown.
-					// escape = 27, left = 37, up = 38, right = 39, down = 40
-					if (event.type == "keydown" && event.which != 27 && (event.which < 37 || event.which > 40)) return;
-
-					const action_name = App.keyeventToAction(event);
-
-					if (action_name) {
-						switch (action_name) {
-							case "feed_subscribe":
-								CommonDialogs.quickAddFeed();
-								return false;
-							case "create_label":
-								CommonDialogs.addLabel();
-								return false;
-							case "create_filter":
-								Filters.quickAddFilter();
-								return false;
-							case "help_dialog":
-								App.helpDialog("main");
-								return false;
-							default:
-								console.log("unhandled action: " + action_name + "; keycode: " + event.which);
-						}
-					}
-				},
-				isPrefs: function() {
-					return true;
-				}
-			});
-
-			App = new _App();
-
+			App.init(parser, true);
 		} catch (e) {
-			if (App && App.Error)
+			if (typeof App != "undefined" && App.Error)
 				App.Error.report(e);
 			else
 				alert(e + "\n\n" + e.stack);
