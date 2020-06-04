@@ -2,10 +2,6 @@
 /* global dijit, __ */
 
 let App;
-let CommonDialogs;
-let Filters;
-let Users;
-let Helpers;
 
 const Plugins = {};
 
