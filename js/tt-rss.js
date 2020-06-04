@@ -2,12 +2,6 @@
 /* global dijit,__ */
 
 let App;
-let CommonDialogs;
-let Filters;
-let Feeds;
-let Headlines;
-let Article;
-let PluginHost;
 
 const Plugins = {};
 

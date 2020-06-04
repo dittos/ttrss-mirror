@@ -1,8 +1,7 @@
 'use strict'
 /* global __, ngettext */
-define(["dojo/_base/declare"], function (declare) {
-	// noinspection JSUnusedGlobalSymbols
-	CommonDialogs = {
+// noinspection JSUnusedGlobalSymbols
+const	CommonDialogs = {
 		closeInfoBox: function() {
 			const dialog = dijit.byId("infoBox");
 			if (dialog)	dialog.hide();
@@ -478,6 +477,3 @@ define(["dojo/_base/declare"], function (declare) {
 			return false;
 		}
 	};
-
-	return CommonDialogs;
-});
