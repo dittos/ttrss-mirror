@@ -1,6 +1,6 @@
 'use strict'
 
-/* global __, ngettext, App, Headlines, xhrPost, dojo, dijit, Form, fox, PluginHost, Notify, $$ */
+/* global __, App, Headlines, xhrPost, dojo, dijit, Form, fox, PluginHost, Notify, $$ */
 
 const	Feeds = {
 	counters_last_request: 0,

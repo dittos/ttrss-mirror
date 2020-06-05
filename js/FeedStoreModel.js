@@ -1,10 +1,12 @@
+/* global define, dijit */
+
 define(["dojo/_base/declare", "dijit/tree/ForestStoreModel"], function (declare) {
 
 	return declare("fox.FeedStoreModel", dijit.tree.ForestStoreModel, {
 		getItemsInCategory: function (id) {
 			if (!this.store._itemsByIdentity) return undefined;
 
-			let cat = this.store._itemsByIdentity['CAT:' + id];
+			const cat = this.store._itemsByIdentity['CAT:' + id];
 
 			if (cat && cat.items)
 				return cat.items;
@@ -17,6 +19,8 @@ define(["dojo/_base/declare", "dijit/tree/ForestStoreModel"], function (declare)
 		},
 		getFeedValue: function (feed, is_cat, key) {
 			if (!this.store._itemsByIdentity) return undefined;
+
+			let treeItem;
 
 			if (is_cat)
 				treeItem = this.store._itemsByIdentity['CAT:' + feed];
@@ -40,6 +44,8 @@ define(["dojo/_base/declare", "dijit/tree/ForestStoreModel"], function (declare)
 			if (!value) value = '';
 			if (!this.store._itemsByIdentity) return undefined;
 
+			let treeItem;
+
 			if (is_cat)
 				treeItem = this.store._itemsByIdentity['CAT:' + feed];
 			else
@@ -52,29 +58,31 @@ define(["dojo/_base/declare", "dijit/tree/ForestStoreModel"], function (declare)
 			if (!this.store._itemsByIdentity)
 				return null;
 
+			let treeItem;
+
 			if (is_cat) {
 				treeItem = this.store._itemsByIdentity['CAT:' + feed];
 			} else {
 				treeItem = this.store._itemsByIdentity['FEED:' + feed];
 			}
 
-			let items = this.store._arrayOfAllItems;
+			const items = this.store._arrayOfAllItems;
 
 			for (let i = 0; i < items.length; i++) {
 				if (items[i] == treeItem) {
 
-					for (var j = i + 1; j < items.length; j++) {
-						let unread = this.store.getValue(items[j], 'unread');
-						let id = this.store.getValue(items[j], 'id');
+					for (let j = i + 1; j < items.length; j++) {
+						const unread = this.store.getValue(items[j], 'unread');
+						const id = this.store.getValue(items[j], 'id');
 
 						if (unread > 0 && ((is_cat && id.match("CAT:")) || (!is_cat && id.match("FEED:")))) {
 							if (!is_cat || !(this.store.hasAttribute(items[j], 'parent_id') && this.store.getValue(items[j], 'parent_id') == feed)) return items[j];
 						}
 					}
 
-					for (var j = 0; j < i; j++) {
-						let unread = this.store.getValue(items[j], 'unread');
-						let id = this.store.getValue(items[j], 'id');
+					for (let j = 0; j < i; j++) {
+						const unread = this.store.getValue(items[j], 'unread');
+						const id = this.store.getValue(items[j], 'id');
 
 						if (unread > 0 && ((is_cat && id.match("CAT:")) || (!is_cat && id.match("FEED:")))) {
 							if (!is_cat || !(this.store.hasAttribute(items[j], 'parent_id') && this.store.getValue(items[j], 'parent_id') == feed)) return items[j];

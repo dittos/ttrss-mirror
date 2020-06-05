@@ -1,12 +1,13 @@
-/* global dojo, dijit, define, App, Feeds, CommonDialogs */
+/* eslint-disable prefer-rest-params */
+/* global __, dojo, dijit, define, App, Feeds, CommonDialogs */
 
 define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"], function (declare, domConstruct) {
 
 	return declare("fox.FeedTree", dijit.Tree, {
-		_onContainerKeydown: function(/* Event */ e) {
+		_onContainerKeydown: function(/* Event */ /* e */) {
 			return; // Stop dijit.Tree from interpreting keystrokes
 		},
-		_onContainerKeypress: function(/* Event */ e) {
+		_onContainerKeypress: function(/* Event */ /* e */) {
 			return; // Stop dijit.Tree from interpreting keystrokes
 		},
 		_createTreeNode: function(args) {
@@ -48,7 +49,7 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 			}
 
 			if (id.match("FEED:")) {
-				let menu = new dijit.Menu();
+				const menu = new dijit.Menu();
 				menu.row_id = bare_id;
 
 				menu.addChild(new dijit.MenuItem({
@@ -77,7 +78,7 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 			}
 
 			if (id.match("CAT:") && bare_id >= 0) {
-				let menu = new dijit.Menu();
+				const menu = new dijit.Menu();
 				menu.row_id = bare_id;
 
 				menu.addChild(new dijit.MenuItem({
@@ -102,7 +103,7 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 			}
 
 			if (id.match("CAT:") && bare_id == -1) {
-				let menu = new dijit.Menu();
+				const menu = new dijit.Menu();
 				menu.row_id = bare_id;
 
 				menu.addChild(new dijit.MenuItem({
@@ -146,15 +147,16 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 			}
 		},
 		getTooltip: function (item) {
-			return [item.updated, item.error].filter(x => x && x != "").join(" - ");
+			return [item.updated, item.error].filter((x) => x && x != "").join(" - ");
 		},
 		getIconClass: function (item, opened) {
+			// eslint-disable-next-line no-nested-ternary
 			return (!item || this.model.mayHaveChildren(item)) ? (opened ? "dijitFolderOpened" : "dijitFolderClosed") : "feed-icon";
 		},
-		getLabelClass: function (item, opened) {
+		getLabelClass: function (item/* , opened */) {
 			return (item.unread <= 0) ? "dijitTreeLabel" : "dijitTreeLabel Unread";
 		},
-		getRowClass: function (item, opened) {
+		getRowClass: function (item/*, opened */) {
 			let rc = "dijitTreeRow";
 
 			const is_cat = String(item.id).indexOf('CAT:') != -1;
