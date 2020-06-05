@@ -554,7 +554,7 @@ class Pref_Feeds extends Handler_Protected {
 			$last_error = $row["last_error"];
 
 			if ($last_error) {
-				print "&nbsp;<i class=\"material-icons\" 
+				print "&nbsp;<i class=\"material-icons\"
 					title=\"".htmlspecialchars($last_error)."\">error</i>";
 			}
 
@@ -676,7 +676,7 @@ class Pref_Feeds extends Handler_Protected {
 			$auth_checked = $auth_enabled ? 'checked' : '';
 			print "<label class='checkbox'>
 				<input type='checkbox' $auth_checked name='need_auth' dojoType='dijit.form.CheckBox' id='feedEditDlg_loginCheck'
-						onclick='displayIfChecked(this, \"feedEditDlg_loginContainer\")'>
+						onclick='App.displayIfChecked(this, \"feedEditDlg_loginContainer\")'>
 					".__('This feed requires authentication.')."</label>";
 
 			print '</div><div dojoType="dijit.layout.ContentPane" title="'.__('Options').'">';
@@ -1172,7 +1172,7 @@ class Pref_Feeds extends Handler_Protected {
 	function index() {
 
 		print "<div dojoType='dijit.layout.AccordionContainer' region='center'>";
-		print "<div style='padding : 0px' dojoType='dijit.layout.AccordionPane' 
+		print "<div style='padding : 0px' dojoType='dijit.layout.AccordionPane'
 			title=\"<i class='material-icons'>rss_feed</i> ".__('Feeds')."\">";
 
 		$sth = $this->pdo->prepare("SELECT COUNT(id) AS num_errors
@@ -1307,7 +1307,7 @@ class Pref_Feeds extends Handler_Protected {
 
 		print "</div>"; # feeds pane
 
-		print "<div dojoType='dijit.layout.AccordionPane' 
+		print "<div dojoType='dijit.layout.AccordionPane'
 			title='<i class=\"material-icons\">import_export</i> ".__('OPML')."'>";
 
 		print "<h3>" . __("Using OPML you can export and import your feeds, filters, labels and Tiny Tiny RSS settings.") . "</h3>";
@@ -1360,7 +1360,7 @@ class Pref_Feeds extends Handler_Protected {
 
 		print "</div>"; # pane
 
-		print "<div dojoType=\"dijit.layout.AccordionPane\" 
+		print "<div dojoType=\"dijit.layout.AccordionPane\"
 			title=\"<i class='material-icons'>share</i> ".__('Published & shared articles / Generated feeds')."\">";
 
 		print "<h3>" . __('Published articles can be subscribed by anyone who knows the following URL:') . "</h3>";
@@ -1672,7 +1672,7 @@ class Pref_Feeds extends Handler_Protected {
 
 		print "<fieldset class='narrow'>
 			<label class='checkbox'><input type='checkbox' name='need_auth' dojoType='dijit.form.CheckBox'
-					onclick='displayIfChecked(this, \"feedDlg_loginContainer\")'> ".
+					onclick='App.displayIfChecked(this, \"feedDlg_loginContainer\")'> ".
 				__('Feeds require authentication.')."</label></div>";
 		print "</fieldset>";
 

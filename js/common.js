@@ -1,21 +1,19 @@
-'use strict'
-/* global dijit, __ */
+'use strict';
 
-let LABEL_BASE_INDEX = -1024; /* not const because it's assigned at least once (by backend) */
-let loading_progress = 0;
+/* global dijit, __, App, Ajax */
 
 /* error reporting shim */
-
 // TODO: deprecated; remove
-function exception_error(e, e_compat, filename, lineno, colno) {
+/* function exception_error(e, e_compat, filename, lineno, colno) {
 	if (typeof e == "string")
 		e = e_compat;
 
 	App.Error.report(e, {filename: filename, lineno: lineno, colno: colno});
-}
+} */
 
 /* xhr shorthand helpers */
 
+/* exported xhrPost */
 function xhrPost(url, params, complete) {
 	console.log("xhrPost:", params);
 
@@ -31,6 +29,7 @@ function xhrPost(url, params, complete) {
 	});
 }
 
+/* exported xhrJson */
 function xhrJson(url, params, complete) {
 	return new Promise((resolve, reject) => {
 		return xhrPost(url, params).then((reply) => {
@@ -58,6 +57,7 @@ Array.prototype.remove = function(s) {
 
 /* common helpers not worthy of separate Dojo modules */
 
+/* exported Lists */
 const Lists = {
 	onRowChecked: function(elem) {
 		const checked = elem.domNode ? elem.attr("checked") : elem.checked;
@@ -87,7 +87,7 @@ const Lists = {
 	},
 };
 
-// noinspection JSUnusedGlobalSymbols
+/* exported Tables */
 const Tables = {
 	onRowChecked: function(elem) {
 		// account for dojo checkboxes
@@ -133,6 +133,7 @@ const Tables = {
 	}
 };
 
+/* exported Cookie */
 const Cookie = {
 	set: function (name, value, lifetime) {
 		const d = new Date();
@@ -152,12 +153,12 @@ const Cookie = {
 	},
 	delete: function(name) {
 		const expires = "expires=Thu, 01-Jan-1970 00:00:01 GMT";
-		document.cookie = name + "=" + "" + "; " + expires;
+		document.cookie = name + "=; " + expires;
 	}
 };
 
 /* runtime notifications */
-
+/* exported Notify */
 const Notify = {
 	KIND_GENERIC: 0,
 	KIND_INFO: 1,
@@ -237,30 +238,8 @@ const Notify = {
 	}
 };
 
-// noinspection JSUnusedGlobalSymbols
-function displayIfChecked(checkbox, elemId) {
-	if (checkbox.checked) {
-		Effect.Appear(elemId, {duration : 0.5});
-	} else {
-		Effect.Fade(elemId, {duration : 0.5});
-	}
-}
-
-/* function strip_tags(s) {
-	return s.replace(/<\/?[^>]+(>|$)/g, "");
-} */
-
-// noinspection JSUnusedGlobalSymbols
-function label_to_feed_id(label) {
-	return LABEL_BASE_INDEX - 1 - Math.abs(label);
-}
-
-// noinspection JSUnusedGlobalSymbols
-function feed_to_label_id(feed) {
-	return LABEL_BASE_INDEX - 1 + Math.abs(feed);
-}
-
 // http://stackoverflow.com/questions/6251937/how-to-get-selecteduser-highlighted-text-in-contenteditable-element-and-replac
+/* exported getSelectionText */
 function getSelectionText() {
 	let text = "";
 
@@ -280,37 +259,4 @@ function getSelectionText() {
 	}
 
 	return text.stripTags();
-}
-
-// noinspection JSUnusedGlobalSymbols
-function popupOpenUrl(url) {
-	const w = window.open("");
-
-	w.opener = null;
-	w.location = url;
-}
-
-// noinspection JSUnusedGlobalSymbols
-function popupOpenArticle(id) {
-	const w = window.open("",
-		"ttrss_article_popup",
-		"height=900,width=900,resizable=yes,status=no,location=no,menubar=no,directories=no,scrollbars=yes,toolbar=no");
-
-	if (w) {
-		w.opener = null;
-		w.location = "backend.php?op=article&method=view&mode=raw&html=1&zoom=1&id=" + id + "&csrf_token=" + App.getInitParam("csrf_token");
-	}
-}
-
-// htmlspecialchars()-alike for headlines data-content attribute
-function escapeHtml(text) {
-	const map = {
-		'&': '&amp;',
-		'<': '&lt;',
-		'>': '&gt;',
-		'"': '&quot;',
-		"'": '&#039;'
-	};
-
-	return text.replace(/[&<>"']/g, function(m) { return map[m]; });
 }

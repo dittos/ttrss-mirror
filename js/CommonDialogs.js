@@ -46,18 +46,20 @@ const	CommonDialogs = {
 				xhr.onload = function () {
 					switch (parseInt(this.responseText)) {
 						case 0:
-							Notify.info("Upload complete.");
+							{
+								Notify.info("Upload complete.");
 
-							if (App.isPrefs())
-								dijit.byId("feedTree").reload();
-							else
-								Feeds.reload();
+								if (App.isPrefs())
+									dijit.byId("feedTree").reload();
+								else
+									Feeds.reload();
 
-							const icon = $$(".feed-editor-icon")[0];
+								const icon = $$(".feed-editor-icon")[0];
 
-							if (icon)
-								icon.src = icon.src.replace(/\?[0-9]+$/, "?" + new Date().getTime());
+								if (icon)
+									icon.src = icon.src.replace(/\?[0-9]+$/, "?" + new Date().getTime());
 
+							}
 							break;
 						case 1:
 							Notify.error("Upload failed: icon is too big.");

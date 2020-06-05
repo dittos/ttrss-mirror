@@ -1,8 +1,8 @@
 'use strict';
 
-/* global __, ngettext, Article, Headlines, Filters */
+/* global __, Article, Ajax, Headlines, Filters */
 /* global xhrPost, xhrJson, dojo, dijit, PluginHost, Notify, $$, Feeds, Cookie */
-/* global CommonDialogs, CommonFilters, Plugins */
+/* global CommonDialogs, Plugins, Effect */
 
 const App = {
    _initParams: [],
@@ -12,8 +12,10 @@ const App = {
 	hotkey_prefix_timeout: 0,
    global_unread: -1,
    _widescreen_mode: false,
+   _loading_progress: 0,
    hotkey_actions: {},
    is_prefs: false,
+   LABEL_BASE_INDEX: -1024,
    Scrollable: {
 		scrollByPages: function (elem, page_offset) {
 			if (!elem) return;
@@ -46,8 +48,14 @@ const App = {
 			return elem.offsetTop + elem.offsetHeight <= ctr.scrollTop + ctr.offsetHeight &&
 				elem.offsetTop >= ctr.scrollTop;
 		}
-	},
-	getInitParam: function(k) {
+   },
+   label_to_feed_id: function(label) {
+      return this.LABEL_BASE_INDEX - 1 - Math.abs(label);
+   },
+   feed_to_label_id: function(feed) {
+      return this.LABEL_BASE_INDEX - 1 + Math.abs(feed);
+   },
+   getInitParam: function(k) {
 		return this._initParams[k];
 	},
 	setInitParam: function(k, v) {
@@ -130,12 +138,12 @@ const App = {
 		return this._rpc_seq;
 	},
 	setLoadingProgress: function(p) {
-		loading_progress += p;
+		this._loading_progress += p;
 
 		if (dijit.byId("loading_bar"))
-			dijit.byId("loading_bar").update({progress: loading_progress});
+			dijit.byId("loading_bar").update({progress: this._loading_progress});
 
-		if (loading_progress >= 90) {
+		if (this._loading_progress >= 90) {
 			$("overlay").hide();
 		}
 
@@ -223,8 +231,27 @@ const App = {
 		$$("#" + root + " *").each(function (i) {
 			i.parentNode ? i.parentNode.removeChild(i) : true;
 		});
-	},
-	helpDialog: function(topic) {
+   },
+   // htmlspecialchars()-alike for headlines data-content attribute
+   escapeHtml: function(text) {
+      const map = {
+         '&': '&amp;',
+         '<': '&lt;',
+         '>': '&gt;',
+         '"': '&quot;',
+         "'": '&#039;'
+      };
+
+      return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+   },
+   displayIfChecked: function(checkbox, elemId) {
+      if (checkbox.checked) {
+         Effect.Appear(elemId, {duration : 0.5});
+      } else {
+         Effect.Fade(elemId, {duration : 0.5});
+      }
+   },
+   helpDialog: function(topic) {
 		const query = "backend.php?op=backend&method=help&topic=" + encodeURIComponent(topic);
 
 		if (dijit.byId("helpDlg"))
@@ -418,7 +445,7 @@ const App = {
 				if (params.hasOwnProperty(k)) {
 					switch (k) {
 						case "label_base_index":
-							LABEL_BASE_INDEX = parseInt(params[k]);
+							this.LABEL_BASE_INDEX = parseInt(params[k]);
 							break;
 						case "cdm_auto_catchup":
 							if (params[k] == 1) {
@@ -429,16 +456,17 @@ const App = {
 						case "hotkeys":
 							// filter mnemonic definitions (used for help panel) from hotkeys map
 							// i.e. *(191)|Ctrl-/ -> *(191)
+                     {
+                        const tmp = [];
+                        for (const sequence in params[k][1]) {
+                           if (params[k][1].hasOwnProperty(sequence)) {
+                              const filtered = sequence.replace(/\|.*$/, "");
+                              tmp[filtered] = params[k][1][sequence];
+                           }
+                        }
 
-							const tmp = [];
-							for (const sequence in params[k][1]) {
-								if (params[k][1].hasOwnProperty(sequence)) {
-									const filtered = sequence.replace(/\|.*$/, "");
-									tmp[filtered] = params[k][1][sequence];
-								}
-							}
-
-							params[k][1] = tmp;
+                        params[k][1] = tmp;
+                     }
 							break;
 					}
 
@@ -587,7 +615,7 @@ const App = {
       ['MutationObserver'].each(function(wf) {
          if (!(wf in window)) {
             errorMsg = `Browser feature check failed: <code>window.${wf}</code> not found.`;
-            throw $break;
+            throw new Error(errorMsg);
          }
       });
 

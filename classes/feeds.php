@@ -701,12 +701,12 @@ class Feeds extends Handler_Protected {
 		print "<section>";
 		print "<label>
 			<label class='checkbox'><input type='checkbox' name='need_auth' dojoType='dijit.form.CheckBox' id='feedDlg_loginCheck'
-					onclick='displayIfChecked(this, \"feedDlg_loginContainer\")'>
+					onclick='App.displayIfChecked(this, \"feedDlg_loginContainer\")'>
 				".__('This feed requires authentication.')."</label>";
 		print "</section>";
 
 		print "<footer>";
-		print "<button dojoType='dijit.form.Button' class='alt-primary' type='submit' 
+		print "<button dojoType='dijit.form.Button' class='alt-primary' type='submit'
 				onclick=\"return dijit.byId('feedAddDlg').execute()\">".__('Subscribe')."</button>";
 
 		print "<button dojoType='dijit.form.Button' onclick=\"return dijit.byId('feedAddDlg').hide()\">".__('Cancel')."</button>";
@@ -1337,7 +1337,7 @@ class Feeds extends Handler_Protected {
 			return 0;
 		} else if ($cat == -2) {
 
-			$sth = $pdo->prepare("SELECT COUNT(DISTINCT article_id) AS unread 
+			$sth = $pdo->prepare("SELECT COUNT(DISTINCT article_id) AS unread
 				FROM ttrss_user_entries ue, ttrss_user_labels2 l
 				WHERE article_id = ref_id AND unread IS true AND ue.owner_uid = :uid");
 			$sth->execute(["uid" => $owner_uid]);
@@ -1373,8 +1373,8 @@ class Feeds extends Handler_Protected {
 
 		$pdo = Db::pdo();
 
-		$sth = $pdo->prepare("SELECT SUM(CASE WHEN unread THEN 1 ELSE 0 END) AS count 
-			FROM ttrss_user_entries ue 
+		$sth = $pdo->prepare("SELECT SUM(CASE WHEN unread THEN 1 ELSE 0 END) AS count
+			FROM ttrss_user_entries ue
 			WHERE ue.owner_uid = ?");
 
 		$sth->execute([$user_id]);
@@ -1468,7 +1468,7 @@ class Feeds extends Handler_Protected {
 			}
 
 			if (DB_TYPE == "pgsql") {
-				$test_sth = $pdo->prepare("select $search_query_part 
+				$test_sth = $pdo->prepare("select $search_query_part
 					FROM ttrss_entries, ttrss_user_entries WHERE id = ref_id limit 1");
 
 				try {
@@ -2272,9 +2272,9 @@ class Feeds extends Handler_Protected {
 						$label_id = Labels::find_id($commandpair[1], $_SESSION["uid"]);
 
 						if ($label_id) {
-							array_push($query_keywords, "($not 
+							array_push($query_keywords, "($not
 								(ttrss_entries.id IN (
-									SELECT article_id FROM ttrss_user_labels2 WHERE 
+									SELECT article_id FROM ttrss_user_labels2 WHERE
 										label_id = ".$pdo->quote($label_id).")))");
 						} else {
 							array_push($query_keywords, "(false)");

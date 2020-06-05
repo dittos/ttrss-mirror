@@ -1,4 +1,4 @@
-/* global dojo, dijit, define, App, Feeds, CommonDialogs, LABEL_BASE_INDEX */
+/* global dojo, dijit, define, App, Feeds, CommonDialogs */
 
 define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"], function (declare, domConstruct) {
 
@@ -34,7 +34,7 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 			const id = args.item.id[0];
 			const bare_id = parseInt(id.substr(id.indexOf(':')+1));
 
-			if (bare_id < LABEL_BASE_INDEX) {
+			if (bare_id < App.LABEL_BASE_INDEX) {
 				const label = dojo.create('i', { className: "material-icons icon icon-label", innerHTML: "label" });
 
 				//const fg_color = args.item.fg_color[0];
@@ -164,9 +164,9 @@ define(["dojo/_base/declare", "dojo/dom-construct", "dijit/Tree", "dijit/Menu"],
 			if (item.auxcounter > 0) rc += " Has_Aux";
 			if (item.markedcounter > 0) rc += " Has_Marked";
 			if (item.updates_disabled > 0) rc += " UpdatesDisabled";
-			if (item.bare_id >= LABEL_BASE_INDEX && item.bare_id < 0 && !is_cat || item.bare_id == 0 && !is_cat) rc += " Special";
+			if (item.bare_id >= App.LABEL_BASE_INDEX && item.bare_id < 0 && !is_cat || item.bare_id == 0 && !is_cat) rc += " Special";
 			if (item.bare_id == -1 && is_cat) rc += " AlwaysVisible";
-			if (item.bare_id < LABEL_BASE_INDEX) rc += " Label";
+			if (item.bare_id < App.LABEL_BASE_INDEX) rc += " Label";
 
 			return rc;
 		},

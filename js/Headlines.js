@@ -1,7 +1,7 @@
 'use strict';
 
-/* global __, ngettext, Article, App, escapeHtml */
-/* global xhrPost, xhrJson, dojo, dijit, PluginHost, Notify, $$, Feeds */
+/* global __, ngettext, Article, App */
+/* global xhrPost, dojo, dijit, PluginHost, Notify, $$, Feeds */
 /* global CommonDialogs */
 
 const Headlines = {
@@ -402,7 +402,7 @@ const Headlines = {
 		if (headlines.vfeed_group_enabled) row_class += " vgrlf";
 
 		if (headlines.vfeed_group_enabled && hl.feed_title && this.vgroup_last_feed != hl.feed_id) {
-			let vgrhdr = `<div data-feed-id='${hl.feed_id}' class='feed-title'>
+			const vgrhdr = `<div data-feed-id='${hl.feed_id}' class='feed-title'>
 				<div style='float : right'>${hl.feed_icon}</div>
 				<a class="title" href="#" onclick="Feeds.open({feed:${hl.feed_id}})">${hl.feed_title}
 				<a class="catchup" title="${__('mark feed as read')}" onclick="Feeds.catchupFeedInGroup(${hl.feed_id})" href="#"><i class="icon-done material-icons">done_all</i></a>
@@ -426,9 +426,9 @@ const Headlines = {
 						id="RROW-${hl.id}"
 						data-article-id="${hl.id}"
 						data-orig-feed-id="${hl.feed_id}"
-						data-content="${escapeHtml(hl.content)}"
+						data-content="${App.escapeHtml(hl.content)}"
 						data-score="${hl.score}"
-						data-article-title="${escapeHtml(hl.title)}"
+						data-article-title="${App.escapeHtml(hl.title)}"
 						onmouseover="Article.mouseIn(${hl.id})"
 						onmouseout="Article.mouseOut(${hl.id})">
 						<div class="header-sticky-guard"></div>
@@ -440,7 +440,7 @@ const Headlines = {
 							</div>
 
 							<span onclick="return Headlines.click(event, ${hl.id});" data-article-id="${hl.id}" class="titleWrap hlMenuAttach">
-								<a class="title" title="${escapeHtml(hl.title)}" target="_blank" rel="noopener noreferrer" href="${escapeHtml(hl.link)}">
+								<a class="title" title="${App.escapeHtml(hl.title)}" target="_blank" rel="noopener noreferrer" href="${App.escapeHtml(hl.link)}">
 									${hl.title}</a>
 								<span class="author">${hl.author}</span>
 								${hl.labels}
@@ -457,7 +457,7 @@ const Headlines = {
 							<div class="right">
 								<i class="material-icons icon-score" title="${hl.score}" onclick="Article.setScore(${hl.id}, this)">${Article.getScorePic(hl.score)}</i>
 
-								<span style="cursor : pointer" title="${escapeHtml(hl.feed_title)}" onclick="Feeds.open({feed:${hl.feed_id}})">
+								<span style="cursor : pointer" title="${App.escapeHtml(hl.feed_title)}" onclick="Feeds.open({feed:${hl.feed_id}})">
 									${hl.feed_icon}</span>
 							</div>
 
@@ -497,7 +497,7 @@ const Headlines = {
 				data-orig-feed-id="${hl.feed_id}"
 				data-article-id="${hl.id}"
 				data-score="${hl.score}"
-				data-article-title="${escapeHtml(hl.title)}"
+				data-article-title="${App.escapeHtml(hl.title)}"
 				onmouseover="Article.mouseIn(${hl.id})"
 				onmouseout="Article.mouseOut(${hl.id})">
 			<div class="left">
@@ -507,7 +507,7 @@ const Headlines = {
 			</div>
 			<div onclick="return Headlines.click(event, ${hl.id})" class="title">
 				<span data-article-id="${hl.id}" class="hl-content hlMenuAttach">
-					<a class="title" href="${escapeHtml(hl.link)}">${hl.title} <span class="preview">${hl.content_preview}</span></a>
+					<a class="title" href="${App.escapeHtml(hl.link)}">${hl.title} <span class="preview">${hl.content_preview}</span></a>
 					<span class="author">${hl.author}</span>
 					${hl.labels}
 				</span>
@@ -520,7 +520,7 @@ const Headlines = {
 			</div>
 			<div class="right">
 				<i class="material-icons icon-score" title="${hl.score}" onclick="Article.setScore(${hl.id}, this)">${Article.getScorePic(hl.score)}</i>
-				<span onclick="Feeds.open({feed:${hl.feed_id}})" style="cursor : pointer" title="${escapeHtml(hl.feed_title)}">${hl.feed_icon}</span>
+				<span onclick="Feeds.open({feed:${hl.feed_id}})" style="cursor : pointer" title="${App.escapeHtml(hl.feed_title)}">${hl.feed_icon}</span>
 			</div>
 			</div>
 		`;
@@ -685,7 +685,7 @@ const Headlines = {
 
 				console.log("no headlines received, infscroll_disabled=", Feeds.infscroll_disabled, 'first_id_changed=', first_id_changed);
 
-				let hsp = $("headlines-spacer");
+				const hsp = $("headlines-spacer");
 
 				if (hsp) {
 					if (first_id_changed) {
@@ -1207,6 +1207,7 @@ const Headlines = {
 		}
 	},
 	onActionChanged: function (elem) {
+		// eslint-disable-next-line no-eval
 		eval(elem.value);
 		elem.attr('value', 'false');
 	},

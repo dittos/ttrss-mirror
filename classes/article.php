@@ -94,7 +94,7 @@ class Article extends Handler_Protected {
 						":id" => $ref_id];
 					$sth->execute($params);
 				}
-				
+
 				$sth = $pdo->prepare("UPDATE ttrss_user_entries SET published = true,
 						last_published = NOW() WHERE
 						int_id = ? AND owner_uid = ?");
@@ -393,7 +393,7 @@ class Article extends Handler_Protected {
 #				$entry .= " <a target=\"_blank\" href=\"" . htmlspecialchars($url) . "\" rel=\"noopener noreferrer\">" .
 #					$filename . " (" . $ctype . ")" . "</a>";
 
-				$entry = "<div onclick=\"popupOpenUrl('".htmlspecialchars($url)."')\"
+				$entry = "<div onclick=\"Article.popupOpenUrl('".htmlspecialchars($url)."')\"
 					dojoType=\"dijit.MenuItem\">$filename ($ctype)</div>";
 
 				array_push($entries_html, $entry);
@@ -473,7 +473,7 @@ class Article extends Handler_Protected {
 				else
 					$filename = "";
 
-				$rv .= "<div onclick='popupOpenUrl(\"".htmlspecialchars($entry["url"])."\")'
+				$rv .= "<div onclick='Article.popupOpenUrl(\"".htmlspecialchars($entry["url"])."\")'
 					dojoType=\"dijit.MenuItem\">".$filename . $title."</div>";
 
 			};
@@ -583,7 +583,7 @@ class Article extends Handler_Protected {
 
 		return "<div class='article-note $note_class'>
 			<i class='material-icons'>note</i>
-			<div $onclick class='body'>$note</div>			
+			<div $onclick class='body'>$note</div>
 			</div>";
 
 		return $str;

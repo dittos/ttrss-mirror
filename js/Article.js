@@ -1,6 +1,6 @@
 'use strict'
 
-/* global __, ngettext, App, Headlines, xhrPost, xhrJson, dojo, dijit, PluginHost, Notify, $$, escapeHtml */
+/* global __, ngettext, App, Headlines, xhrPost, xhrJson, dojo, dijit, PluginHost, Notify, $$, Ajax */
 
 const Article = {
 	_scroll_reset_timeout: false,
@@ -86,6 +86,22 @@ const Article = {
 			}
 		}
 	},
+	popupOpenUrl: function(url) {
+		const w = window.open("");
+
+		w.opener = null;
+		w.location = url;
+	},
+	/* popupOpenArticle: function(id) {
+		const w = window.open("",
+			"ttrss_article_popup",
+			"height=900,width=900,resizable=yes,status=no,location=no,menubar=no,directories=no,scrollbars=yes,toolbar=no");
+
+		if (w) {
+			w.opener = null;
+			w.location = "backend.php?op=article&method=view&mode=raw&html=1&zoom=1&id=" + id + "&csrf_token=" + App.getInitParam("csrf_token");
+		}
+	}, */
 	cdmUnsetActive: function (event) {
 		const row = $("RROW-" + Article.getActive());
 
@@ -157,14 +173,14 @@ const Article = {
 				comments_msg = hl.num_comments + " " + ngettext("comment", "comments", hl.num_comments)
 			}
 
-			comments = `<a href="${escapeHtml(hl.comments ? hl.comments : hl.link)}">(${comments_msg})</a>`;
+			comments = `<a href="${App.escapeHtml(hl.comments ? hl.comments : hl.link)}">(${comments_msg})</a>`;
 		}
 
 		return comments;
 	},
 	formatOriginallyFrom: function(hl) {
 		return hl.orig_feed ? `<span>
-				${__('Originally from:')} <a target="_blank" rel="noopener noreferrer" href="${escapeHtml(hl.orig_feed[1])}">${hl.orig_feed[0]}</a>
+				${__('Originally from:')} <a target="_blank" rel="noopener noreferrer" href="${App.escapeHtml(hl.orig_feed[1])}">${hl.orig_feed[0]}</a>
 				</span>` : "";
 	},
 	unpack: function(row) {
@@ -213,8 +229,8 @@ const Article = {
 					<div class="header">
 						<div class="row">
 							<div class="title"><a target="_blank" rel="noopener noreferrer"
-								title="${escapeHtml(hl.title)}"
-								href="${escapeHtml(hl.link)}">${hl.title}</a></div>
+								title="${App.escapeHtml(hl.title)}"
+								href="${App.escapeHtml(hl.link)}">${hl.title}</a></div>
 							<div class="date">${hl.updated_long}</div>
 						</div>
 						<div class="row">

@@ -1,7 +1,7 @@
 'use strict'
 
-/* global __, ngettext, App, Article, Lists */
-/* global xhrPost, xhrJson, dojo, dijit, Notify, $$, Feeds */
+/* global __, App, Article, Lists, Effect */
+/* global xhrPost, dojo, dijit, Notify, $$, Feeds */
 
 const	Filters = {
 	filterDlgCheckAction: function(sender) {
@@ -337,6 +337,7 @@ const	Filters = {
 		});
 
 		if (!App.isPrefs()) {
+			/* global getSelectionText */
 			const selectedText = getSelectionText();
 
 			const lh = dojo.connect(dialog, "onLoad", function () {
